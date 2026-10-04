@@ -71,10 +71,10 @@ export function generateResumePdf(): boolean {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
     doc.setTextColor(50, 50, 50);
-    const objectiveText = 'Aspiring Backend Developer with a strong foundation in Node.js, Express.js, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.';
+    const objectiveText = 'Aspiring Backend Developer with a strong foundation in Node.js, Express.js, MySQL, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.';
     const splitObjective = doc.splitTextToSize(objectiveText, contentWidth);
     doc.text(splitObjective, margin, y);
-    y += splitObjective.length * 12 + 8;
+    y += splitObjective.length * 11 + 6;
 
     // How I Work
     y = addSectionHeader('How I Work', y);
@@ -84,26 +84,53 @@ export function generateResumePdf(): boolean {
     const howIWorkText = '"I prefer learning by building. Rather than collecting technologies, I focus on understanding how things work, applying them to real problems, and turning incomplete ideas into working software."';
     const splitHowIWork = doc.splitTextToSize(howIWorkText, contentWidth - 10);
     doc.setFillColor(248, 248, 248);
-    doc.rect(margin, y - 2, contentWidth, splitHowIWork.length * 12 + 6, 'F');
+    doc.rect(margin, y - 2, contentWidth, splitHowIWork.length * 11 + 6, 'F');
     doc.setDrawColor(230, 120, 0);
     doc.setLineWidth(2);
-    doc.line(margin, y - 2, margin, y - 2 + splitHowIWork.length * 12 + 6);
+    doc.line(margin, y - 2, margin, y - 2 + splitHowIWork.length * 11 + 6);
     doc.text(splitHowIWork, margin + 8, y + 8);
-    y += splitHowIWork.length * 12 + 16;
+    y += splitHowIWork.length * 11 + 14;
 
     // Projects
     y = addSectionHeader('Projects', y);
 
-    // Project 1: RESTful CRUD API
+    // Project 1: Pennywise – Personal Finance Tracker
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
     doc.setTextColor(20, 20, 20);
-    doc.text('1. RESTful CRUD API', margin, y);
+    doc.text('1. Pennywise – Personal Finance Tracker (github.com/v4ibhavpandey/Pennywise)', margin, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text('Node.js, Express.js, MySQL (Aiven), JS', pageWidth - margin, y, { align: 'right' });
+    y += 11;
+
+    const proj0Bullets = [
+      'Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to record and manage income and expense transactions.',
+      'Designed a relational MySQL schema (transactions and categories tables linked via foreign keys) and RESTful API endpoints executing CRUD operations, JOIN queries, and SUM/GROUP BY aggregations.',
+      'Implemented real-time transaction creation, editing, deletion, chronological history sorting, category-wise expense breakdowns, and automated calculation of total income, total expenses, and current balance.'
+    ];
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.2);
+    doc.setTextColor(50, 50, 50);
+    proj0Bullets.forEach(bullet => {
+      doc.text('•', margin + 6, y);
+      const splitBullet = doc.splitTextToSize(bullet, contentWidth - 20);
+      doc.text(splitBullet, margin + 16, y);
+      y += splitBullet.length * 10.5 + 2;
+    });
+    y += 5;
+
+    // Project 2: RESTful CRUD API
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9.5);
+    doc.setTextColor(20, 20, 20);
+    doc.text('2. RESTful CRUD API', margin, y);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.setTextColor(100, 100, 100);
     doc.text('Node.js, Express.js, Postman', pageWidth - margin, y, { align: 'right' });
-    y += 12;
+    y += 11;
 
     const proj1Bullets = [
       'Developed a RESTful API using Node.js and Express.js to perform CRUD (Create, Read, Update, Delete) operations.',
@@ -111,39 +138,42 @@ export function generateResumePdf(): boolean {
       'Implemented modular routing and controller architecture for maintainable and extensible backend code.'
     ];
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
+    doc.setFontSize(8.2);
     doc.setTextColor(50, 50, 50);
     proj1Bullets.forEach(bullet => {
       doc.text('•', margin + 6, y);
       const splitBullet = doc.splitTextToSize(bullet, contentWidth - 20);
       doc.text(splitBullet, margin + 16, y);
-      y += splitBullet.length * 11 + 2;
+      y += splitBullet.length * 10.5 + 2;
     });
-    y += 6;
+    y += 5;
 
-    // Project 2: Imposter Game
+    // Project 3: Imposter Game
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
     doc.setTextColor(20, 20, 20);
-    doc.text('2. Imposter Game', margin, y);
+    doc.text('3. Imposter Game', margin, y);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.setTextColor(100, 100, 100);
     doc.text('Vanilla JavaScript, HTML5, CSS3', pageWidth - margin, y, { align: 'right' });
-    y += 12;
+    y += 11;
 
     const proj2Bullets = [
       'Built a browser-based multiplayer party game using HTML, CSS, and JavaScript with turn-based word reveal logic.',
       'Implemented randomized word assignment with hidden imposter mechanic and controlled player flow via DOM events.',
       'Designed interactive UI with input validation, dynamic state management, and end-game result display.'
     ];
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.2);
+    doc.setTextColor(50, 50, 50);
     proj2Bullets.forEach(bullet => {
       doc.text('•', margin + 6, y);
       const splitBullet = doc.splitTextToSize(bullet, contentWidth - 20);
       doc.text(splitBullet, margin + 16, y);
-      y += splitBullet.length * 11 + 2;
+      y += splitBullet.length * 10.5 + 2;
     });
-    y += 10;
+    y += 8;
 
     // Education
     y = addSectionHeader('Education', y);
@@ -161,7 +191,7 @@ export function generateResumePdf(): boolean {
     doc.setFontSize(8.5);
     doc.setTextColor(60, 60, 60);
     doc.text('Institute of Engineering and Science, IPS Academy, Indore, Madhya Pradesh', margin, y);
-    y += 16;
+    y += 15;
 
     // Skills & Abilities
     y = addSectionHeader('Technical Skills', y);
@@ -170,7 +200,8 @@ export function generateResumePdf(): boolean {
     doc.setTextColor(50, 50, 50);
 
     const skills = [
-      ['Backend:', 'Node.js, Express.js, RESTful API Design, Postman'],
+      ['Backend & APIs:', 'Node.js, Express.js, RESTful API Design, Postman'],
+      ['Databases:', 'MySQL, Aiven Cloud MySQL, Relational Schema (PK/FK, JOIN, SUM, GROUP BY)'],
       ['Languages & DSA:', 'JavaScript (ES6+), Python, Data Structures & Algorithms'],
       ['Frontend & Tools:', 'Fundamental Angular, HTML5, CSS3, Git, GitHub'],
       ['Cloud Foundations:', 'AWS Academy Cloud Foundations (EC2, S3, VPC, IAM, CloudWatch)'],

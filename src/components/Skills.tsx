@@ -13,6 +13,7 @@ import {
   Cloud, 
   GitBranch, 
   Binary,
+  Database,
   Check
 } from 'lucide-react';
 import { skillCategories } from '../data/portfolioData';
@@ -32,6 +33,7 @@ const iconMap: Record<string, React.ElementType> = {
   Cloud,
   GitBranch,
   Binary,
+  Database,
 };
 
 export const Skills: React.FC = () => {

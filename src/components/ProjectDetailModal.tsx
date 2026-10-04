@@ -13,7 +13,11 @@ import {
   Eye,
   EyeOff,
   Users,
-  AlertCircle
+  AlertCircle,
+  Database,
+  Plus,
+  Pencil,
+  Trash2
 } from 'lucide-react';
 import { Project } from '../types';
 
@@ -21,6 +25,25 @@ interface ProjectDetailModalProps {
   project: Project | null;
   onClose: () => void;
 }
+
+interface PennywiseTransaction {
+  id: number;
+  title: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: 'Food' | 'Travel' | 'Shopping' | 'Education' | 'Bills' | 'Salary' | 'Other';
+  createdAt: string;
+}
+
+const PENNYWISE_CATEGORIES: PennywiseTransaction['category'][] = [
+  'Food',
+  'Travel',
+  'Shopping',
+  'Education',
+  'Bills',
+  'Salary',
+  'Other',
+];
 
 export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) => {
   if (!project) return null;
@@ -32,6 +55,22 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
   const [customBodyInput, setCustomBodyInput] = useState<string>('');
   const [responseLog, setResponseLog] = useState<{ status: number; text: string; time: string } | null>(null);
   const [isRequesting, setIsRequesting] = useState<boolean>(false);
+
+  // Pennywise Personal Finance Tracker Simulator state
+  const [transactions, setTransactions] = useState<PennywiseTransaction[]>([
+    { id: 104, title: 'Semester Textbooks & Lab Manual', amount: 1450, type: 'expense', category: 'Education', createdAt: '2026-10-04 14:20' },
+    { id: 103, title: 'Campus Canteen & Snacks', amount: 380, type: 'expense', category: 'Food', createdAt: '2026-10-03 19:10' },
+    { id: 102, title: 'Broadband Internet & Recharge', amount: 899, type: 'expense', category: 'Bills', createdAt: '2026-10-02 11:05' },
+    { id: 101, title: 'Monthly Stipend / Allowance', amount: 15000, type: 'income', category: 'Salary', createdAt: '2026-10-01 09:00' },
+  ]);
+  const [txTitle, setTxTitle] = useState<string>('');
+  const [txAmount, setTxAmount] = useState<string>('');
+  const [txType, setTxType] = useState<'income' | 'expense'>('expense');
+  const [txCategory, setTxCategory] = useState<PennywiseTransaction['category']>('Food');
+  const [editingTxId, setEditingTxId] = useState<number | null>(null);
+  const [lastSqlQuery, setLastSqlQuery] = useState<string>(
+    `SELECT t.id, t.title, t.amount, t.type, c.name AS category FROM transactions t JOIN categories c ON t.category_id = c.id ORDER BY t.id DESC;`
+  );
 
   // Imposter Game Mini-Simulator state
   const [gameStep, setGameStep] = useState<'setup' | 'passing' | 'reveal' | 'discussion'>('setup');
@@ -63,6 +102,81 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         time: `${Math.floor(Math.random() * 15 + 12)}ms`,
       });
     }, 350);
+  };
+
+  // Pennywise computed financial summaries
+  const totalIncome = transactions
+    .filter((t) => t.type === 'income')
+    .reduce((acc, curr) => acc + curr.amount, 0);
+  const totalExpenses = transactions
+    .filter((t) => t.type === 'expense')
+    .reduce((acc, curr) => acc + curr.amount, 0);
+  const currentBalance = totalIncome - totalExpenses;
+
+  // Category-wise expense totals (simulating SQL SUM + GROUP BY)
+  const categoryExpenseTotals = PENNYWISE_CATEGORIES.map((cat) => {
+    const total = transactions
+      .filter((t) => t.type === 'expense' && t.category === cat)
+      .reduce((acc, curr) => acc + curr.amount, 0);
+    return { category: cat, total };
+  }).filter((item) => item.total > 0);
+
+  const handleSaveTransaction = (e: React.FormEvent) => {
+    e.preventDefault();
+    const parsedAmount = Number(txAmount);
+    if (!txTitle.trim() || isNaN(parsedAmount) || parsedAmount <= 0) return;
+
+    const categoryId = PENNYWISE_CATEGORIES.indexOf(txCategory) + 1;
+
+    if (editingTxId !== null) {
+      setTransactions((prev) =>
+        prev.map((item) =>
+          item.id === editingTxId
+            ? { ...item, title: txTitle.trim(), amount: parsedAmount, type: txType, category: txCategory }
+            : item
+        )
+      );
+      setLastSqlQuery(
+        `UPDATE transactions SET title = '${txTitle.trim()}', amount = ${parsedAmount}, type = '${txType}', category_id = ${categoryId} WHERE id = ${editingTxId};`
+      );
+      setEditingTxId(null);
+    } else {
+      const nextId = transactions.length > 0 ? Math.max(...transactions.map((t) => t.id)) + 1 : 101;
+      const newRecord: PennywiseTransaction = {
+        id: nextId,
+        title: txTitle.trim(),
+        amount: parsedAmount,
+        type: txType,
+        category: txCategory,
+        createdAt: 'Just now',
+      };
+      // Prepend so newest records appear first
+      setTransactions((prev) => [newRecord, ...prev]);
+      setLastSqlQuery(
+        `INSERT INTO transactions (title, amount, type, category_id) VALUES ('${txTitle.trim()}', ${parsedAmount}, '${txType}', ${categoryId});`
+      );
+    }
+
+    setTxTitle('');
+    setTxAmount('');
+  };
+
+  const handleEditTransaction = (tx: PennywiseTransaction) => {
+    setEditingTxId(tx.id);
+    setTxTitle(tx.title);
+    setTxAmount(String(tx.amount));
+    setTxType(tx.type);
+    setTxCategory(tx.category);
+  };
+
+  const handleDeleteTransaction = (id: number) => {
+    setTransactions((prev) => prev.filter((item) => item.id !== id));
+    if (editingTxId === id) {
+      setEditingTxId(null);
+      setTxTitle('');
+      setTxAmount('');
+    }
+    setLastSqlQuery(`DELETE FROM transactions WHERE id = ${id};`);
   };
 
   const startImposterGame = () => {
@@ -234,6 +348,230 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           {/* TAB 2: INTERACTIVE SIMULATOR */}
           {activeTab === 'sandbox' && (
             <div className="space-y-6 animate-in fade-in duration-150">
+              {project.interactiveType === 'pennywise' && (
+                <div className="space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h4 className="font-bold text-neutral-900 dark:text-[#E6E6E6] text-base">
+                        Pennywise — Notes-Style Personal Finance Tracker Simulator
+                      </h4>
+                      <p className="text-xs text-neutral-500 dark:text-[#A3A3A3]">
+                        Add, edit, or delete income and expenses, view category-wise totals (GROUP BY), and inspect the Aiven MySQL queries.
+                      </p>
+                    </div>
+                    <span className="text-xs font-mono px-2.5 py-1 rounded bg-orange-500/10 text-[#FFA116] border border-orange-500/30 self-start sm:self-auto">
+                      MySQL + Express CRUD
+                    </span>
+                  </div>
+
+                  {/* Financial Summary Bar: Total Income, Total Expenses, Current Balance */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A]">
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3]">
+                        Total Income
+                      </div>
+                      <div className="text-lg font-extrabold font-mono text-[#E6E6E6] mt-0.5 tabular-nums">
+                        ₹{totalIncome.toLocaleString('en-IN')}
+                      </div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A]">
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3]">
+                        Total Expenses
+                      </div>
+                      <div className="text-lg font-extrabold font-mono text-[#CC7A0A] mt-0.5 tabular-nums">
+                        ₹{totalExpenses.toLocaleString('en-IN')}
+                      </div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-orange-500/10 border border-[#FFA116]/40">
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-[#FFA116]">
+                        Current Balance
+                      </div>
+                      <div className="text-lg font-extrabold font-mono text-[#FFA116] mt-0.5 tabular-nums">
+                        ₹{currentBalance.toLocaleString('en-IN')}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Add / Edit Transaction Form (Notes-Style Interface) */}
+                  <form
+                    onSubmit={handleSaveTransaction}
+                    className="p-4 rounded-xl bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] space-y-3"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#FFA116]">
+                        {editingTxId !== null ? `Editing Transaction #${editingTxId}` : 'Record New Transaction'}
+                      </span>
+                      {editingTxId !== null && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditingTxId(null);
+                            setTxTitle('');
+                            setTxAmount('');
+                          }}
+                          className="text-xs font-mono text-neutral-500 hover:text-[#E6E6E6] underline cursor-pointer"
+                        >
+                          Cancel Edit
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
+                      <input
+                        type="text"
+                        placeholder="Note / Description (e.g., Bus Pass, Groceries)"
+                        value={txTitle}
+                        onChange={(e) => setTxTitle(e.target.value)}
+                        required
+                        className="sm:col-span-4 px-3 py-2 rounded-lg bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-[#2A2A2A] text-xs text-neutral-900 dark:text-[#E6E6E6] focus:outline-none focus:border-[#FFA116]"
+                      />
+                      <input
+                        type="number"
+                        placeholder="Amount (₹)"
+                        min="1"
+                        value={txAmount}
+                        onChange={(e) => setTxAmount(e.target.value)}
+                        required
+                        className="sm:col-span-2 px-3 py-2 rounded-lg bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-[#2A2A2A] text-xs font-mono text-neutral-900 dark:text-[#E6E6E6] focus:outline-none focus:border-[#FFA116]"
+                      />
+                      <select
+                        value={txType}
+                        onChange={(e) => setTxType(e.target.value as 'income' | 'expense')}
+                        aria-label="Transaction Type"
+                        className="sm:col-span-2 px-2.5 py-2 rounded-lg bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-[#2A2A2A] text-xs text-neutral-900 dark:text-[#E6E6E6] focus:outline-none focus:border-[#FFA116]"
+                      >
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                      </select>
+                      <select
+                        value={txCategory}
+                        onChange={(e) => setTxCategory(e.target.value as PennywiseTransaction['category'])}
+                        aria-label="Transaction Category"
+                        className="sm:col-span-2 px-2.5 py-2 rounded-lg bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-[#2A2A2A] text-xs text-neutral-900 dark:text-[#E6E6E6] focus:outline-none focus:border-[#FFA116]"
+                      >
+                        {PENNYWISE_CATEGORIES.map((cat) => (
+                          <option key={cat} value={cat}>
+                            {cat}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        type="submit"
+                        className="sm:col-span-2 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] font-bold text-xs transition-colors cursor-pointer whitespace-nowrap"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>{editingTxId !== null ? 'Update' : 'Add Note'}</span>
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* Two-Column View: Newest-First Transaction History & Category-Wise Expense Totals */}
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                    {/* Transaction History (Newest First) */}
+                    <div className="md:col-span-7 p-4 rounded-xl bg-neutral-50 dark:bg-[#0F0F0F] border border-neutral-200 dark:border-[#2A2A2A] space-y-2.5">
+                      <div className="flex items-center justify-between border-b border-neutral-200 dark:border-[#2A2A2A] pb-2">
+                        <span className="text-xs font-mono font-bold text-neutral-800 dark:text-[#E6E6E6]">
+                          Transaction History (Newest First)
+                        </span>
+                        <span className="text-[11px] font-mono text-neutral-500 dark:text-[#A3A3A3]">
+                          {transactions.length} records
+                        </span>
+                      </div>
+
+                      <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
+                        {transactions.map((tx) => (
+                          <div
+                            key={tx.id}
+                            className="p-2.5 rounded-lg bg-white dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between gap-2"
+                          >
+                            <div className="min-w-0">
+                              <div className="text-xs font-semibold text-neutral-900 dark:text-[#E6E6E6] truncate">
+                                {tx.title}
+                              </div>
+                              <div className="text-[11px] text-neutral-500 dark:text-[#A3A3A3] font-mono">
+                                {tx.category} · {tx.type.toUpperCase()} · #{tx.id}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-2 shrink-0">
+                              <span
+                                className={`text-xs font-mono font-bold tabular-nums ${
+                                  tx.type === 'income' ? 'text-[#FFA116]' : 'text-[#E6E6E6]'
+                                }`}
+                              >
+                                {tx.type === 'income' ? '+' : '-'}₹{tx.amount.toLocaleString('en-IN')}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handleEditTransaction(tx)}
+                                className="p-1 rounded hover:bg-neutral-200 dark:hover:bg-[#252525] text-neutral-500 dark:text-[#A3A3A3] hover:text-[#FFA116] transition-colors cursor-pointer"
+                                title="Edit transaction"
+                              >
+                                <Pencil className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteTransaction(tx.id)}
+                                className="p-1 rounded hover:bg-neutral-200 dark:hover:bg-[#252525] text-neutral-500 dark:text-[#A3A3A3] hover:text-[#CC7A0A] transition-colors cursor-pointer"
+                                title="Delete transaction"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Category-Wise Expense Totals (SQL SUM + GROUP BY) */}
+                    <div className="md:col-span-5 p-4 rounded-xl bg-neutral-50 dark:bg-[#0F0F0F] border border-neutral-200 dark:border-[#2A2A2A] space-y-2.5 flex flex-col justify-between">
+                      <div className="space-y-2.5">
+                        <div className="flex items-center justify-between border-b border-neutral-200 dark:border-[#2A2A2A] pb-2">
+                          <span className="text-xs font-mono font-bold text-neutral-800 dark:text-[#E6E6E6]">
+                            Category Expense Totals
+                          </span>
+                          <span className="text-[10px] font-mono text-[#FFA116]">
+                            SUM + GROUP BY
+                          </span>
+                        </div>
+
+                        <div className="space-y-1.5">
+                          {categoryExpenseTotals.map((item) => (
+                            <div
+                              key={item.category}
+                              className="px-3 py-2 rounded-lg bg-white dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between text-xs font-mono"
+                            >
+                              <span className="text-neutral-800 dark:text-[#E6E6E6]">{item.category}</span>
+                              <span className="text-[#FFA116] font-bold tabular-nums">
+                                ₹{item.total.toLocaleString('en-IN')}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="pt-2 border-t border-neutral-200 dark:border-[#2A2A2A] text-[10px] font-mono text-neutral-500 dark:text-[#A3A3A3]">
+                        FK: transactions.category_id &rarr; categories.id
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Executed MySQL Query Log */}
+                  <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] font-mono text-xs space-y-1">
+                    <div className="flex items-center justify-between text-[10px] text-neutral-500 dark:text-[#A3A3A3]">
+                      <span className="flex items-center gap-1.5 text-[#FFA116] font-bold uppercase">
+                        <Database className="w-3.5 h-3.5" />
+                        Executed MySQL Query (Aiven Cloud DB)
+                      </span>
+                      <span>Relational Schema</span>
+                    </div>
+                    <pre className="text-[11px] text-neutral-800 dark:text-[#E6E6E6] overflow-x-auto pt-1">
+                      {lastSqlQuery}
+                    </pre>
+                  </div>
+                </div>
+              )}
+
               {project.interactiveType === 'crud-api' && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">

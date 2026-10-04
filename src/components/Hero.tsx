@@ -87,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
             {/* Profile Statement / Bio */}
             <p className="text-base sm:text-lg text-neutral-700 dark:text-[#A3A3A3] max-w-2xl leading-relaxed">
               Designing scalable server architectures, modular RESTful APIs, and clean web applications. 
-              Grounded in <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Node.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Express.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">JavaScript</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Angular</strong>, and certified in <strong className="font-semibold text-[#FFA116]">AWS Cloud Foundations</strong>.
+              Grounded in <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Node.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Express.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">MySQL</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">JavaScript</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Angular</strong>, and certified in <strong className="font-semibold text-[#FFA116]">AWS Cloud Foundations</strong>.
             </p>
 
             {/* Contact & Meta Badges */}
@@ -253,7 +253,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                       Real Problem Focus
                     </h3>
                     <p className="text-xs text-neutral-600 dark:text-[#A3A3A3] mt-0.5 leading-relaxed">
-                      Prioritizing core engineering mechanics — structured REST CRUD operations, route modularity, and game state flow.
+                      Prioritizing core engineering mechanics — relational MySQL schemas, structured REST CRUD operations, and game state flow.
                     </p>
                   </div>
                 </div>
@@ -294,8 +294,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 <div className="text-[11px] text-neutral-500 dark:text-[#A3A3A3]">Cloud Foundations</div>
               </div>
               <div className="p-2 rounded-lg bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] shadow-xs">
-                <div className="font-bold text-[#FFA116]">2 Projects</div>
-                <div className="text-[11px] text-neutral-500 dark:text-[#A3A3A3]">Documented & Code</div>
+                <div className="font-bold text-[#FFA116]">3 Projects</div>
+                <div className="text-[11px] text-neutral-500 dark:text-[#A3A3A3]">Documented &amp; Code</div>
               </div>
             </div>
 

@@ -10,13 +10,13 @@ export const personalInfo: PersonalInfo = {
   email: 'v4ibhav.pandey@gmail.com',
   github: 'https://github.com/v4ibhavpandey',
   linkedin: 'https://www.linkedin.com/in/v4ibhavpandey',
-  objective: 'Aspiring Backend Developer with a strong foundation in Node.js, Express.js, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.',
+  objective: 'Aspiring Backend Developer with a strong foundation in Node.js, Express.js, MySQL, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.',
 };
 
 export const skillCategories: SkillCategory[] = [
   {
     category: 'Backend & Server Architecture',
-    description: 'Server runtime environments, RESTful APIs, and controller-service paradigms',
+    description: 'Server runtime environments, RESTful APIs, relational databases, and controller-service paradigms',
     skills: [
       {
         name: 'Node.js',
@@ -29,6 +29,12 @@ export const skillCategories: SkillCategory[] = [
         description: 'Minimalist web framework for routing, middleware pipelines, and REST APIs',
         iconName: 'Layers',
         tags: ['Framework', 'Middleware', 'Routing'],
+      },
+      {
+        name: 'MySQL & Relational SQL',
+        description: 'Relational schema design with primary/foreign keys, JOINs, GROUP BY, SUM aggregations, and Aiven Cloud MySQL',
+        iconName: 'Database',
+        tags: ['MySQL', 'Aiven Cloud', 'SQL Joins'],
       },
       {
         name: 'RESTful API Design',
@@ -119,6 +125,112 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    id: 'pennywise-finance-tracker',
+    title: 'Pennywise – Personal Finance Tracker',
+    subtitle: 'Full-Stack Income & Expense Tracker with Node.js, Express.js & Aiven MySQL',
+    status: 'Completed / Full-Stack',
+    category: 'Full-Stack & Database',
+    shortDescription: 'Built a full-stack personal finance tracker using Node.js, Express.js, MySQL (Aiven Cloud), and Vanilla JavaScript to record, categorize, and summarize income and expense transactions.',
+    problem: 'Managing daily personal income and expenses across categories requires persistent relational storage, accurate balance calculations, and a distraction-free interface without bloated dependencies.',
+    solution: 'Engineered a full-stack web application backed by an Express.js REST API and a cloud-hosted Aiven MySQL relational database. Structured normalized categories and transactions tables linked via foreign keys, utilizing SQL JOIN, SUM, and GROUP BY queries to compute real-time financial summaries and category-wise expense totals in a responsive notes-style UI.',
+    role: [
+      'Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to record and manage income and expense transactions.',
+      'Designed a relational MySQL schema (transactions and categories tables linked via foreign keys) and RESTful API endpoints executing CRUD operations, JOIN queries, and SUM/GROUP BY aggregations.',
+      'Implemented real-time transaction creation, editing, deletion, chronological history sorting, category-wise expense breakdowns, and automated calculation of total income, total expenses, and current balance.',
+    ],
+    techStack: ['Node.js', 'Express.js', 'MySQL', 'Aiven MySQL', 'Vanilla JavaScript', 'HTML5', 'CSS3', 'REST API'],
+    features: [
+      'Full Transaction CRUD: Add, edit, and delete income and expense records persisted in Aiven MySQL.',
+      'Structured Categorization: Assign transactions across Food, Travel, Shopping, Education, Bills, Salary, and Other.',
+      'Relational Database Schema: Normalized categories and transactions tables enforced with Primary Keys and Foreign Keys.',
+      'SQL Aggregation & Joins: Uses INNER JOIN, SUM(), and GROUP BY queries to calculate category-wise expense totals.',
+      'Financial Summary Engine: Automatically computes Total Income, Total Expenses, and Current Balance.',
+      'Chronological History & Notes UI: Displays transaction history with newest records first in a clean, responsive notes-style interface.',
+    ],
+    architectureNotes: 'Client-side HTML/CSS/Vanilla JS communicates asynchronously with an Express.js REST API connected to a cloud-hosted Aiven MySQL instance. The database enforces referential integrity via a foreign key between transactions.category_id and categories.id, ordering history by newest records first.',
+    documentedResults: [
+      'Deployed relational schema on Aiven MySQL supporting full CRUD lifecycle and SQL aggregation queries.',
+      'Delivered a responsive, simple notes-style interface for tracking income, expenses, and category-wise totals.',
+    ],
+    githubUrl: 'https://github.com/v4ibhavpandey/Pennywise',
+    hasInteractiveSandbox: true,
+    interactiveType: 'pennywise',
+    endpoints: [
+      {
+        method: 'GET',
+        path: '/api/transactions',
+        description: 'Fetch all transactions joined with category names ordered by newest first',
+        sampleResponse: JSON.stringify(
+          {
+            success: true,
+            summary: { totalIncome: 25000, totalExpenses: 4350, balance: 20650 },
+            data: [
+              { id: 14, title: 'Monthly Internship Stipend', amount: 25000, type: 'income', category: 'Salary', created_at: '2026-10-04' },
+              { id: 13, title: 'Semester Reference Books', amount: 1850, type: 'expense', category: 'Education', created_at: '2026-10-03' },
+              { id: 12, title: 'Broadband & Electricity', amount: 2500, type: 'expense', category: 'Bills', created_at: '2026-10-01' }
+            ]
+          },
+          null,
+          2
+        ),
+        statusCode: 200,
+      },
+      {
+        method: 'POST',
+        path: '/api/transactions',
+        description: 'Insert a new income or expense record linked to a category_id',
+        sampleRequest: JSON.stringify(
+          { title: 'Lunch & Coffee', amount: 320, type: 'expense', category_id: 1, category: 'Food' },
+          null,
+          2
+        ),
+        sampleResponse: JSON.stringify(
+          {
+            success: true,
+            message: 'Transaction recorded in MySQL',
+            insertId: 15
+          },
+          null,
+          2
+        ),
+        statusCode: 201,
+      },
+      {
+        method: 'PUT',
+        path: '/api/transactions/:id',
+        description: 'Update an existing transaction amount, type, or category',
+        sampleRequest: JSON.stringify(
+          { title: 'Semester Reference Books', amount: 1650, type: 'expense', category_id: 4 },
+          null,
+          2
+        ),
+        sampleResponse: JSON.stringify(
+          {
+            success: true,
+            message: 'Transaction #13 updated successfully'
+          },
+          null,
+          2
+        ),
+        statusCode: 200,
+      },
+      {
+        method: 'DELETE',
+        path: '/api/transactions/:id',
+        description: 'Delete a transaction record by primary key ID',
+        sampleResponse: JSON.stringify(
+          {
+            success: true,
+            message: 'Transaction #12 deleted from database'
+          },
+          null,
+          2
+        ),
+        statusCode: 200,
+      },
+    ],
+  },
   {
     id: 'restful-crud-api',
     title: 'RESTful CRUD API',
@@ -355,5 +467,16 @@ export const timelineMilestones: TimelineMilestone[] = [
     evidenceType: 'credential',
     evidenceLabel: 'Verify Credly Badge',
     evidenceUrl: 'https://www.credly.com/go/1vfZYMOq',
+  },
+  {
+    year: '2026',
+    period: '2026',
+    title: 'Built Pennywise – Full-Stack Personal Finance Tracker',
+    type: 'project',
+    organization: 'Full-Stack & Database Engineering',
+    description: 'Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, and Aiven Cloud MySQL featuring relational tables (categories, transactions), foreign keys, SQL JOIN/SUM/GROUP BY aggregations, and full CRUD operations.',
+    evidenceType: 'github',
+    evidenceLabel: 'View Pennywise on GitHub',
+    evidenceUrl: 'https://github.com/v4ibhavpandey/Pennywise',
   },
 ];

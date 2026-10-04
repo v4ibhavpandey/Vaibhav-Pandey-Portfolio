@@ -143,10 +143,10 @@ export const About: React.FC = () => {
                 <span className="text-xs font-mono font-bold uppercase tracking-wider">Technical Direction</span>
               </div>
               <h4 className="text-sm font-semibold text-neutral-900 dark:text-[#E6E6E6]">
-                What I am actively exploring & building
+                What I am actively exploring &amp; building
               </h4>
               <p className="text-xs text-neutral-600 dark:text-[#A3A3A3] leading-relaxed">
-                Expanding backend services with database persistence, middleware security layers (JWT authentication, rate limiting), and exploring serverless architectures on AWS.
+                Building full-stack web applications with Node.js, Express.js, and cloud-hosted MySQL (Aiven), designing relational schemas with primary/foreign keys, SQL aggregations, and exploring cloud architectures on AWS.
               </p>
               <div className="pt-2 flex items-center justify-between text-[11px] text-neutral-500 dark:text-[#A3A3A3] font-mono border-t border-neutral-100 dark:border-[#2A2A2A]">
                 <span>Location: Indore (Open to Remote/Hybrid)</span>

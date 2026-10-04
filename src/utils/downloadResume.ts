@@ -16,7 +16,7 @@ GitHub:   ${personalInfo.github}
 OBJECTIVE
 ---------
 Aspiring Backend Developer with a strong foundation in Node.js, Express.js,
-JavaScript, and Angular, seeking opportunities to build scalable web
+MySQL, JavaScript, and Angular, seeking opportunities to build scalable web
 applications, solve real-world problems, and grow as a software engineer.
 
 HOW I WORK
@@ -34,14 +34,27 @@ Duration: 2024 – 2028
 TECHNICAL SKILLS
 ----------------
 - Backend:           Node.js, Express.js, RESTful API Design, Postman
+- Databases:         MySQL, Aiven Cloud MySQL, Relational Design (PK/FK, JOIN, SUM, GROUP BY)
 - Frontend:          Angular (Fundamentals), JavaScript (ES6+), HTML5, CSS3
 - Programming:       Python, JavaScript, Data Structures & Algorithms
 - Cloud & DevOps:    AWS Cloud Foundations, Git, GitHub
-- Databases/Storage: Relational & Document concepts, In-Memory stores
 
 PROJECTS
 --------
-1. RESTful CRUD API
+1. Pennywise – Personal Finance Tracker
+   Technologies: Node.js, Express.js, MySQL (Aiven), Vanilla JavaScript, HTML5, CSS3
+   - Developed a full-stack personal finance tracker using Node.js, Express.js,
+     Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to
+     record and manage income and expense transactions.
+   - Designed a relational MySQL schema (transactions and categories tables
+     linked via foreign keys) and RESTful API endpoints executing CRUD
+     operations, JOIN queries, and SUM/GROUP BY aggregations.
+   - Implemented real-time transaction creation, editing, deletion,
+     chronological history sorting, category-wise expense breakdowns, and
+     automated calculation of total income, total expenses, and current balance.
+   - Source: https://github.com/v4ibhavpandey/Pennywise
+
+2. RESTful CRUD API
    Technologies: Node.js, Express.js, Postman
    - Developed a RESTful API using Node.js and Express.js to perform CRUD
      (Create, Read, Update, and Delete) operations.
@@ -50,7 +63,7 @@ PROJECTS
      backend code.
    - Source: https://github.com/v4ibhavpandey
 
-2. Imposter Game
+3. Imposter Game
    Technologies: Vanilla JavaScript, HTML5, CSS3
    - Built a browser-based multiplayer party game using HTML, CSS, and JavaScript
      with turn-based word reveal logic.

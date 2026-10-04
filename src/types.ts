@@ -39,7 +39,7 @@ export interface Project {
   title: string;
   subtitle: string;
   status: string;
-  category: 'Backend & APIs' | 'Web & Interactive';
+  category: 'Full-Stack & Database' | 'Backend & APIs' | 'Web & Interactive';
   shortDescription: string;
   problem: string;
   solution: string;
@@ -51,7 +51,7 @@ export interface Project {
   githubUrl: string;
   liveDemoUrl?: string;
   hasInteractiveSandbox: boolean;
-  interactiveType?: 'crud-api' | 'imposter-game';
+  interactiveType?: 'pennywise' | 'crud-api' | 'imposter-game';
   endpoints?: ProjectEndpoint[];
 }
 

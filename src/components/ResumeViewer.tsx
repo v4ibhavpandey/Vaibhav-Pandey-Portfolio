@@ -31,18 +31,24 @@ LinkedIn: Vaibhav Pandey (https://www.linkedin.com/in/v4ibhavpandey)
 GitHub: v4ibhavpandey (https://github.com/v4ibhavpandey)
 
 Objective:
-Aspiring Backend Developer with a strong foundation in Node.js, Express.js, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.
+Aspiring Backend Developer with a strong foundation in Node.js, Express.js, MySQL, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.
 
 How I Work:
 "I prefer learning by building. Rather than collecting technologies, I focus on understanding how things work, applying them to real problems, and turning incomplete ideas into working software."
 
 Projects:
-1. RESTful CRUD API | Node.js & Express.js
+1. Pennywise – Personal Finance Tracker | Node.js, Express.js, MySQL (Aiven), Vanilla JS, HTML, CSS
+GitHub: https://github.com/v4ibhavpandey/Pennywise
+- Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to record and manage income and expense transactions.
+- Designed a relational MySQL schema (transactions and categories tables linked via foreign keys) and RESTful API endpoints executing CRUD operations, JOIN queries, and SUM/GROUP BY aggregations.
+- Implemented real-time transaction creation, editing, deletion, chronological history sorting, category-wise expense breakdowns, and automated calculation of total income, total expenses, and current balance.
+
+2. RESTful CRUD API | Node.js & Express.js
 - Developed a RESTful API using Node.js and Express.js to perform CRUD (Create, Read, Update, and Delete) operations.
 - Designed API endpoints following REST principles and tested them using Postman.
 - Implemented modular routing and controller architecture for maintainable backend code.
 
-2. Imposter Game
+3. Imposter Game
 - Built a browser-based multiplayer party game using HTML, CSS, and JavaScript with turn-based word reveal logic.
 - Implemented randomized word assignment with hidden imposter mechanic and controlled player flow using DOM manipulation and event handling.
 - Designed interactive UI with input validation, dynamic state management, and end-game result display.
@@ -53,6 +59,7 @@ Currently at the Institute of Engineering and Science IPS Academy, Indore, Madhy
 
 Skills & abilities:
 - Node.js & Express.js
+- MySQL & Relational Databases (Aiven MySQL, JOIN, GROUP BY, CRUD)
 - Fundamental Angular
 - Python
 - Version Control: Git & GitHub
@@ -247,7 +254,7 @@ Credential: https://www.credly.com/go/1vfZYMOq
               Objective
             </h2>
             <p className="text-xs sm:text-sm text-neutral-700 dark:text-[#A3A3A3] leading-relaxed print:text-black">
-              Aspiring Backend Developer with a strong foundation in Node.js, Express.js, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.
+              Aspiring Backend Developer with a strong foundation in Node.js, Express.js, MySQL, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.
             </p>
           </div>
 
@@ -267,13 +274,40 @@ Credential: https://www.credly.com/go/1vfZYMOq
               Projects
             </h2>
 
-            {/* Project 1 */}
+            {/* Project 1: Pennywise – Personal Finance Tracker */}
             <div className="space-y-2">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
+                    Pennywise – Personal Finance Tracker
+                  </h3>
+                  <a
+                    href="https://github.com/v4ibhavpandey/Pennywise"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono text-[#FFA116] hover:underline print:text-black"
+                  >
+                    (GitHub)
+                  </a>
+                </div>
+                <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">
+                  Node.js, Express.js, MySQL (Aiven), Vanilla JS, HTML, CSS
+                </span>
+              </div>
+              <ul className="list-disc list-outside ml-4 space-y-1 text-xs sm:text-sm text-neutral-600 dark:text-[#A3A3A3] print:text-black">
+                <li>Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to record and manage income and expense transactions.</li>
+                <li>Designed a relational MySQL schema (transactions and categories tables linked via foreign keys) and RESTful API endpoints executing CRUD operations, JOIN queries, and SUM/GROUP BY aggregations.</li>
+                <li>Implemented real-time transaction creation, editing, deletion, chronological history sorting, category-wise expense breakdowns, and automated calculation of total income, total expenses, and current balance.</li>
+              </ul>
+            </div>
+
+            {/* Project 2: RESTful CRUD API */}
+            <div className="space-y-2 pt-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
                   RESTful CRUD API
                 </h3>
-                <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">Node.js & Express.js</span>
+                <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">Node.js &amp; Express.js</span>
               </div>
               <ul className="list-disc list-outside ml-4 space-y-1 text-xs sm:text-sm text-neutral-600 dark:text-[#A3A3A3] print:text-black">
                 <li>Developed a RESTful API using Node.js and Express.js to perform CRUD (Create, Read, Update, and Delete) operations.</li>
@@ -282,7 +316,7 @@ Credential: https://www.credly.com/go/1vfZYMOq
               </ul>
             </div>
 
-            {/* Project 2 */}
+            {/* Project 3: Imposter Game */}
             <div className="space-y-2 pt-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
@@ -319,14 +353,15 @@ Credential: https://www.credly.com/go/1vfZYMOq
           {/* Skills & abilities */}
           <div className="space-y-2">
             <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-[#FFA116] border-b border-neutral-100 dark:border-[#2A2A2A] pb-1 print:text-black print:border-black">
-              Skills & abilities
+              Skills &amp; abilities
             </h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs sm:text-sm text-neutral-700 dark:text-[#A3A3A3] print:text-black list-disc list-outside ml-4">
-              <li>Node.js & Express.js</li>
+              <li>Node.js &amp; Express.js</li>
+              <li>MySQL &amp; Relational Databases (Aiven MySQL, SQL JOIN, GROUP BY, CRUD)</li>
               <li>Fundamental Angular</li>
               <li>Python</li>
-              <li>Version Control: Git & GitHub</li>
-              <li>Data Structures & Algorithms</li>
+              <li>Version Control: Git &amp; GitHub</li>
+              <li>Data Structures &amp; Algorithms</li>
             </ul>
           </div>
 
