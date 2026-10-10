@@ -1,8 +1,8 @@
 import { personalInfo } from '../data/portfolioData';
 
 export const resumePlainText = `================================================================================
-                               VAIBHAV PANDEY
-                              INTERN APPLICANT
+                                VAIBHAV PANDEY
+                              BACKEND DEVELOPER
 ================================================================================
 
 CONTACT INFORMATION
@@ -15,9 +15,9 @@ GitHub:   ${personalInfo.github}
 
 OBJECTIVE
 ---------
-Aspiring Backend Developer with a strong foundation in Node.js, Express.js,
-MySQL, JavaScript, and Angular, seeking opportunities to build scalable web
-applications, solve real-world problems, and grow as a software engineer.
+Backend Developer with a solid foundation in Node.js, Express.js,
+MySQL, JavaScript, and RESTful APIs, seeking opportunities to build
+dependable backend services, solve real-world problems, and grow as a software engineer.
 
 HOW I WORK
 ----------
@@ -35,7 +35,7 @@ TECHNICAL SKILLS
 ----------------
 - Backend:           Node.js, Express.js, RESTful API Design, Postman
 - Databases:         MySQL, Aiven Cloud MySQL, Relational Design (PK/FK, JOIN, SUM, GROUP BY)
-- Frontend:          Angular (Fundamentals), JavaScript (ES6+), HTML5, CSS3
+- Frontend:          Angular (Foundations), JavaScript (ES6+), HTML5, CSS3
 - Programming:       Python, JavaScript, Data Structures & Algorithms
 - Cloud & DevOps:    AWS Cloud Foundations, Git, GitHub
 
@@ -61,7 +61,7 @@ PROJECTS
    - Designed API endpoints following REST principles and tested them using Postman.
    - Implemented modular routing and controller architecture for maintainable
      backend code.
-   - Source: https://github.com/v4ibhavpandey
+   - Source: https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js
 
 3. Imposter Game - Live Multiplayer Party Game
    Technologies: Node.js, Express.js, Socket.IO, JavaScript, HTML5, CSS3
@@ -83,11 +83,11 @@ AWS Academy Graduate - AWS Academy Cloud Foundations
 - Date Issued:          04/30/2026
 - Credly Badge ID:      1vfZYMOq
 - Credly URL:           https://www.credly.com/go/1vfZYMOq
-- Curriculum:           20-hour verified cloud foundations coursework covering
+- Curriculum:           20-hour cloud foundations coursework covering
                         AWS compute, storage, networking, security, and pricing.
 
 ================================================================================
-Generated from official portfolio: https://github.com/v4ibhavpandey
+Generated from portfolio: https://github.com/v4ibhavpandey
 ================================================================================
 `.trim();
 
@@ -109,7 +109,6 @@ export function downloadResumeText(): boolean {
     document.body.appendChild(link);
     link.click();
 
-    // Clean up after browser initiates download
     setTimeout(() => {
       try {
         document.body.removeChild(link);

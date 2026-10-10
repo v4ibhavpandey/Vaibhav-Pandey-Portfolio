@@ -59,34 +59,34 @@ export const About: React.FC = () => {
               </div>
             </div>
 
-            {/* Verified highlights list */}
+            {/* Key engineering practices */}
             <div className="pt-4 border-t border-neutral-100 dark:border-[#2A2A2A] grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="flex items-start gap-2 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-[#FFA116] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">REST Controller Separation</span>
-                  <p className="text-neutral-500 dark:text-[#A3A3A3] text-[11px]">Modular routes & single-responsibility handlers</p>
+                  <p className="text-neutral-500 dark:text-[#A3A3A3] text-[11px]">Modular routes &amp; decoupled request handlers</p>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-[#FFA116] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">AWS Cloud Foundations</span>
-                  <p className="text-neutral-500 dark:text-[#A3A3A3] text-[11px]">Accredited AWS cloud curriculum</p>
+                  <p className="text-neutral-500 dark:text-[#A3A3A3] text-[11px]">AWS Academy curriculum &amp; course badge</p>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-[#FFA116] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Git & GitHub Hygiene</span>
-                  <p className="text-neutral-500 dark:text-[#A3A3A3] text-[11px]">Structured commit history & version control</p>
+                  <span className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Git &amp; Version Control</span>
+                  <p className="text-neutral-500 dark:text-[#A3A3A3] text-[11px]">Branching, clean commit practices &amp; GitHub</p>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-[#FFA116] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Postman API Validation</span>
-                  <p className="text-neutral-500 dark:text-[#A3A3A3] text-[11px]">Pre-deployment endpoint verification</p>
+                  <span className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Postman API Testing</span>
+                  <p className="text-neutral-500 dark:text-[#A3A3A3] text-[11px]">Endpoint validation &amp; request simulation</p>
                 </div>
               </div>
             </div>

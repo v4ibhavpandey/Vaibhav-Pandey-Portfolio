@@ -10,7 +10,6 @@ import {
   Loader2
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import { downloadResumeText } from '../utils/downloadResume';
 import { generateResumePdf } from '../utils/generateResumePdf';
 
 interface ResumeViewerProps {
@@ -22,28 +21,29 @@ export const ResumeViewer: React.FC<ResumeViewerProps> = ({ asSection = true }) 
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [printStatus, setPrintStatus] = useState<'idle' | 'printing' | 'success'>('idle');
 
-  // Resume text exact replication from provided materials
+  // Resume plain text representation
   const resumeRawText = `
 Vaibhav Pandey
-INTERN APPLICANT
-Indore Madhya Pradesh | 9009107817 | v4ibhav.pandey@gmail.com
+BACKEND DEVELOPER
+Indore Madhya Pradesh | +91 9009107817 | v4ibhav.pandey@gmail.com
 LinkedIn: Vaibhav Pandey (https://www.linkedin.com/in/v4ibhavpandey)
 GitHub: v4ibhavpandey (https://github.com/v4ibhavpandey)
 
 Objective:
-Aspiring Backend Developer with a strong foundation in Node.js, Express.js, MySQL, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.
+Backend Developer with a solid foundation in Node.js, Express.js, MySQL, JavaScript, and RESTful APIs, seeking opportunities to build dependable backend services, solve real-world problems, and grow as a software engineer.
 
 How I Work:
 "I prefer learning by building. Rather than collecting technologies, I focus on understanding how things work, applying them to real problems, and turning incomplete ideas into working software."
 
 Projects:
 1. Pennywise – Personal Finance Tracker | Node.js, Express.js, MySQL (Aiven), Vanilla JS, HTML, CSS
-GitHub: https://github.com/v4ibhavpandey/Pennywise
+GitHub: https://github.com/v4ibhavpandey/Pennywise | Live: https://pennywise-steel-six.vercel.app/
 - Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to record and manage income and expense transactions.
 - Designed a relational MySQL schema (transactions and categories tables linked via foreign keys) and RESTful API endpoints executing CRUD operations, JOIN queries, and SUM/GROUP BY aggregations.
 - Implemented real-time transaction creation, editing, deletion, chronological history sorting, category-wise expense breakdowns, and automated calculation of total income, total expenses, and current balance.
 
 2. RESTful CRUD API | Node.js & Express.js
+GitHub: https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js
 - Developed a RESTful API using Node.js and Express.js to perform CRUD (Create, Read, Update, and Delete) operations.
 - Designed API endpoints following REST principles and tested them using Postman.
 - Implemented modular routing and controller architecture for maintainable backend code.
@@ -56,29 +56,32 @@ GitHub: https://github.com/v4ibhavpandey/Imposter-Game | Live: https://imposter-
 
 Education:
 Computer Science and Engineering Undergraduate (2024-2028).
-Currently at the Institute of Engineering and Science IPS Academy, Indore, Madhya Pradesh.
+Institute of Engineering and Science, IPS Academy, Indore, Madhya Pradesh.
 
-Skills & abilities:
-- Node.js & Express.js
-- MySQL & Relational Databases (Aiven MySQL, JOIN, GROUP BY, CRUD)
-- Fundamental Angular
-- Python
-- Version Control: Git & GitHub
-- Data Structures & Algorithms
+Technical Skills:
+- Backend: Node.js, Express.js, RESTful API Design, Postman
+- Databases: MySQL, Aiven Cloud MySQL, Relational Design (PK/FK, JOIN, SUM, GROUP BY)
+- Languages & DSA: JavaScript (ES6+), Python, Data Structures & Algorithms
+- Frontend & Tools: Angular (Foundations), HTML5, CSS3, Git, GitHub
+- Cloud: AWS Academy Cloud Foundations (Course Badge)
 
 Certifications:
-AWS Academy Graduate - Cloud Foundations - Training Badge (20 Hours)
+AWS Academy Graduate - Cloud Foundations Course Badge (20 Hours)
 Credential: https://www.credly.com/go/1vfZYMOq
 `.trim();
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(resumeRawText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      navigator.clipboard.writeText(resumeRawText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore
+    }
   };
 
   const handleDownload = () => {
-    const success = downloadResumeText();
+    const success = generateResumePdf();
     if (success) {
       setDownloadSuccess(true);
       setTimeout(() => setDownloadSuccess(false), 3000);
@@ -88,30 +91,24 @@ Credential: https://www.credly.com/go/1vfZYMOq
   const handlePrint = () => {
     setPrintStatus('printing');
 
-    // 1. Generate and download a high-quality PDF directly
     const generated = generateResumePdf();
 
-    // 2. Also attempt the browser's native print dialog
     try {
       window.print();
     } catch (err) {
       console.info('Native window.print() was blocked by browser iframe permissions; PDF downloaded directly.', err);
     }
 
-    if (generated) {
+    setTimeout(() => {
       setPrintStatus('success');
-      setTimeout(() => setPrintStatus('idle'), 3000);
-    } else {
-      setPrintStatus('idle');
-    }
+      setTimeout(() => setPrintStatus('idle'), 2500);
+    }, 800);
   };
 
   return (
     <section 
       id="resume" 
-      className={`py-16 md:py-24 border-t border-neutral-200 dark:border-[#2A2A2A] transition-colors duration-200 ${
-        asSection ? 'bg-neutral-50 dark:bg-[#0F0F0F]' : ''
-      }`}
+      className={`py-16 md:py-24 ${asSection ? 'border-t border-neutral-200 dark:border-[#2A2A2A] bg-neutral-50 dark:bg-[#121212]' : ''} transition-colors duration-200`}
       aria-labelledby="resume-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,16 +118,16 @@ Credential: https://www.credly.com/go/1vfZYMOq
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#FFA116] mb-2">
               <span className="w-2 h-2 rounded-full bg-[#FFA116]"></span>
-              Primary Source of Truth
+              Curriculum Vitae
             </div>
             <h2 
               id="resume-heading"
               className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-[#E6E6E6]"
             >
-              Curriculum vitae & credentials.
+              Curriculum vitae &amp; credentials.
             </h2>
             <p className="mt-2 text-base text-neutral-600 dark:text-[#A3A3A3]">
-              The full resume as provided, formatted cleanly for on-screen review, export, and physical/PDF printing.
+              Formatted cleanly for on-screen review, formatted PDF export, and printing.
             </p>
           </div>
 
@@ -150,7 +147,7 @@ Credential: https://www.credly.com/go/1vfZYMOq
               ) : (
                 <>
                   <Download className="w-3.5 h-3.5" />
-                  <span>Download (.txt)</span>
+                  <span>Download PDF</span>
                 </>
               )}
             </button>
@@ -171,16 +168,16 @@ Credential: https://www.credly.com/go/1vfZYMOq
               {printStatus === 'printing' ? (
                 <>
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-[#FFA116]" />
-                  <span>Generating PDF...</span>
+                  <span>Exporting...</span>
                 </>
               ) : printStatus === 'success' ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-[#FFA116]" />
-                  <span>PDF Saved!</span>
+                  <span>PDF Exported!</span>
                 </>
               ) : (
                 <>
-                  <Printer className="w-3.5 h-3.5" />
+                  <Printer className="w-3.5 h-3.5 text-neutral-500 dark:text-[#A3A3A3]" />
                   <span>Print / Save PDF</span>
                 </>
               )}
@@ -190,7 +187,7 @@ Credential: https://www.credly.com/go/1vfZYMOq
               id="resume-copy-btn"
               onClick={handleCopy}
               type="button"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-neutral-300 dark:border-[#2A2A2A] hover:bg-neutral-100 dark:hover:bg-[#252525] bg-white dark:bg-[#1E1E1E] text-neutral-800 dark:text-[#A3A3A3] hover:text-[#FFA116] dark:hover:text-[#FFA116] text-xs font-medium transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white dark:bg-[#1E1E1E] border border-neutral-300 dark:border-[#2A2A2A] hover:bg-neutral-100 dark:hover:bg-[#252525] text-neutral-700 dark:text-[#A3A3A3] text-xs font-mono transition-colors cursor-pointer"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-[#FFA116]" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Copied' : 'Copy Text'}</span>
@@ -209,7 +206,7 @@ Credential: https://www.credly.com/go/1vfZYMOq
               Vaibhav Pandey
             </h1>
             <p className="text-xs sm:text-sm font-mono tracking-wider uppercase font-bold text-[#FFA116] mt-1 print:text-black">
-              INTERN APPLICANT
+              BACKEND DEVELOPER
             </p>
 
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-3 text-xs text-neutral-600 dark:text-[#A3A3A3] print:text-black">
@@ -218,9 +215,9 @@ Credential: https://www.credly.com/go/1vfZYMOq
                 Indore, Madhya Pradesh
               </span>
               <span>•</span>
-              <a href="tel:9009107817" className="flex items-center gap-1 hover:underline">
+              <a href="tel:+919009107817" className="flex items-center gap-1 hover:underline">
                 <Phone className="w-3.5 h-3.5" />
-                9009107817
+                +91 9009107817
               </a>
               <span>•</span>
               <a href="mailto:v4ibhav.pandey@gmail.com" className="flex items-center gap-1 hover:underline">
@@ -255,7 +252,7 @@ Credential: https://www.credly.com/go/1vfZYMOq
               Objective
             </h2>
             <p className="text-xs sm:text-sm text-neutral-700 dark:text-[#A3A3A3] leading-relaxed print:text-black">
-              Aspiring Backend Developer with a strong foundation in Node.js, Express.js, MySQL, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.
+              Backend Developer with a solid foundation in Node.js, Express.js, MySQL, JavaScript, and RESTful APIs, seeking opportunities to build dependable backend services, solve real-world problems, and grow as a software engineer.
             </p>
           </div>
 
@@ -290,6 +287,14 @@ Credential: https://www.credly.com/go/1vfZYMOq
                   >
                     (GitHub)
                   </a>
+                  <a
+                    href="https://pennywise-steel-six.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono text-neutral-500 hover:text-[#FFA116] hover:underline print:text-black"
+                  >
+                    (Live Demo)
+                  </a>
                 </div>
                 <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">
                   Node.js, Express.js, MySQL (Aiven), Vanilla JS, HTML, CSS
@@ -304,10 +309,20 @@ Credential: https://www.credly.com/go/1vfZYMOq
 
             {/* Project 2: RESTful CRUD API */}
             <div className="space-y-2 pt-2">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
-                  RESTful CRUD API
-                </h3>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
+                    RESTful CRUD API
+                  </h3>
+                  <a
+                    href="https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono text-[#FFA116] hover:underline print:text-black"
+                  >
+                    (GitHub)
+                  </a>
+                </div>
                 <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">Node.js &amp; Express.js</span>
               </div>
               <ul className="list-disc list-outside ml-4 space-y-1 text-xs sm:text-sm text-neutral-600 dark:text-[#A3A3A3] print:text-black">
@@ -319,34 +334,56 @@ Credential: https://www.credly.com/go/1vfZYMOq
 
             {/* Project 3: Imposter Game */}
             <div className="space-y-2 pt-2">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
-                  Imposter Game – Live Multiplayer Party Game
-                </h3>
-                <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">Node.js, Express.js, Socket.IO</span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
+                    Imposter Game – Live Multiplayer Party Game
+                  </h3>
+                  <a
+                    href="https://github.com/v4ibhavpandey/Imposter-Game"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono text-[#FFA116] hover:underline print:text-black"
+                  >
+                    (GitHub)
+                  </a>
+                  <a
+                    href="https://imposter-game-vtyn.onrender.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono text-neutral-500 hover:text-[#FFA116] hover:underline print:text-black"
+                  >
+                    (Live on Render)
+                  </a>
+                </div>
+                <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">
+                  Node.js, Express.js, Socket.IO
+                </span>
               </div>
               <ul className="list-disc list-outside ml-4 space-y-1 text-xs sm:text-sm text-neutral-600 dark:text-[#A3A3A3] print:text-black">
                 <li>Built a real-time multiplayer party game using Node.js, Express.js, and Socket.IO, with room codes, a live lobby, host controls, a timed discussion phase, and voting.</li>
-                <li>Moved imposter assignment, word selection, and vote counting to the server, and delivered each player only their own word over a private socket message to prevent cheating through browser inspection.</li>
+                <li>Moved imposter assignment, word selection, and vote counting to the server, and delivered each player only their own word over a private socket message.</li>
                 <li>Handled tie votes, host transfer, and mid-game disconnects, and deployed the game on Render from GitHub with automatic redeploys.</li>
               </ul>
             </div>
           </div>
 
           {/* Education */}
-          <div className="space-y-2">
+          <div className="space-y-2 pt-2 border-t border-neutral-200 dark:border-[#2A2A2A] print:border-black">
             <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-[#FFA116] border-b border-neutral-100 dark:border-[#2A2A2A] pb-1 print:text-black print:border-black">
               Education
             </h2>
-            <div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between">
-                <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
-                  Computer Science and Engineering Undergraduate
-                </h3>
-                <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">2024 – 2028</span>
+            <div className="space-y-1">
+              <div className="flex justify-between items-center text-xs sm:text-sm">
+                <span className="font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
+                  Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering
+                </span>
+                <span className="font-mono text-xs text-neutral-500 dark:text-[#A3A3A3] print:text-black">
+                  2024 – 2028
+                </span>
               </div>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-[#A3A3A3] mt-0.5 print:text-black">
-                Currently at the Institute of Engineering and Science IPS Academy, Indore, Madhya Pradesh.
+              <p className="text-xs text-neutral-600 dark:text-[#A3A3A3] print:text-black">
+                Institute of Engineering and Science, IPS Academy, Indore, Madhya Pradesh
               </p>
             </div>
           </div>
@@ -354,22 +391,22 @@ Credential: https://www.credly.com/go/1vfZYMOq
           {/* Skills & abilities */}
           <div className="space-y-2">
             <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-[#FFA116] border-b border-neutral-100 dark:border-[#2A2A2A] pb-1 print:text-black print:border-black">
-              Skills &amp; abilities
+              Technical Skills
             </h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs sm:text-sm text-neutral-700 dark:text-[#A3A3A3] print:text-black list-disc list-outside ml-4">
-              <li>Node.js &amp; Express.js</li>
-              <li>MySQL &amp; Relational Databases (Aiven MySQL, SQL JOIN, GROUP BY, CRUD)</li>
-              <li>Fundamental Angular</li>
-              <li>Python</li>
-              <li>Version Control: Git &amp; GitHub</li>
+              <li>Node.js &amp; Express.js (REST APIs, routing, middleware)</li>
+              <li>MySQL &amp; Relational Schema (Aiven Cloud, SQL JOINs, GROUP BY)</li>
+              <li>JavaScript (ES6+) &amp; Python</li>
               <li>Data Structures &amp; Algorithms</li>
+              <li>Angular (Foundations), HTML5 &amp; CSS3</li>
+              <li>Git, GitHub &amp; Version Control</li>
             </ul>
           </div>
 
-          {/* Verified Certification */}
+          {/* Certifications */}
           <div className="space-y-2 pt-2 border-t border-neutral-200 dark:border-[#2A2A2A] print:border-black">
             <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-[#FFA116] border-b border-neutral-100 dark:border-[#2A2A2A] pb-1 print:text-black print:border-black">
-              Certifications & Training
+              Certifications &amp; Credentials
             </h2>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs sm:text-sm">
               <div>
@@ -386,7 +423,7 @@ Credential: https://www.credly.com/go/1vfZYMOq
                 rel="noopener noreferrer" 
                 className="text-xs font-mono text-[#FFA116] hover:underline mt-1 sm:mt-0 print:text-black"
               >
-                Verify Credential (20 Hours) &rarr;
+                View Credly Badge (20 Hours) &rarr;
               </a>
             </div>
           </div>

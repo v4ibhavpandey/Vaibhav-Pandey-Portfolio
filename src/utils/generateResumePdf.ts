@@ -49,7 +49,7 @@ export function generateResumePdf(): boolean {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.setTextColor(230, 120, 0);
-    doc.text('INTERN APPLICANT', margin, y);
+    doc.text('BACKEND DEVELOPER', margin, y);
     y += 14;
 
     // Contact info line
@@ -71,7 +71,7 @@ export function generateResumePdf(): boolean {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
     doc.setTextColor(50, 50, 50);
-    const objectiveText = 'Aspiring Backend Developer with a strong foundation in Node.js, Express.js, MySQL, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.';
+    const objectiveText = 'Backend Developer with a solid foundation in Node.js, Express.js, MySQL, JavaScript, and RESTful APIs, seeking opportunities to build dependable backend services, solve real-world problems, and grow as a software engineer.';
     const splitObjective = doc.splitTextToSize(objectiveText, contentWidth);
     doc.text(splitObjective, margin, y);
     y += splitObjective.length * 11 + 6;
@@ -125,7 +125,7 @@ export function generateResumePdf(): boolean {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
     doc.setTextColor(20, 20, 20);
-    doc.text('2. RESTful CRUD API', margin, y);
+    doc.text('2. RESTful CRUD API (github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js)', margin, y);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.setTextColor(100, 100, 100);
@@ -203,7 +203,7 @@ export function generateResumePdf(): boolean {
       ['Backend & APIs:', 'Node.js, Express.js, RESTful API Design, Postman'],
       ['Databases:', 'MySQL, Aiven Cloud MySQL, Relational Schema (PK/FK, JOIN, SUM, GROUP BY)'],
       ['Languages & DSA:', 'JavaScript (ES6+), Python, Data Structures & Algorithms'],
-      ['Frontend & Tools:', 'Fundamental Angular, HTML5, CSS3, Git, GitHub'],
+      ['Frontend & Tools:', 'Angular (Foundations), HTML5, CSS3, Git, GitHub'],
       ['Cloud Foundations:', 'AWS Academy Cloud Foundations (EC2, S3, VPC, IAM, CloudWatch)'],
     ];
 
@@ -242,7 +242,7 @@ export function generateResumePdf(): boolean {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
     doc.setTextColor(150, 150, 150);
-    doc.text('Generated from Vaibhav Pandey Portfolio • Verified Evidence-First Resume', pageWidth / 2, doc.internal.pageSize.getHeight() - 25, { align: 'center' });
+    doc.text('Vaibhav Pandey — Backend Developer Portfolio & Resume', pageWidth / 2, doc.internal.pageSize.getHeight() - 25, { align: 'center' });
 
     // Download file
     doc.save('Vaibhav_Pandey_Resume.pdf');

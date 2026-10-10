@@ -8,12 +8,12 @@ import {
   MapPin, 
   Phone, 
   Award, 
-  ShieldCheck,
+  Code,
   Download,
   Check
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import { downloadResumeText } from '../utils/downloadResume';
+import { generateResumePdf } from '../utils/generateResumePdf';
 
 interface HeroProps {
   onOpenResumeModal: () => void;
@@ -24,12 +24,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   const handleDownloadResume = () => {
-    const ok = downloadResumeText();
+    const ok = generateResumePdf();
     if (ok) {
       setDownloadSuccess(true);
       setTimeout(() => setDownloadSuccess(false), 3000);
     } else {
-      // Fallback to opening printable modal
+      // Fallback to opening preview modal
       onOpenResumeModal();
     }
   };
@@ -50,7 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: High-Impact Positioning & Profile */}
+          {/* Left Column: Positioning & Profile */}
           <div className="lg:col-span-7 flex flex-col items-start space-y-6">
             
             {/* Status Pill */}
@@ -62,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
               </span>
-              <span>Open for Backend Engineering Internships</span>
+              <span>Open to Backend &amp; Software Engineering Internships</span>
             </div>
 
             {/* Main Name & Title */}
@@ -77,7 +77,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 {personalInfo.title}
               </p>
               <p className="text-sm sm:text-base font-medium text-neutral-700 dark:text-[#A3A3A3]">
-                B.Tech in Computer Science & Engineering (2024–2028)
+                B.Tech in Computer Science &amp; Engineering (2024–2028)
                 <span className="block text-neutral-500 dark:text-[#A3A3A3] text-sm">
                   Institute of Engineering and Science, IPS Academy, Indore
                 </span>
@@ -86,8 +86,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
 
             {/* Profile Statement / Bio */}
             <p className="text-base sm:text-lg text-neutral-700 dark:text-[#A3A3A3] max-w-2xl leading-relaxed">
-              Designing scalable server architectures, modular RESTful APIs, and clean web applications. 
-              Grounded in <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Node.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Express.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">MySQL</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">JavaScript</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Angular</strong>, and certified in <strong className="font-semibold text-[#FFA116]">AWS Cloud Foundations</strong>.
+              Building modular RESTful APIs, relational database schemas, and clean web applications. 
+              Grounded in <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Node.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Express.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">MySQL</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">JavaScript</strong>, and completed the <strong className="font-semibold text-[#FFA116]">AWS Academy Cloud Foundations</strong> course.
             </p>
 
             {/* Contact & Meta Badges */}
@@ -104,7 +104,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 {personalInfo.email}
               </a>
               <a 
-                href={`tel:${personalInfo.phone}`}
+                href={`tel:+91${personalInfo.phone}`}
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] text-neutral-700 dark:text-[#A3A3A3] hover:text-[#FFA116] hover:border-[#CC7A0A]/40 transition-colors shadow-xs"
               >
                 <Phone className="w-3.5 h-3.5 text-neutral-400" />
@@ -123,14 +123,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 <ArrowRight className="w-4 h-4" />
               </a>
 
-              {/* Functional Resume Downloader with View Fallback */}
+              {/* Functional PDF Resume Downloader with View Fallback */}
               <div className="inline-flex items-center rounded-lg shadow-xs">
                 <button
                   id="hero-download-resume-btn"
                   onClick={handleDownloadResume}
                   type="button"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-l-lg bg-white dark:bg-[#1E1E1E] border border-neutral-300 dark:border-[#2A2A2A] hover:border-[#FFA116]/60 hover:bg-neutral-50 dark:hover:bg-[#252525] text-neutral-800 dark:text-[#E6E6E6] font-medium text-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#FFA116]"
-                  title="Download official resume file"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-l-lg bg-white dark:bg-[#1E1E1E] border border-neutral-300 dark:border-[#2A2A2A] hover:border-[#FFA116]/60 hover:bg-neutral-50 dark:hover:bg-[#252525] text-neutral-800 dark:text-[#E6E6E6] font-medium text-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#FFA116] cursor-pointer"
+                  title="Download professional PDF resume"
                 >
                   {downloadSuccess ? (
                     <>
@@ -140,15 +140,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                   ) : (
                     <>
                       <Download className="w-4 h-4 text-[#FFA116]" />
-                      <span>Download Resume</span>
+                      <span>Download Resume (PDF)</span>
                     </>
                   )}
                 </button>
                 <button
                   onClick={onOpenResumeModal}
                   type="button"
-                  className="px-3 py-3 rounded-r-lg bg-white dark:bg-[#1E1E1E] border-t border-b border-r border-neutral-300 dark:border-[#2A2A2A] hover:border-[#FFA116]/60 hover:bg-neutral-50 dark:hover:bg-[#252525] text-neutral-500 hover:text-[#FFA116] transition-colors text-xs font-mono"
-                  title="View Resume in preview modal"
+                  className="px-3 py-3 rounded-r-lg bg-white dark:bg-[#1E1E1E] border-t border-b border-r border-neutral-300 dark:border-[#2A2A2A] hover:border-[#FFA116]/60 hover:bg-neutral-50 dark:hover:bg-[#252525] text-neutral-500 hover:text-[#FFA116] transition-colors text-xs font-mono cursor-pointer"
+                  title="Preview resume in modal"
                 >
                   <FileText className="w-4 h-4" />
                 </button>
@@ -158,16 +158,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 id="hero-aws-badge-btn"
                 onClick={onOpenCertificateModal}
                 type="button"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-orange-500/10 border border-[#CC7A0A]/30 text-orange-600 dark:text-[#FFA116] font-medium text-xs sm:text-sm hover:bg-orange-500/20 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-orange-500/10 border border-[#CC7A0A]/30 text-orange-600 dark:text-[#FFA116] font-medium text-xs sm:text-sm hover:bg-orange-500/20 transition-all cursor-pointer"
+                title="AWS Academy Cloud Foundations (course badge on Credly)"
               >
                 <Award className="w-4 h-4 text-[#FFA116]" />
-                <span>AWS Certified</span>
+                <span>AWS Academy Graduate</span>
               </button>
             </div>
 
-            {/* Social Link Badges */}
-            <div className="flex items-center gap-4 pt-3 border-t border-neutral-200 dark:border-[#2A2A2A] w-full">
-              <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3]">Verified Profiles:</span>
+            {/* Social Link Badges - with flex-wrap for mobile */}
+            <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-neutral-200 dark:border-[#2A2A2A] w-full">
+              <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3]">Profiles:</span>
               <a
                 id="hero-github-link"
                 href={personalInfo.github}
@@ -178,7 +179,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 <Github className="w-3.5 h-3.5" />
                 <span>GitHub (v4ibhavpandey)</span>
               </a>
-              <span className="text-neutral-300 dark:text-neutral-700">•</span>
+              <span className="text-neutral-300 dark:text-neutral-700 hidden sm:inline">•</span>
               <a
                 id="hero-linkedin-link"
                 href={personalInfo.linkedin}
@@ -239,7 +240,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                       Learn by Building
                     </h3>
                     <p className="text-xs text-neutral-600 dark:text-[#A3A3A3] mt-0.5 leading-relaxed">
-                      I write actual servers, build APIs from scratch, test endpoints with Postman, and inspect runtime behavior firsthand.
+                      Writing real backend APIs and relational databases to deeply understand asynchronous runtime behavior.
                     </p>
                   </div>
                 </div>
@@ -250,10 +251,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                   </div>
                   <div>
                     <h3 className="text-xs font-bold uppercase tracking-wide text-neutral-900 dark:text-[#E6E6E6]">
-                      Real Problem Focus
+                      Solve Concrete Problems
                     </h3>
                     <p className="text-xs text-neutral-600 dark:text-[#A3A3A3] mt-0.5 leading-relaxed">
-                      Prioritizing core engineering mechanics — relational MySQL schemas, structured REST CRUD operations, and game state flow.
+                      Structuring relational database tables, enforcing foreign keys, and preventing state leakage across sessions.
                     </p>
                   </div>
                 </div>
@@ -267,7 +268,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                       Incomplete Ideas → Working Software
                     </h3>
                     <p className="text-xs text-neutral-600 dark:text-[#A3A3A3] mt-0.5 leading-relaxed">
-                      Continuously refining raw drafts into documented, verified codebases backed by live demonstrations.
+                      Continuously refining raw drafts into well-documented codebases backed by working demonstrations.
                     </p>
                   </div>
                 </div>
@@ -276,8 +277,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
               {/* Card Footer */}
               <div className="pt-2 border-t border-neutral-100 dark:border-[#2A2A2A] flex items-center justify-between text-[11px] text-neutral-500 dark:text-[#A3A3A3] font-mono">
                 <span className="flex items-center gap-1 text-[#FFA116] font-semibold">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  Source-Verified Portfolio
+                  <Code className="w-3.5 h-3.5" />
+                  Engineering Portfolio
                 </span>
                 <span>IPS Academy Indore</span>
               </div>

@@ -76,7 +76,7 @@ export default function App() {
         onClose={() => setIsResumeModalOpen(false)} 
       />
 
-      {/* Verified Certificate Modal */}
+      {/* Certificate Details Modal */}
       <CertificateModal 
         certification={isCertModalOpen ? certifications[0] : null}
         onClose={() => setIsCertModalOpen(false)}

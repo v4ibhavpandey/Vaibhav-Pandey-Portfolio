@@ -2,12 +2,12 @@ import React from 'react';
 import { 
   X, 
   ExternalLink, 
-  CheckCircle2, 
   Award, 
-  ShieldCheck, 
   Calendar, 
+  CheckCircle2, 
+  Cloud, 
   Printer, 
-  Cloud
+  ShieldCheck 
 } from 'lucide-react';
 import { Certification } from '../types';
 
@@ -26,7 +26,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
   return (
     <div 
       id="certificate-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-cert-title"
@@ -41,7 +41,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
           <div className="flex items-center gap-2">
             <Award className="w-5 h-5 text-[#FFA116]" />
             <span id="modal-cert-title" className="text-sm font-bold text-neutral-900 dark:text-[#E6E6E6]">
-              Official Verified Credential Preview
+              AWS Academy Credential Preview
             </span>
           </div>
 
@@ -58,7 +58,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
         {/* Modal Scrollable Body */}
         <div className="p-6 overflow-y-auto space-y-6 flex-1">
           
-          {/* Authentic AWS Academy Certificate Display (Recreated from user's provided PDF) */}
+          {/* Authentic AWS Academy Certificate Display */}
           <div 
             id="certificate-authentic-frame"
             className="relative rounded-xl p-8 sm:p-12 bg-[#0F0F0F] text-[#E6E6E6] shadow-xl border border-[#2A2A2A] overflow-hidden"
@@ -92,7 +92,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
                 <div className="text-right">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 text-[#FFA116] text-xs font-mono border border-orange-500/30">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    Verified Badge
+                    Credly Badge
                   </span>
                 </div>
               </div>
@@ -110,7 +110,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
               {/* Course Title & Credential Details */}
               <div className="space-y-3 pt-2">
                 <div>
-                  <span className="text-xs text-[#A3A3A3] block font-mono">Certificate of Completion for:</span>
+                  <span className="text-xs text-[#A3A3A3] block font-mono">Course Completion Badge:</span>
                   <h3 className="text-lg sm:text-xl font-bold text-[#FFA116] mt-0.5">
                     {certification.title}
                   </h3>
@@ -160,7 +160,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
           {/* Curriculum Syllabus Breakdown */}
           <div className="space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3]">
-              Curriculum & Topics Covered
+              Curriculum &amp; Topics Covered
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {certification.skillsCovered.map((item, i) => (
@@ -180,10 +180,10 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
             <ShieldCheck className="w-5 h-5 text-[#FFA116] shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold text-neutral-900 dark:text-[#E6E6E6] block">
-                Primary Source of Truth
+                Digital Badge Verification
               </span>
               <span>
-                {certification.verificationNote} Recruiters and evaluators can verify the digital badge directly on Credly using the public link below.
+                {certification.verificationNote} Recruiters can view the verified digital badge on Credly using the public link below.
               </span>
             </div>
           </div>

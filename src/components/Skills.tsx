@@ -12,9 +12,8 @@ import {
   Cpu, 
   Cloud, 
   GitBranch, 
-  Binary,
-  Database,
-  Check
+  Binary, 
+  Database 
 } from 'lucide-react';
 import { skillCategories } from '../data/portfolioData';
 
@@ -64,10 +63,10 @@ export const Skills: React.FC = () => {
               id="skills-heading"
               className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-[#E6E6E6]"
             >
-              Verified technical toolkit.
+              Technical toolkit.
             </h2>
             <p className="mt-2 text-base text-neutral-600 dark:text-[#A3A3A3]">
-              Only verified skills and technologies drawn directly from documented projects and certifications. No fabricated percentages.
+              Core skills and technologies applied in backend services, relational databases, and web applications.
             </p>
           </div>
 
@@ -78,7 +77,7 @@ export const Skills: React.FC = () => {
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 type="button"
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all cursor-pointer ${
                   selectedCategory === cat
                     ? 'bg-neutral-100 dark:bg-[#2A2A2A] text-[#FFA116] font-bold shadow-xs'
                     : 'text-neutral-600 dark:text-[#A3A3A3] hover:text-neutral-900 dark:hover:text-[#E6E6E6]'
@@ -104,7 +103,7 @@ export const Skills: React.FC = () => {
                   </p>
                 </div>
                 <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3]">
-                  {group.skills.length} competencies
+                  {group.skills.length} skills
                 </span>
               </div>
 
@@ -121,9 +120,8 @@ export const Skills: React.FC = () => {
                           <div className="w-9 h-9 rounded-lg bg-orange-500/10 border border-[#CC7A0A]/30 text-[#FFA116] flex items-center justify-center group-hover:scale-105 transition-transform">
                             <Icon className="w-5 h-5" />
                           </div>
-                          <span className="text-[10px] font-mono text-[#FFA116] flex items-center gap-1">
-                            <Check className="w-3 h-3" />
-                            Verified
+                          <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">
+                            {skill.tags?.[0] || 'Skill'}
                           </span>
                         </div>
 
@@ -155,14 +153,14 @@ export const Skills: React.FC = () => {
           ))}
         </div>
 
-        {/* Verification Guarantee Footer */}
+        {/* Competencies Footer */}
         <div className="mt-12 p-4 rounded-xl bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-600 dark:text-[#A3A3A3] shadow-xs transition-colors">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#FFA116]"></span>
-            <span>All skills shown are backed by verified project code on GitHub or verified AWS certification.</span>
+            <span>All skills shown are demonstrated through real projects on GitHub and AWS Academy coursework.</span>
           </div>
           <div className="font-mono text-[11px] text-[#FFA116] font-semibold">
-            Source: Resume & Credential Material
+            Focus: Backend &amp; Systems Engineering
           </div>
         </div>
 

@@ -2,15 +2,15 @@ import { PersonalInfo, SkillCategory, Project, Certification, EducationItem, Tim
 
 export const personalInfo: PersonalInfo = {
   name: 'Vaibhav Pandey',
-  title: 'Aspiring Backend Developer',
+  title: 'Backend Developer',
   subTitle: 'Computer Science & Engineering Undergraduate (2024–2028) at IPS Academy, Indore',
-  status: 'Open to Backend & Software Engineering Internships',
+  status: 'Open to Backend & Software Engineering Roles',
   location: 'Indore, Madhya Pradesh, India',
   phone: '9009107817',
   email: 'v4ibhav.pandey@gmail.com',
   github: 'https://github.com/v4ibhavpandey',
   linkedin: 'https://www.linkedin.com/in/v4ibhavpandey',
-  objective: 'Aspiring Backend Developer with a strong foundation in Node.js, Express.js, MySQL, JavaScript, and Angular, seeking opportunities to build scalable web applications, solve real-world problems, and grow as a software engineer.',
+  objective: 'Backend Developer with a solid foundation in Node.js, Express.js, MySQL, JavaScript, and RESTful APIs, seeking opportunities to build dependable backend services, solve real-world problems, and grow as a software engineer.',
 };
 
 export const skillCategories: SkillCategory[] = [
@@ -20,13 +20,13 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: 'Node.js',
-        description: 'Asynchronous event-driven server runtime for scalable network applications',
+        description: 'Asynchronous event-driven server runtime for building scalable network applications and microservices',
         iconName: 'Server',
         tags: ['Runtime', 'Async I/O', 'Backend'],
       },
       {
         name: 'Express.js',
-        description: 'Minimalist web framework for routing, middleware pipelines, and REST APIs',
+        description: 'Minimalist web framework for routing, middleware pipelines, and structured REST APIs',
         iconName: 'Layers',
         tags: ['Framework', 'Middleware', 'Routing'],
       },
@@ -68,13 +68,13 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: 'Python',
-        description: 'Scripting, algorithm problem solving, and object-oriented programming',
+        description: 'Scripting, algorithm problem solving, and object-oriented programming concepts',
         iconName: 'FileCode',
         tags: ['Language', 'DSA', 'Logic'],
       },
       {
         name: 'HTML5 & CSS3',
-        description: 'Semantic markup, layout structuring, modern responsive styling, and UI presentation',
+        description: 'Semantic markup, layout structuring, responsive styling, and modern UI presentation',
         iconName: 'Layout',
         tags: ['Markup', 'Styling', 'Standards'],
       },
@@ -85,7 +85,7 @@ export const skillCategories: SkillCategory[] = [
     description: 'Client-side interface development and dynamic DOM orchestration',
     skills: [
       {
-        name: 'Fundamental Angular',
+        name: 'Angular (Foundations)',
         description: 'Component architecture, templates, data binding, and TypeScript single-page app concepts',
         iconName: 'Boxes',
         tags: ['Frontend', 'Components', 'SPA'],
@@ -100,19 +100,19 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     category: 'Cloud & Version Control',
-    description: 'Verified cloud foundations and professional collaborative workflows',
+    description: 'Cloud computing foundations and professional Git collaboration workflows',
     skills: [
       {
         name: 'AWS Cloud Foundations',
-        description: 'Official AWS Academy certified: compute, storage, VPC networking, security & architecture',
+        description: 'AWS Academy curriculum: compute (EC2), storage (S3), VPC networking, security & architecture (Credly course badge)',
         iconName: 'Cloud',
-        tags: ['AWS', 'Certified', 'Infrastructure'],
+        tags: ['AWS', 'Course Badge', 'Cloud'],
       },
       {
         name: 'Git & GitHub',
-        description: 'Version control workflows, commit history hygiene, branching, remote repositories, and code reviews',
+        description: 'Version control workflows, clean commit practices, branching, remote repositories, and project collaboration',
         iconName: 'GitBranch',
-        tags: ['Version Control', 'Collaboration', 'CI/CD Ready'],
+        tags: ['Git', 'GitHub', 'Version Control'],
       },
       {
         name: 'Data Structures & Algorithms',
@@ -154,6 +154,7 @@ export const projects: Project[] = [
       'Delivered a responsive, simple notes-style interface for tracking income, expenses, and category-wise totals.',
     ],
     githubUrl: 'https://github.com/v4ibhavpandey/Pennywise',
+    liveDemoUrl: 'https://pennywise-steel-six.vercel.app/',
     hasInteractiveSandbox: true,
     interactiveType: 'pennywise',
     endpoints: [
@@ -235,7 +236,7 @@ export const projects: Project[] = [
     id: 'restful-crud-api',
     title: 'RESTful CRUD API',
     subtitle: 'Modular Node.js & Express.js Backend Service',
-    status: 'Completed / Production Code',
+    status: 'Completed / Modular API',
     category: 'Backend & APIs',
     shortDescription: 'Engineered a modular, REST-compliant backend API service in Node.js and Express.js with dedicated routing, controller logic, and thorough Postman test suites.',
     problem: 'Web applications require robust, maintainable server endpoints to manage resources reliably without tight coupling between route declarations and execution logic.',
@@ -251,15 +252,15 @@ export const projects: Project[] = [
       'Full CRUD Lifecycle: Endpoints for resource creation (POST), retrieval (GET all / by ID), update (PUT), and deletion (DELETE).',
       'Separation of Concerns: Routes isolated from controller functions to ensure clean extensibility.',
       'Standardized HTTP Status Codes: Proper usage of 200 OK, 201 Created, 400 Bad Request, and 404 Not Found.',
-      'Postman Test Coverage: Rigorously tested with parameterized collections for edge case handling.',
+      'Postman Test Coverage: Tested with parameterized collections for edge case handling.',
       'JSON Payload Serialization: Consistent API response envelopment with structured metadata and payload objects.',
     ],
     architectureNotes: 'Follows standard MVC controller pattern: incoming client requests hit the Express router, get dispatched to appropriate async controller functions, process payloads, and return JSON responses.',
     documentedResults: [
-      'Successfully verified all CRUD operations with zero regressions across standard and edge-case inputs in Postman.',
-      'Established a clean modular template for future microservices and database-backed integrations.',
+      'Validated CRUD operations across standard and edge-case inputs in Postman.',
+      'Established a clean modular template for future backend services and database integrations.',
     ],
-    githubUrl: 'https://github.com/v4ibhavpandey',
+    githubUrl: 'https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js',
     hasInteractiveSandbox: true,
     interactiveType: 'crud-api',
     endpoints: [
@@ -384,7 +385,7 @@ export const certifications: Certification[] = [
     hoursCompleted: 20,
     credentialUrl: 'https://www.credly.com/go/1vfZYMOq',
     credentialId: '1vfZYMOq',
-    description: 'Official AWS Academy curriculum certification validating foundational knowledge of cloud concepts, core AWS cloud services, security principles, architectural frameworks, and pricing models.',
+    description: 'Official AWS Academy curriculum validating foundational knowledge of cloud concepts, core AWS cloud services, security principles, architectural frameworks, and pricing models.',
     skillsCovered: [
       'AWS Cloud Computing Concepts & Global Infrastructure',
       'Core AWS Compute (EC2, Lambda, Elastic Beanstalk)',
@@ -393,7 +394,7 @@ export const certifications: Certification[] = [
       'Security, Identity & IAM Policies (Shared Responsibility Model)',
       'AWS Well-Architected Framework & Cloud Economics',
     ],
-    verificationNote: 'Issued under credential badge on Credly with official verification link (20 course hours completed).',
+    verificationNote: 'Awarded official digital course badge on Credly upon completing 20 hours of AWS Academy curriculum coursework.',
   },
 ];
 
@@ -412,15 +413,15 @@ export const education: EducationItem = {
   ],
   highlights: [
     'Active student in Computer Science & Engineering curriculum (2024-2028 batch).',
-    'Focusing on server-side programming, scalable backend architecture, and cloud services.',
-    'Earned AWS Academy Cloud Foundations certification alongside academic coursework.',
+    'Focusing on server-side programming, relational database schemas, and cloud services.',
+    'Earned AWS Academy Cloud Foundations course completion badge alongside academic coursework.',
   ],
 };
 
 export const timelineMilestones: TimelineMilestone[] = [
   {
     year: '2024',
-    period: 'Mid 2024',
+    period: 'August 2024',
     title: 'Enrolled in Computer Science and Engineering (B.Tech)',
     type: 'education',
     organization: 'Institute of Engineering and Science, IPS Academy, Indore',
@@ -441,7 +442,7 @@ export const timelineMilestones: TimelineMilestone[] = [
   },
   {
     year: '2025',
-    period: 'Early 2025',
+    period: '2025',
     title: 'Built & Deployed the Imposter Game',
     type: 'project',
     organization: 'Web Project',
@@ -452,24 +453,24 @@ export const timelineMilestones: TimelineMilestone[] = [
   },
   {
     year: '2025',
-    period: 'Mid 2025',
+    period: '2025',
     title: 'Engineered RESTful CRUD API with Node.js & Express.js',
     type: 'project',
     organization: 'Backend Engineering Project',
-    description: 'Developed a robust, modular REST API with separated controller architecture, HTTP status code enforcement, and verified test suites using Postman.',
+    description: 'Developed a modular REST API with separated controller architecture, HTTP status code enforcement, and endpoint test suites using Postman.',
     evidenceType: 'github',
     evidenceLabel: 'View on GitHub',
-    evidenceUrl: 'https://github.com/v4ibhavpandey',
+    evidenceUrl: 'https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js',
   },
   {
     year: '2026',
     period: 'April 2026',
-    title: 'AWS Academy Graduate - Cloud Foundations Certification',
+    title: 'AWS Academy Graduate - Cloud Foundations Course Badge',
     type: 'certification',
     organization: 'AWS Academy',
-    description: 'Completed AWS Academy curriculum covering core architecture, cloud security, compute, storage, and networking; awarded verified digital badge.',
+    description: 'Completed 20 hours of AWS Academy curriculum covering core cloud architecture, security, compute, storage, and networking; awarded digital course badge.',
     evidenceType: 'credential',
-    evidenceLabel: 'Verify Credly Badge',
+    evidenceLabel: 'View Credly Badge',
     evidenceUrl: 'https://www.credly.com/go/1vfZYMOq',
   },
   {

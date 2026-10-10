@@ -41,12 +41,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResumeModal }) => {
               </span>
             </div>
             <p className="text-neutral-600 dark:text-[#A3A3A3] text-xs max-w-md leading-relaxed">
-              Aspiring Backend Developer & Computer Science undergraduate (2024–2028) at IPS Academy Indore. 
+              Backend Developer &amp; Computer Science undergraduate (2024–2028) at IPS Academy Indore. 
               Focused on modular REST APIs, Node.js, Express.js, and AWS Cloud Foundations.
             </p>
             <div className="flex items-center gap-2 text-[#FFA116] font-mono text-[11px] pt-1">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Evidence-First Design: All claims verified against source documents</span>
+              <span>Built with Node.js, Express, MySQL &amp; React</span>
             </div>
           </div>
 
@@ -57,10 +57,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResumeModal }) => {
             </span>
             <ul className="space-y-1.5">
               <li><a href="#how-i-work" className="hover:text-[#FFA116] transition-colors">How I Work</a></li>
-              <li><a href="#about" className="hover:text-[#FFA116] transition-colors">About & Education</a></li>
+              <li><a href="#about" className="hover:text-[#FFA116] transition-colors">About &amp; Education</a></li>
               <li><a href="#skills" className="hover:text-[#FFA116] transition-colors">Technical Skills</a></li>
-              <li><a href="#projects" className="hover:text-[#FFA116] transition-colors">Projects & Sandboxes</a></li>
-              <li><a href="#certifications" className="hover:text-[#FFA116] transition-colors">AWS Academy Certification</a></li>
+              <li><a href="#projects" className="hover:text-[#FFA116] transition-colors">Projects &amp; Sandboxes</a></li>
+              <li><a href="#certifications" className="hover:text-[#FFA116] transition-colors">AWS Academy Cloud Foundations</a></li>
               <li><a href="#timeline" className="hover:text-[#FFA116] transition-colors">Milestones Timeline</a></li>
               <li><a href="#resume" className="hover:text-[#FFA116] transition-colors">Curriculum Vitae</a></li>
               <li><a href="#contact" className="hover:text-[#FFA116] transition-colors">Contact</a></li>

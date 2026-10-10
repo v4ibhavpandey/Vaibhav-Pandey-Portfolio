@@ -139,10 +139,10 @@ export const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Verified Professional Profiles */}
+            {/* Professional Profiles */}
             <div className="p-6 rounded-xl bg-white dark:bg-[#1E1E1E] text-neutral-900 dark:text-[#E6E6E6] border border-neutral-200 dark:border-[#2A2A2A] shadow-xs space-y-4 transition-colors">
               <span className="text-xs font-mono uppercase tracking-wider text-[#FFA116] block font-bold">
-                Verified Social & Code Repositories
+                Profiles &amp; Code Repositories
               </span>
 
               <div className="space-y-3">
