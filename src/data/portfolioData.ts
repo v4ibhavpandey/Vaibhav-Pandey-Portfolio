@@ -135,28 +135,35 @@ export const projects: Project[] = [
     problem: 'Managing daily personal income and expenses across categories requires persistent relational storage, accurate balance calculations, and a distraction-free interface without bloated dependencies.',
     solution: 'Engineered a full-stack web application backed by an Express.js REST API and a cloud-hosted Aiven MySQL relational database. Structured normalized categories and transactions tables linked via foreign keys, utilizing SQL JOIN, SUM, and GROUP BY queries to compute real-time financial summaries and category-wise expense totals in a responsive notes-style UI.',
     role: [
-      'Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to record and manage income and expense transactions.',
-      'Designed a relational MySQL schema (transactions and categories tables linked via foreign keys) and RESTful API endpoints executing CRUD operations, JOIN queries, and SUM/GROUP BY aggregations.',
-      'Implemented real-time transaction creation, editing, deletion, chronological history sorting, category-wise expense breakdowns, and automated calculation of total income, total expenses, and current balance.',
+      'Engineered Express.js REST API backed by an Aiven Cloud MySQL relational database.',
+      'Designed normalized schema with foreign keys, executing SQL JOIN, SUM, and GROUP BY queries.',
+      'Implemented full CRUD operations for income and expenses with category-wise breakdown calculation.',
+      'Built a distraction-free responsive frontend using Vanilla JavaScript, HTML5, and CSS3.',
     ],
-    techStack: ['Node.js', 'Express.js', 'MySQL', 'Aiven MySQL', 'Vanilla JavaScript', 'HTML5', 'CSS3', 'REST API'],
+    techStack: ['Node.js', 'Express.js', 'MySQL', 'Aiven Cloud', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'REST API'],
     features: [
-      'Full Transaction CRUD: Add, edit, and delete income and expense records persisted in Aiven MySQL.',
-      'Structured Categorization: Assign transactions across Food, Travel, Shopping, Education, Bills, Salary, and Other.',
-      'Relational Database Schema: Normalized categories and transactions tables enforced with Primary Keys and Foreign Keys.',
-      'SQL Aggregation & Joins: Uses INNER JOIN, SUM(), and GROUP BY queries to calculate category-wise expense totals.',
-      'Financial Summary Engine: Automatically computes Total Income, Total Expenses, and Current Balance.',
-      'Chronological History & Notes UI: Displays transaction history with newest records first in a clean, responsive notes-style interface.',
+      'Full Transaction CRUD: Add, edit, and delete transactions persisted in cloud MySQL.',
+      'Relational Integrity: Normalized categories and transactions linked via foreign keys.',
+      'Real-Time Aggregations: Computes total income, expenses, balance, and category totals with SQL aggregations.',
+      'Notes-Style UI: Fast, responsive interface ordering transactions chronologically.',
     ],
-    architectureNotes: 'Client-side HTML/CSS/Vanilla JS communicates asynchronously with an Express.js REST API connected to a cloud-hosted Aiven MySQL instance. The database enforces referential integrity via a foreign key between transactions.category_id and categories.id, ordering history by newest records first.',
+    architectureNotes: 'Client-side HTML/CSS/Vanilla JS communicates asynchronously with an Express.js REST API connected to a cloud-hosted Aiven MySQL instance. The database enforces referential integrity via a foreign key between transactions.category_id and categories.id.',
     documentedResults: [
       'Deployed relational schema on Aiven MySQL supporting full CRUD lifecycle and SQL aggregation queries.',
-      'Delivered a responsive, simple notes-style interface for tracking income, expenses, and category-wise totals.',
+      'Live web deployment on Vercel delivering instant financial summary calculations.',
     ],
     githubUrl: 'https://github.com/v4ibhavpandey/Pennywise',
     liveDemoUrl: 'https://pennywise-steel-six.vercel.app/',
     hasInteractiveSandbox: true,
     interactiveType: 'pennywise',
+    challenges: [
+      'Maintaining ACID guarantees and foreign key constraints when dynamically assigning categories.',
+      'Calculating category-wise financial balances efficiently using SQL SUM and GROUP BY without client-side loops.',
+    ],
+    improvements: [
+      'Implement user authentication with JWT/session cookies to support multi-tenant budgeting.',
+      'Add monthly spending limits with threshold alerts and CSV financial export.',
+    ],
     endpoints: [
       {
         method: 'GET',
@@ -167,7 +174,7 @@ export const projects: Project[] = [
             success: true,
             summary: { totalIncome: 25000, totalExpenses: 4350, balance: 20650 },
             data: [
-              { id: 14, title: 'Monthly Internship Stipend', amount: 25000, type: 'income', category: 'Salary', created_at: '2026-10-04' },
+              { id: 14, title: 'Monthly Stipend / Allowance', amount: 25000, type: 'income', category: 'Salary', created_at: '2026-10-04' },
               { id: 13, title: 'Semester Reference Books', amount: 1850, type: 'expense', category: 'Education', created_at: '2026-10-03' },
               { id: 12, title: 'Broadband & Electricity', amount: 2500, type: 'expense', category: 'Bills', created_at: '2026-10-01' }
             ]
@@ -242,18 +249,17 @@ export const projects: Project[] = [
     problem: 'Web applications require robust, maintainable server endpoints to manage resources reliably without tight coupling between route declarations and execution logic.',
     solution: 'Designed and implemented an expressive RESTful backend service following clear separation of concerns. Developed dedicated controller handlers for Create, Read, Update, and Delete operations with consistent HTTP status codes and structured JSON response schemas.',
     role: [
-      'Developed complete RESTful API using Node.js and Express.js to perform CRUD operations.',
-      'Designed API endpoints adhering to standard REST architectural principles and verified each route with Postman.',
+      'Developed complete RESTful API using Node.js and Express.js to perform CRUD operations on user records.',
+      'Designed API endpoints adhering to standard REST architectural principles and tested each route with Postman.',
       'Architected a modular folder hierarchy separating routes, controllers, and utility middlewares for maintainability.',
-      'Implemented error handling and request validation for incoming payload bodies.',
+      'Implemented error handling and request payload validation for incoming JSON bodies.',
     ],
     techStack: ['Node.js', 'Express.js', 'JavaScript (ES6+)', 'Postman', 'REST Architecture', 'Git'],
     features: [
       'Full CRUD Lifecycle: Endpoints for resource creation (POST), retrieval (GET all / by ID), update (PUT), and deletion (DELETE).',
-      'Separation of Concerns: Routes isolated from controller functions to ensure clean extensibility.',
+      'Modular Controller Pattern: Separates Express routes from controller functions to ensure extensibility.',
       'Standardized HTTP Status Codes: Proper usage of 200 OK, 201 Created, 400 Bad Request, and 404 Not Found.',
       'Postman Test Coverage: Tested with parameterized collections for edge case handling.',
-      'JSON Payload Serialization: Consistent API response envelopment with structured metadata and payload objects.',
     ],
     architectureNotes: 'Follows standard MVC controller pattern: incoming client requests hit the Express router, get dispatched to appropriate async controller functions, process payloads, and return JSON responses.',
     documentedResults: [
@@ -263,19 +269,27 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js',
     hasInteractiveSandbox: true,
     interactiveType: 'crud-api',
+    challenges: [
+      'Decoupling routing logic from controller business handlers to maintain clean, scalable endpoint architecture.',
+      'Enforcing strict HTTP status codes (200, 201, 400, 404) and input validation for payload safety.',
+    ],
+    improvements: [
+      'Migrate data persistence to PostgreSQL with an ORM (Prisma/Drizzle) for production scalability.',
+      'Integrate rate-limiting middleware and automated unit tests with Jest/Supertest.',
+    ],
     endpoints: [
       {
         method: 'GET',
-        path: '/api/v1/items',
-        description: 'Fetch all records with status and count metadata',
+        path: '/api/users',
+        description: 'Fetch all user records with status and count metadata',
         sampleResponse: JSON.stringify(
           {
             success: true,
             count: 3,
             data: [
-              { id: 'item_101', name: 'Server Cluster A', category: 'Infrastructure', status: 'active' },
-              { id: 'item_102', name: 'Auth Gateway Service', category: 'Security', status: 'healthy' },
-              { id: 'item_103', name: 'Worker Queue Consumer', category: 'Backend', status: 'idle' }
+              { id: 1, name: 'Vaibhav Pandey', email: 'vaibhav@example.com', role: 'Admin' },
+              { id: 2, name: 'Rohan Sharma', email: 'rohan@example.com', role: 'Developer' },
+              { id: 3, name: 'Priya Patel', email: 'priya@example.com', role: 'User' }
             ]
           },
           null,
@@ -285,18 +299,18 @@ export const projects: Project[] = [
       },
       {
         method: 'POST',
-        path: '/api/v1/items',
-        description: 'Create a new resource record with request validation',
+        path: '/api/users',
+        description: 'Create a new user record with request validation',
         sampleRequest: JSON.stringify(
-          { name: 'Redis Caching Layer', category: 'Performance', status: 'initializing' },
+          { name: 'Amit Verma', email: 'amit@example.com', role: 'User' },
           null,
           2
         ),
         sampleResponse: JSON.stringify(
           {
             success: true,
-            message: 'Resource created successfully',
-            data: { id: 'item_104', name: 'Redis Caching Layer', category: 'Performance', status: 'initializing' }
+            message: 'User created successfully',
+            data: { id: 4, name: 'Amit Verma', email: 'amit@example.com', role: 'User' }
           },
           null,
           2
@@ -305,18 +319,18 @@ export const projects: Project[] = [
       },
       {
         method: 'PUT',
-        path: '/api/v1/items/:id',
-        description: 'Update existing resource fields by ID',
+        path: '/api/users/:id',
+        description: 'Update existing user fields by ID',
         sampleRequest: JSON.stringify(
-          { status: 'operational' },
+          { role: 'Lead Developer' },
           null,
           2
         ),
         sampleResponse: JSON.stringify(
           {
             success: true,
-            message: 'Resource item_101 updated successfully',
-            data: { id: 'item_101', name: 'Server Cluster A', category: 'Infrastructure', status: 'operational' }
+            message: 'User #2 updated successfully',
+            data: { id: 2, name: 'Rohan Sharma', email: 'rohan@example.com', role: 'Lead Developer' }
           },
           null,
           2
@@ -325,12 +339,12 @@ export const projects: Project[] = [
       },
       {
         method: 'DELETE',
-        path: '/api/v1/items/:id',
-        description: 'Remove a resource permanently from the store',
+        path: '/api/users/:id',
+        description: 'Remove a user permanently from the store',
         sampleResponse: JSON.stringify(
           {
             success: true,
-            message: 'Resource item_103 deleted successfully'
+            message: 'User #3 deleted successfully'
           },
           null,
           2
@@ -349,30 +363,35 @@ export const projects: Project[] = [
     problem: 'The original version was a single-device pass-and-play game that kept the imposter\'s identity and the full word list in browser memory, where anyone could read them from DevTools, and it forced every player to share one phone.',
     solution: 'Moved all game logic to a Node.js and Express backend with Socket.IO. The server owns the game state, so each player\'s browser only ever receives their own word. Rooms, a server-controlled phase machine (lobby, discussion, voting, result), host controls, and disconnect handling make it playable live on multiple devices.',
     role: [
-      'Upgraded a pass-and-play prototype into a live multiplayer game using Node.js, Express.js, and Socket.IO, with room codes, a live lobby, and host controls.',
-      'Moved word selection, imposter assignment, the discussion timer, and vote counting to the server, and sent each player only their own word over a private socket message.',
-      'Handled edge cases on the server: input validation, duplicate names, tie votes, host transfer, and players disconnecting mid-game.',
-      'Built a mobile-first responsive UI, deployed it on Render from GitHub with automatic redeploys, and playtested it with friends on their phones.',
+      'Upgraded pass-and-play prototype into a live multiplayer game using Node.js, Express, and Socket.IO.',
+      'Engineered server-side room codes, live lobby management, and host controls.',
+      'Implemented private socket delivery for secret words, preventing client-side inspection.',
+      'Handled edge cases: disconnects, host transfer, tie votes, and deployed on Render with auto-deploys.',
     ],
-    techStack: ['Node.js', 'Express.js', 'Socket.IO', 'WebSockets', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Git & GitHub', 'Render'],
+    techStack: ['Node.js', 'Express.js', 'Socket.IO', 'WebSockets', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Render'],
     features: [
-      'Rooms & Live Lobby: Create a room, share a 4-letter code, and watch players join in real time (3 to 10 players per room).',
-      'Server-Side Secrecy: The server picks the word pair and the imposter, and each player receives only their own word, so the imposter cannot be found by inspecting the browser.',
-      'Timed Discussion: A server-controlled countdown, with the host able to start voting early.',
-      'Voting & Results: One vote per player, tie handling, and a final reveal of the imposter, both words, and the vote tally, followed by a Play Again option.',
-      'Resilient Sessions: Automatic host transfer, room cleanup when empty, and the crew wins automatically if the imposter leaves.',
-      'Two Modes: Online multiplayer, plus the original single-device pass-and-play mode.',
-      'Mobile-First Design: Responsive single-column interface built for phones.',
+      'Live Lobby & Rooms: Join with 4-letter codes from any smartphone.',
+      'Server-Authoritative Secrecy: Private websocket word dispatch prevents client-side inspection.',
+      'Timed Phases: Automated discussion countdown, interactive voting, and imposter reveal.',
+      'Resilient Sessions: Host migration, graceful disconnect handling, and instant replay.',
     ],
-    architectureNotes: 'An Express server shares one HTTP server with Socket.IO. Room state (players, host, phase, votes, timers) lives in memory on the server, and clients only send intents such as create-room, join-room, start-game, and cast-vote, which the server validates before broadcasting updates. Deployed on Render\'s free tier from the GitHub repository, so every push to main redeploys the game.',
+    architectureNotes: 'An Express server shares one HTTP server with Socket.IO. Room state lives in memory on the server, and clients only send intents that the server validates before broadcasting updates. Deployed on Render.',
     documentedResults: [
-      'Live and playable at a public URL, with multiple players joining from separate phones in the same room.',
-      'Playtested with friends across devices with no issues reported.',
+      'Live and playable on Render, with players joining simultaneously across mobile devices.',
+      'Eliminated client-side cheating by keeping all secret assignments on the server.',
     ],
     githubUrl: 'https://github.com/v4ibhavpandey/Imposter-Game',
     liveDemoUrl: 'https://imposter-game-vtyn.onrender.com/',
     hasInteractiveSandbox: true,
     interactiveType: 'imposter-game',
+    challenges: [
+      'Transitioning from an insecure pass-and-play prototype where game state was exposed in DevTools to a server-authoritative Socket.IO architecture.',
+      'Managing real-time room lifecycle states, host migration when players leave, and socket disconnects mid-round.',
+    ],
+    improvements: [
+      'Add reconnect tokens to gracefully restore disconnected players within a 30-second window.',
+      'Support custom thematic word packs and customizable discussion timers.',
+    ],
   },
 ];
 

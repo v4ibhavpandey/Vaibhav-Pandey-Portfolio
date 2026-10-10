@@ -48,7 +48,7 @@ const PENNYWISE_CATEGORIES: PennywiseTransaction['category'][] = [
 export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) => {
   if (!project) return null;
 
-  const [activeTab, setActiveTab] = useState<'architecture' | 'sandbox' | 'features'>('architecture');
+  const [activeTab, setActiveTab] = useState<'architecture' | 'sandbox' | 'features' | 'challenges'>('architecture');
 
   // Interactive Sandbox state for CRUD API
   const [selectedEndpointIndex, setSelectedEndpointIndex] = useState<number>(0);
@@ -69,7 +69,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
   const [txCategory, setTxCategory] = useState<PennywiseTransaction['category']>('Food');
   const [editingTxId, setEditingTxId] = useState<number | null>(null);
   const [lastSqlQuery, setLastSqlQuery] = useState<string>(
-    `SELECT t.id, t.title, t.amount, t.type, c.name AS category FROM transactions t JOIN categories c ON t.category_id = c.id ORDER BY t.id DESC;`
+    `-- Parameterized Prepared Statement (prevents SQL injection)\nawait db.execute(\n  'SELECT t.id, t.title, t.amount, t.type, c.name AS category FROM transactions t JOIN categories c ON t.category_id = c.id ORDER BY t.id DESC'\n);`
   );
 
   // Imposter Game Mini-Simulator state
@@ -99,9 +99,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
       setResponseLog({
         status: endpoint.statusCode,
         text: endpoint.sampleResponse,
-        time: `${Math.floor(Math.random() * 15 + 12)}ms`,
+        time: 'Mock Response (Schema Contract Verified)',
       });
-    }, 350);
+    }, 250);
   };
 
   // Pennywise computed financial summaries
@@ -137,7 +137,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         )
       );
       setLastSqlQuery(
-        `UPDATE transactions SET title = '${txTitle.trim()}', amount = ${parsedAmount}, type = '${txType}', category_id = ${categoryId} WHERE id = ${editingTxId};`
+        `-- Parameterized Prepared Statement (prevents SQL injection)\nawait db.execute(\n  'UPDATE transactions SET title = ?, amount = ?, type = ?, category_id = ? WHERE id = ?',\n  ['${txTitle.trim()}', ${parsedAmount}, '${txType}', ${categoryId}, ${editingTxId}]\n);`
       );
       setEditingTxId(null);
     } else {
@@ -153,7 +153,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
       // Prepend so newest records appear first
       setTransactions((prev) => [newRecord, ...prev]);
       setLastSqlQuery(
-        `INSERT INTO transactions (title, amount, type, category_id) VALUES ('${txTitle.trim()}', ${parsedAmount}, '${txType}', ${categoryId});`
+        `-- Parameterized Prepared Statement (prevents SQL injection)\nawait db.execute(\n  'INSERT INTO transactions (title, amount, type, category_id) VALUES (?, ?, ?, ?)',\n  ['${txTitle.trim()}', ${parsedAmount}, '${txType}', ${categoryId}]\n);`
       );
     }
 
@@ -176,7 +176,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
       setTxTitle('');
       setTxAmount('');
     }
-    setLastSqlQuery(`DELETE FROM transactions WHERE id = ${id};`);
+    setLastSqlQuery(
+      `-- Parameterized Prepared Statement (prevents SQL injection)\nawait db.execute(\n  'DELETE FROM transactions WHERE id = ?',\n  [${id}]\n);`
+    );
   };
 
   const startImposterGame = () => {
@@ -245,10 +247,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         </div>
 
         {/* Navigation Tabs */}
-        <div className="px-6 border-b border-neutral-200 dark:border-[#2A2A2A] flex gap-4 bg-white dark:bg-[#1E1E1E]">
+        <div className="px-6 border-b border-neutral-200 dark:border-[#2A2A2A] flex gap-2 sm:gap-4 bg-white dark:bg-[#1E1E1E] overflow-x-auto">
           <button
             onClick={() => setActiveTab('architecture')}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFA116] rounded-sm ${
               activeTab === 'architecture'
                 ? 'border-[#FFA116] text-[#FFA116]'
                 : 'border-transparent text-neutral-600 hover:text-neutral-900 dark:text-[#A3A3A3] dark:hover:text-[#E6E6E6]'
@@ -260,7 +262,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
 
           <button
             onClick={() => setActiveTab('sandbox')}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFA116] rounded-sm ${
               activeTab === 'sandbox'
                 ? 'border-[#FFA116] text-[#FFA116]'
                 : 'border-transparent text-neutral-600 hover:text-neutral-900 dark:text-[#A3A3A3] dark:hover:text-[#E6E6E6]'
@@ -272,7 +274,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
 
           <button
             onClick={() => setActiveTab('features')}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFA116] rounded-sm ${
               activeTab === 'features'
                 ? 'border-[#FFA116] text-[#FFA116]'
                 : 'border-transparent text-neutral-600 hover:text-neutral-900 dark:text-[#A3A3A3] dark:hover:text-[#E6E6E6]'
@@ -280,6 +282,18 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           >
             <Terminal className="w-4 h-4" />
             <span>Architecture & Role</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('challenges')}
+            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFA116] rounded-sm ${
+              activeTab === 'challenges'
+                ? 'border-[#FFA116] text-[#FFA116]'
+                : 'border-transparent text-neutral-600 hover:text-neutral-900 dark:text-[#A3A3A3] dark:hover:text-[#E6E6E6]'
+            }`}
+          >
+            <AlertCircle className="w-4 h-4" />
+            <span>Challenges & Improvements</span>
           </button>
         </div>
 
@@ -348,6 +362,31 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           {/* TAB 2: INTERACTIVE SIMULATOR */}
           {activeTab === 'sandbox' && (
             <div className="space-y-6 animate-in fade-in duration-150">
+              {/* Simulator Honesty & Context Banner */}
+              <div className="p-3.5 rounded-xl bg-neutral-100 dark:bg-[#171717] border border-neutral-300 dark:border-[#2A2A2A] flex items-start gap-3 text-xs text-neutral-600 dark:text-[#A3A3A3]">
+                <AlertCircle className="w-4 h-4 text-[#FFA116] shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <span className="font-bold text-neutral-900 dark:text-[#E6E6E6]">
+                    Interactive Frontend Simulator (Illustrative Demo)
+                  </span>
+                  <p className="leading-relaxed">
+                    This in-browser simulator demonstrates data flows, schema contracts, and query patterns in local client state.
+                    {project.liveDemoUrl && (
+                      <> For production services, visit the{' '}
+                        <a 
+                          href={project.liveDemoUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-[#FFA116] hover:underline font-semibold inline-flex items-center gap-1"
+                        >
+                          live deployment <ExternalLink className="w-3 h-3" />
+                        </a>.
+                      </>
+                    )}
+                  </p>
+                </div>
+              </div>
+
               {project.interactiveType === 'pennywise' && (
                 <div className="space-y-5">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -641,7 +680,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] font-sans text-xs font-bold shadow-xs disabled:opacity-50 transition-all self-end sm:self-auto cursor-pointer"
                         >
                           <Send className={`w-3.5 h-3.5 ${isRequesting ? 'animate-spin' : ''}`} />
-                          <span>{isRequesting ? 'Sending...' : 'Send Request'}</span>
+                          <span>{isRequesting ? 'Validating...' : 'Test Endpoint (Mock)'}</span>
                         </button>
                       </div>
 
@@ -666,8 +705,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                           <span className="text-neutral-500 dark:text-[#A3A3A3] uppercase tracking-wider">Controller Response:</span>
                           {responseLog && (
                             <div className="flex items-center gap-2">
-                              <span className="text-[#FFA116] font-bold">Status: {responseLog.status} OK</span>
-                              <span className="text-neutral-500 dark:text-[#A3A3A3]">Latency: {responseLog.time}</span>
+                              <span className="text-[#FFA116] font-bold">Status: {responseLog.status}</span>
+                              <span className="text-neutral-500 dark:text-[#A3A3A3] font-mono text-[10px]">{responseLog.time}</span>
                             </div>
                           )}
                         </div>
@@ -678,7 +717,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                           </pre>
                         ) : (
                           <div className="p-4 rounded bg-white dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] text-center text-neutral-500 dark:text-[#A3A3A3] text-xs font-sans">
-                            Click "Send Request" to trigger this route controller and inspect the response.
+                            Click "Test Endpoint (Mock)" to inspect the schema payload contract.
                           </div>
                         )}
                       </div>
@@ -687,7 +726,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
 
                   {/* Code Architecture snippet */}
                   <div className="p-3 rounded-lg bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] text-xs font-mono text-neutral-700 dark:text-[#A3A3A3] flex items-center justify-between shadow-xs">
-                    <span>Architecture: `routes/itemRoutes.js` → `controllers/itemController.js`</span>
+                    <span>Architecture: `routes/userRoutes.js` → `controllers/userController.js`</span>
                     <span className="text-[#FFA116] font-semibold">Modular Pattern</span>
                   </div>
                 </div>
@@ -895,6 +934,69 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
             </div>
           )}
 
+          {/* TAB 4: CHALLENGES & IMPROVEMENTS */}
+          {activeTab === 'challenges' && (
+            <div className="space-y-6 animate-in fade-in duration-150">
+              {/* Key Challenges Encountered */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-[#FFA116]" />
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3]">
+                    Technical Challenges & Trade-offs
+                  </h4>
+                </div>
+                <div className="space-y-2.5">
+                  {project.challenges && project.challenges.length > 0 ? (
+                    project.challenges.map((challenge, idx) => (
+                      <div
+                        key={idx}
+                        className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-start gap-3 shadow-xs"
+                      >
+                        <span className="w-5 h-5 rounded-full bg-orange-500/10 text-[#FFA116] font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">
+                          {idx + 1}
+                        </span>
+                        <p className="text-xs sm:text-sm text-neutral-800 dark:text-[#E6E6E6] leading-relaxed">
+                          {challenge}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-xs text-neutral-500">No specific challenges recorded.</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Future Improvements & What's Next */}
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#FFA116]" />
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3]">
+                    What I Would Build Next (Planned Improvements)
+                  </h4>
+                </div>
+                <div className="space-y-2.5">
+                  {project.improvements && project.improvements.length > 0 ? (
+                    project.improvements.map((improvement, idx) => (
+                      <div
+                        key={idx}
+                        className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-start gap-3 shadow-xs"
+                      >
+                        <span className="w-5 h-5 rounded-full bg-orange-500/10 text-[#FFA116] font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">
+                          &rarr;
+                        </span>
+                        <p className="text-xs sm:text-sm text-neutral-800 dark:text-[#E6E6E6] leading-relaxed">
+                          {improvement}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-xs text-neutral-500">No planned improvements recorded.</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
 
         {/* Modal Footer with GitHub link */}
@@ -920,7 +1022,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] font-bold text-xs transition-colors"
               >
-                <span>Play Live Game</span>
+                <span>{project.interactiveType === 'imposter-game' ? 'Play Live Game' : 'View Live Demo'}</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             )}

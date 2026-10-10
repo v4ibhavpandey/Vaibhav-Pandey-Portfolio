@@ -6,7 +6,8 @@ import {
   Play, 
   CheckCircle2, 
   Terminal,
-  Database
+  Database,
+  ExternalLink
 } from 'lucide-react';
 import { projects } from '../data/portfolioData';
 import { Project } from '../types';
@@ -106,15 +107,28 @@ export const Projects: React.FC = () => {
 
                 {/* Card Action Buttons */}
                 <div className="pt-4 border-t border-neutral-100 dark:border-[#2A2A2A] flex flex-wrap items-center gap-3">
+                  {projects[0].liveDemoUrl && (
+                    <a
+                      id="btn-live-pennywise"
+                      href={projects[0].liveDemoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] text-xs sm:text-sm font-bold shadow-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#CC7A0A]"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 text-[#0F0F0F]" />
+                      <span>Live App (Vercel)</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+
                   <button
                     id="btn-inspect-pennywise"
                     onClick={() => setSelectedProject(projects[0])}
                     type="button"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-[#171717] dark:hover:bg-[#252525] text-neutral-800 dark:text-[#E6E6E6] text-xs sm:text-sm font-medium transition-colors border border-neutral-300 dark:border-[#2A2A2A] cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFA116]"
                   >
-                    <Play className="w-3.5 h-3.5 text-[#0F0F0F]" />
-                    <span>Launch Finance Tracker Sandbox</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <Play className="w-3.5 h-3.5" />
+                    <span>Open Tracker Sandbox</span>
                   </button>
 
                   <a
@@ -186,7 +200,7 @@ export const Projects: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-orange-500/10 text-orange-600 dark:text-[#FFA116] border border-[#CC7A0A]/30">
-                      Flagship Backend Service
+                      Personal Project
                     </span>
                     <span className="text-xs font-mono text-[#FFA116] flex items-center gap-1">
                       <CheckCircle2 className="w-3.5 h-3.5" />
@@ -236,7 +250,7 @@ export const Projects: React.FC = () => {
                     id="btn-inspect-crud-api"
                     onClick={() => setSelectedProject(projects[1])}
                     type="button"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#CC7A0A]"
                   >
                     <Play className="w-3.5 h-3.5 text-[#0F0F0F]" />
                     <span>Test API in Sandbox</span>

@@ -53,6 +53,8 @@ export interface Project {
   hasInteractiveSandbox: boolean;
   interactiveType?: 'pennywise' | 'crud-api' | 'imposter-game';
   endpoints?: ProjectEndpoint[];
+  challenges?: string[];
+  improvements?: string[];
 }
 
 export interface Certification {
