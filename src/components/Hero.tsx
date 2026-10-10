@@ -221,7 +221,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 </p>
               </div>
 
-              {/* Prominent Quote Block matching user request verbatim */}
+              {/* Engineering Philosophy Quote */}
               <blockquote className="p-5 rounded-xl bg-neutral-50 dark:bg-[#171717] border-l-4 border-[#FFA116] border-t border-r border-b border-neutral-200/80 dark:border-[#2A2A2A]">
                 <p className="text-base sm:text-lg font-medium leading-relaxed text-neutral-800 dark:text-[#E6E6E6] italic">
                   “I prefer learning by building. Rather than collecting technologies, I focus on understanding how things work, applying them to real problems, and turning incomplete ideas into working software.”
