@@ -152,17 +152,17 @@ export function generateResumePdf(): boolean {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
     doc.setTextColor(20, 20, 20);
-    doc.text('3. Imposter Game', margin, y);
+    doc.text('3. Imposter Game - Live Multiplayer Party Game', margin, y);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.setTextColor(100, 100, 100);
-    doc.text('Vanilla JavaScript, HTML5, CSS3', pageWidth - margin, y, { align: 'right' });
+    doc.text('Node.js, Express.js, Socket.IO', pageWidth - margin, y, { align: 'right' });
     y += 11;
 
     const proj2Bullets = [
-      'Built a browser-based multiplayer party game using HTML, CSS, and JavaScript with turn-based word reveal logic.',
-      'Implemented randomized word assignment with hidden imposter mechanic and controlled player flow via DOM events.',
-      'Designed interactive UI with input validation, dynamic state management, and end-game result display.'
+      'Built a real-time multiplayer party game using Node.js, Express.js, and Socket.IO, with room codes, a live lobby, host controls, a timed discussion phase, and voting.',
+      'Moved imposter assignment, word selection, and vote counting to the server, and delivered each player only their own word over a private socket message.',
+      'Handled tie votes, host transfer, and mid-game disconnects, and deployed the game on Render from GitHub with automatic redeploys.'
     ];
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.2);

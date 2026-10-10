@@ -699,14 +699,14 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-bold text-neutral-900 dark:text-[#E6E6E6] text-base">
-                        Imposter Game — Turn & Role Simulator
+                        Imposter Game — Pass &amp; Play Demo
                       </h4>
                       <p className="text-xs text-neutral-500 dark:text-[#A3A3A3]">
-                        Test the turn-based secret word reveal mechanics and hidden imposter algorithm directly.
+                        A mini version of the original single-device mode. The full real-time multiplayer game is live at the link in the footer.
                       </p>
                     </div>
                     <span className="text-xs font-mono px-2 py-0.5 rounded bg-orange-500/10 text-[#FFA116] border border-orange-500/30">
-                      Multiplayer Party Engine
+                      Pass &amp; Play Mode
                     </span>
                   </div>
 
@@ -898,18 +898,33 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         </div>
 
         {/* Modal Footer with GitHub link */}
-        <div className="px-6 py-4 border-t border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between bg-neutral-50 dark:bg-[#171717]">
-          <a
-            id="modal-github-repo-btn"
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-[#252525] dark:hover:bg-[#2A2A2A] text-neutral-800 dark:text-[#E6E6E6] font-semibold text-xs transition-colors border border-neutral-300 dark:border-[#2A2A2A]"
-          >
-            <Github className="w-4 h-4" />
-            <span>View Source Code on GitHub</span>
-            <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
-          </a>
+        <div className="px-6 py-4 border-t border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between gap-3 flex-wrap bg-neutral-50 dark:bg-[#171717]">
+          <div className="flex items-center gap-2 flex-wrap">
+            <a
+              id="modal-github-repo-btn"
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-[#252525] dark:hover:bg-[#2A2A2A] text-neutral-800 dark:text-[#E6E6E6] font-semibold text-xs transition-colors border border-neutral-300 dark:border-[#2A2A2A]"
+            >
+              <Github className="w-4 h-4" />
+              <span>View Source Code on GitHub</span>
+              <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
+            </a>
+
+            {project.liveDemoUrl && (
+              <a
+                id="modal-live-demo-btn"
+                href={project.liveDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] font-bold text-xs transition-colors"
+              >
+                <span>Play Live Game</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </div>
 
           <button
             onClick={onClose}

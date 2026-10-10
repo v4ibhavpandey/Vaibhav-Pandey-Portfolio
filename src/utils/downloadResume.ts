@@ -63,15 +63,18 @@ PROJECTS
      backend code.
    - Source: https://github.com/v4ibhavpandey
 
-3. Imposter Game
-   Technologies: Vanilla JavaScript, HTML5, CSS3
-   - Built a browser-based multiplayer party game using HTML, CSS, and JavaScript
-     with turn-based word reveal logic.
-   - Implemented randomized word assignment with hidden imposter mechanic and
-     controlled player flow using DOM manipulation and event handling.
-   - Designed interactive UI with input validation, dynamic state management,
-     and end-game result display.
-   - Source: https://github.com/v4ibhavpandey
+3. Imposter Game - Live Multiplayer Party Game
+   Technologies: Node.js, Express.js, Socket.IO, JavaScript, HTML5, CSS3
+   - Built a real-time multiplayer party game using Node.js, Express.js, and
+     Socket.IO, with room codes, a live lobby, host controls, a timed discussion
+     phase, and voting.
+   - Moved imposter assignment, word selection, and vote counting to the server,
+     and delivered each player only their own word over a private socket message
+     to prevent cheating through browser inspection.
+   - Handled tie votes, host transfer, and mid-game disconnects, and deployed the
+     game on Render from GitHub with automatic redeploys.
+   - Source: https://github.com/v4ibhavpandey/Imposter-Game
+   - Live:   https://imposter-game-vtyn.onrender.com/
 
 CERTIFICATIONS & CREDENTIALS
 ----------------------------

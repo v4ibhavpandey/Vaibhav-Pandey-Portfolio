@@ -48,10 +48,11 @@ GitHub: https://github.com/v4ibhavpandey/Pennywise
 - Designed API endpoints following REST principles and tested them using Postman.
 - Implemented modular routing and controller architecture for maintainable backend code.
 
-3. Imposter Game
-- Built a browser-based multiplayer party game using HTML, CSS, and JavaScript with turn-based word reveal logic.
-- Implemented randomized word assignment with hidden imposter mechanic and controlled player flow using DOM manipulation and event handling.
-- Designed interactive UI with input validation, dynamic state management, and end-game result display.
+3. Imposter Game – Live Multiplayer Party Game | Node.js, Express.js, Socket.IO, JavaScript, HTML, CSS
+GitHub: https://github.com/v4ibhavpandey/Imposter-Game | Live: https://imposter-game-vtyn.onrender.com/
+- Built a real-time multiplayer party game using Node.js, Express.js, and Socket.IO, with room codes, a live lobby, host controls, a timed discussion phase, and voting.
+- Moved imposter assignment, word selection, and vote counting to the server, and delivered each player only their own word over a private socket message to prevent cheating through browser inspection.
+- Handled tie votes, host transfer, and mid-game disconnects, and deployed the game on Render from GitHub with automatic redeploys.
 
 Education:
 Computer Science and Engineering Undergraduate (2024-2028).
@@ -320,14 +321,14 @@ Credential: https://www.credly.com/go/1vfZYMOq
             <div className="space-y-2 pt-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6] print:text-black">
-                  Imposter Game
+                  Imposter Game – Live Multiplayer Party Game
                 </h3>
-                <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">Vanilla JS, HTML5, CSS3</span>
+                <span className="text-xs font-mono text-neutral-500 dark:text-[#A3A3A3] print:text-black">Node.js, Express.js, Socket.IO</span>
               </div>
               <ul className="list-disc list-outside ml-4 space-y-1 text-xs sm:text-sm text-neutral-600 dark:text-[#A3A3A3] print:text-black">
-                <li>Built a browser-based multiplayer party game using HTML, CSS, and JavaScript with turn-based word reveal logic.</li>
-                <li>Implemented randomized word assignment with hidden imposter mechanic and controlled player flow using DOM manipulation and event handling.</li>
-                <li>Designed interactive UI with input validation, dynamic state management, and end-game result display.</li>
+                <li>Built a real-time multiplayer party game using Node.js, Express.js, and Socket.IO, with room codes, a live lobby, host controls, a timed discussion phase, and voting.</li>
+                <li>Moved imposter assignment, word selection, and vote counting to the server, and delivered each player only their own word over a private socket message to prevent cheating through browser inspection.</li>
+                <li>Handled tie votes, host transfer, and mid-game disconnects, and deployed the game on Render from GitHub with automatic redeploys.</li>
               </ul>
             </div>
           </div>

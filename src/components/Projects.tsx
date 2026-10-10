@@ -306,11 +306,11 @@ export const Projects: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-orange-500/10 text-orange-600 dark:text-[#FFA116] border border-[#CC7A0A]/30">
-                      Multiplayer Web Engine
+                      Real-Time Multiplayer
                     </span>
                     <span className="text-xs font-mono text-[#FFA116] flex items-center gap-1">
                       <CheckCircle2 className="w-3.5 h-3.5" />
-                      Zero-Dependency Vanilla JS
+                      Live on Render &middot; Node.js + Socket.IO
                     </span>
                   </div>
 
@@ -352,15 +352,26 @@ export const Projects: React.FC = () => {
 
                 {/* Action Buttons */}
                 <div className="pt-4 border-t border-neutral-100 dark:border-[#2A2A2A] flex flex-wrap items-center gap-3">
+                  <a
+                    id="btn-live-imposter-game"
+                    href={projects[2].liveDemoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] text-xs sm:text-sm font-bold shadow-xs transition-colors"
+                  >
+                    <Gamepad2 className="w-4 h-4 text-[#0F0F0F]" />
+                    <span>Play Live Game</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+
                   <button
                     id="btn-inspect-imposter-game"
                     onClick={() => setSelectedProject(projects[2])}
                     type="button"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-[#171717] dark:hover:bg-[#252525] text-neutral-800 dark:text-[#E6E6E6] text-xs sm:text-sm font-medium transition-colors border border-neutral-300 dark:border-[#2A2A2A] cursor-pointer"
                   >
-                    <Gamepad2 className="w-4 h-4 text-[#0F0F0F]" />
-                    <span>Play Interactive Simulator</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <Play className="w-4 h-4" />
+                    <span>Try Pass &amp; Play Demo</span>
                   </button>
 
                   <a
@@ -385,34 +396,34 @@ export const Projects: React.FC = () => {
                       <span>Game State Machine Flow</span>
                     </div>
                     <span className="text-[10px] text-orange-600 dark:text-[#FFA116] bg-orange-500/10 px-2 py-0.5 rounded border border-[#CC7A0A]/30">
-                      DOM Logic
+                      Server-Authoritative
                     </span>
                   </div>
 
                   <div className="space-y-2">
                     <div className="p-2.5 rounded bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between shadow-xs">
-                      <span className="text-neutral-800 dark:text-[#E6E6E6]">1. Player Registration</span>
-                      <span className="text-[#FFA116] text-[10px]">Input Validation</span>
+                      <span className="text-neutral-800 dark:text-[#E6E6E6]">1. Lobby &amp; Room Code</span>
+                      <span className="text-[#FFA116] text-[10px]">Socket.IO Rooms</span>
                     </div>
                     <div className="p-2.5 rounded bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between shadow-xs">
-                      <span className="text-neutral-800 dark:text-[#E6E6E6]">2. Imposter Selection</span>
-                      <span className="text-[#FFA116] text-[10px]">Math.random() seed</span>
+                      <span className="text-neutral-800 dark:text-[#E6E6E6]">2. Secret Word Delivery</span>
+                      <span className="text-[#FFA116] text-[10px]">Private Per-Player Event</span>
                     </div>
                     <div className="p-2.5 rounded bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between shadow-xs">
-                      <span className="text-neutral-800 dark:text-[#E6E6E6]">3. Pass &amp; Play Reveal</span>
-                      <span className="text-[#FFA116] text-[10px]">Private Event Toggle</span>
+                      <span className="text-neutral-800 dark:text-[#E6E6E6]">3. Timed Discussion</span>
+                      <span className="text-[#FFA116] text-[10px]">Server Timer</span>
                     </div>
                     <div className="p-2.5 rounded bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between shadow-xs">
-                      <span className="text-neutral-800 dark:text-[#E6E6E6]">4. Discussion &amp; Outcome</span>
-                      <span className="text-[#FFA116] text-[10px]">Result Render</span>
+                      <span className="text-neutral-800 dark:text-[#E6E6E6]">4. Voting &amp; Result</span>
+                      <span className="text-[#FFA116] text-[10px]">Tally + Tie Rules</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-4 border-t border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-between text-[11px] text-neutral-500 dark:text-[#A3A3A3]">
-                  <span>State Management: Single Object Store</span>
+                  <span>State: In-Memory Rooms on Server</span>
                   <span className="text-[#FFA116] hover:underline cursor-pointer font-medium" onClick={() => setSelectedProject(projects[2])}>
-                    Launch Simulator &rarr;
+                    Pass &amp; Play Demo &rarr;
                   </span>
                 </div>
               </div>
