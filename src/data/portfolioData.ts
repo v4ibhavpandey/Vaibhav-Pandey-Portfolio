@@ -16,7 +16,7 @@ export const personalInfo: PersonalInfo = {
 export const skillCategories: SkillCategory[] = [
   {
     category: 'Backend & Server Architecture',
-    description: 'Server runtime environments, RESTful APIs, relational databases, and controller-service paradigms',
+    description: 'Server runtime environments, RESTful APIs, relational databases, and and real-time communication',
     skills: [
       {
         name: 'Node.js',
@@ -32,9 +32,9 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: 'MySQL & Relational SQL',
-        description: 'Relational schema design with primary/foreign keys, JOINs, GROUP BY, SUM aggregations, and Aiven Cloud MySQL',
+        description: 'Connecting a Node.js server to a MySQL database on Aiven and writing basic SQL queries, used in my Pennywise expense tracker',
         iconName: 'Database',
-        tags: ['MySQL', 'Aiven Cloud', 'SQL Joins'],
+        tags: ['MySQL', 'Aiven', 'Basic SQL'],
       },
       {
         name: 'RESTful API Design',
@@ -43,16 +43,16 @@ export const skillCategories: SkillCategory[] = [
         tags: ['CRUD', 'HTTP', 'API Architecture'],
       },
       {
-        name: 'Modular Architecture',
-        description: 'Separation of concerns with dedicated router modules, controllers, and business logic',
-        iconName: 'FolderTree',
-        tags: ['Clean Code', 'Maintainability'],
+        name: 'Socket.IO & WebSockets',
+        description: 'Real-time rooms, events, and private per-player messages, used in my Imposter Game',
+        iconName: 'Layers',
+        tags: ['Real-time', 'Rooms', 'Events'],
       },
       {
         name: 'Postman',
-        description: 'API endpoint testing, request simulation, response validation, and environment configs',
+        description: 'Manual API testing: sending requests and checking status codes and responses',
         iconName: 'CheckCircle2',
-        tags: ['Testing', 'Documentation', 'Validation'],
+        tags: ['API Testing', 'Manual'],
       },
     ],
   },
@@ -127,161 +127,80 @@ export const skillCategories: SkillCategory[] = [
 export const projects: Project[] = [
   {
     id: 'pennywise-finance-tracker',
-    title: 'Pennywise – Personal Finance Tracker',
-    subtitle: 'Full-Stack Income & Expense Tracker with Node.js, Express.js & Aiven MySQL',
-    status: 'Completed / Full-Stack',
+    title: 'Pennywise – Personal Expense Tracker',
+    subtitle: 'Personal expense tracker (not deployed)',
+    status: 'Personal Project / Not deployed',
     category: 'Full-Stack & Database',
-    shortDescription: 'Built a full-stack personal finance tracker using Node.js, Express.js, MySQL (Aiven Cloud), and Vanilla JavaScript to record, categorize, and summarize income and expense transactions.',
-    problem: 'Managing daily personal income and expenses across categories requires persistent relational storage, accurate balance calculations, and a distraction-free interface without bloated dependencies.',
-    solution: 'Engineered a full-stack web application backed by an Express.js REST API and a cloud-hosted Aiven MySQL relational database. Structured normalized categories and transactions tables linked via foreign keys, utilizing SQL JOIN, SUM, and GROUP BY queries to compute real-time financial summaries and category-wise expense totals in a responsive notes-style UI.',
+    shortDescription: 'A personal expense tracker I built for my own use with Node.js, Express.js, a MySQL database on Aiven, and a plain HTML, CSS, and JavaScript front end. It is not deployed online and runs only on my computer; the source code is on GitHub.',
+    problem: 'I wanted a simple place to note down my own income and expenses in a real database instead of a spreadsheet, and I wanted to practise connecting a Node.js server to MySQL.',
+    solution: 'An Express.js server talks to a MySQL database hosted on Aiven, and a plain JavaScript front end sends requests to it to add, list, edit, and delete transactions and show totals.',
     role: [
-      'Engineered Express.js REST API backed by an Aiven Cloud MySQL relational database.',
-      'Designed normalized schema with foreign keys, executing SQL JOIN, SUM, and GROUP BY queries.',
-      'Implemented full CRUD operations for income and expenses with category-wise breakdown calculation.',
-      'Built a distraction-free responsive frontend using Vanilla JavaScript, HTML5, and CSS3.',
+      'Built a personal expense tracker with Node.js, Express.js, MySQL (Aiven), and a vanilla JavaScript, HTML, and CSS front end.',
+      'Connected the Express server to a cloud MySQL database and wrote the queries that store and read transactions.',
+      'Practised the full flow from a browser form to the server, the database, and back.',
     ],
-    techStack: ['Node.js', 'Express.js', 'MySQL', 'Aiven Cloud', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'REST API'],
+    techStack: ['Node.js', 'Express.js', 'MySQL', 'Aiven', 'JavaScript', 'HTML5', 'CSS3'],
     features: [
-      'Full Transaction CRUD: Add, edit, and delete transactions persisted in cloud MySQL.',
-      'Relational Integrity: Normalized categories and transactions linked via foreign keys.',
-      'Real-Time Aggregations: Computes total income, expenses, balance, and category totals with SQL aggregations.',
-      'Notes-Style UI: Fast, responsive interface ordering transactions chronologically.',
+      'Add, view, edit, and delete income and expense records stored in MySQL.',
+      'Totals for income, expenses, and balance.',
+      'Simple notes-style interface in plain HTML, CSS, and JavaScript.',
     ],
-    architectureNotes: 'Client-side HTML/CSS/Vanilla JS communicates asynchronously with an Express.js REST API connected to a cloud-hosted Aiven MySQL instance. The database enforces referential integrity via a foreign key between transactions.category_id and categories.id.',
+    architectureNotes: 'Browser front end (vanilla JavaScript) calls an Express.js server, which runs SQL queries against a MySQL database on Aiven. It only runs on my own computer and is not deployed.',
     documentedResults: [
-      'Deployed relational schema on Aiven MySQL supporting full CRUD lifecycle and SQL aggregation queries.',
-      'Live web deployment on Vercel delivering instant financial summary calculations.',
+      'Works end to end on my machine against the Aiven database.',
+      'Source code is public on GitHub. There is no hosted version.',
     ],
     githubUrl: 'https://github.com/v4ibhavpandey/Pennywise',
-    liveDemoUrl: 'https://pennywise-steel-six.vercel.app/',
     hasInteractiveSandbox: true,
     interactiveType: 'pennywise',
     challenges: [
-      'Maintaining ACID guarantees and foreign key constraints when dynamically assigning categories.',
-      'Calculating category-wise financial balances efficiently using SQL SUM and GROUP BY without client-side loops.',
+      'Connecting the Node.js server to a cloud database and keeping the browser, server, and database in sync.',
     ],
     improvements: [
-      'Implement user authentication with JWT/session cookies to support multi-tenant budgeting.',
-      'Add monthly spending limits with threshold alerts and CSV financial export.',
-    ],
-    endpoints: [
-      {
-        method: 'GET',
-        path: '/api/transactions',
-        description: 'Fetch all transactions joined with category names ordered by newest first',
-        sampleResponse: JSON.stringify(
-          {
-            success: true,
-            summary: { totalIncome: 25000, totalExpenses: 4350, balance: 20650 },
-            data: [
-              { id: 14, title: 'Monthly Stipend / Allowance', amount: 25000, type: 'income', category: 'Salary', created_at: '2026-10-04' },
-              { id: 13, title: 'Semester Reference Books', amount: 1850, type: 'expense', category: 'Education', created_at: '2026-10-03' },
-              { id: 12, title: 'Broadband & Electricity', amount: 2500, type: 'expense', category: 'Bills', created_at: '2026-10-01' }
-            ]
-          },
-          null,
-          2
-        ),
-        statusCode: 200,
-      },
-      {
-        method: 'POST',
-        path: '/api/transactions',
-        description: 'Insert a new income or expense record linked to a category_id',
-        sampleRequest: JSON.stringify(
-          { title: 'Lunch & Coffee', amount: 320, type: 'expense', category_id: 1, category: 'Food' },
-          null,
-          2
-        ),
-        sampleResponse: JSON.stringify(
-          {
-            success: true,
-            message: 'Transaction recorded in MySQL',
-            insertId: 15
-          },
-          null,
-          2
-        ),
-        statusCode: 201,
-      },
-      {
-        method: 'PUT',
-        path: '/api/transactions/:id',
-        description: 'Update an existing transaction amount, type, or category',
-        sampleRequest: JSON.stringify(
-          { title: 'Semester Reference Books', amount: 1650, type: 'expense', category_id: 4 },
-          null,
-          2
-        ),
-        sampleResponse: JSON.stringify(
-          {
-            success: true,
-            message: 'Transaction #13 updated successfully'
-          },
-          null,
-          2
-        ),
-        statusCode: 200,
-      },
-      {
-        method: 'DELETE',
-        path: '/api/transactions/:id',
-        description: 'Delete a transaction record by primary key ID',
-        sampleResponse: JSON.stringify(
-          {
-            success: true,
-            message: 'Transaction #12 deleted from database'
-          },
-          null,
-          2
-        ),
-        statusCode: 200,
-      },
+      'Add a README with setup steps and move the database credentials into environment variables.',
+      'Validate input on the server, add user login, and deploy it.',
     ],
   },
   {
     id: 'restful-crud-api',
     title: 'RESTful CRUD API',
-    subtitle: 'Modular Node.js & Express.js Backend Service',
-    status: 'Completed / Modular API',
+    subtitle: 'Beginner Express.js API with an in-memory user list',
+    status: 'Learning project',
     category: 'Backend & APIs',
-    shortDescription: 'Engineered a modular, REST-compliant backend API service in Node.js and Express.js with dedicated routing, controller logic, and thorough Postman test suites.',
-    problem: 'Web applications require robust, maintainable server endpoints to manage resources reliably without tight coupling between route declarations and execution logic.',
-    solution: 'Designed and implemented an expressive RESTful backend service following clear separation of concerns. Developed dedicated controller handlers for Create, Read, Update, and Delete operations with consistent HTTP status codes and structured JSON response schemas.',
+    shortDescription: 'A small Express.js API from when I was learning REST. It loads sample users from a JSON file into memory and has routes to list, add, and delete them. I tested it by hand in Postman.',
+    problem: 'I wanted to understand how HTTP methods, routes, and JSON responses fit together in a backend before moving on to databases.',
+    solution: 'A single index.js file with an Express server that reads sample users from MOCK_DATA.json and serves them over a few routes. Data lives in memory, so changes are lost when the server restarts.',
     role: [
-      'Developed complete RESTful API using Node.js and Express.js to perform CRUD operations on user records.',
-      'Designed API endpoints adhering to standard REST architectural principles and tested each route with Postman.',
-      'Architected a modular folder hierarchy separating routes, controllers, and utility middlewares for maintainability.',
-      'Implemented error handling and request payload validation for incoming JSON bodies.',
+      'Wrote an Express.js server with routes to list users, fetch one by id, add a user, and delete a user.',
+      'Loaded sample data from a JSON file and served it as JSON.',
+      'Tested the routes by hand in Postman.',
     ],
     techStack: ['Node.js', 'Express.js', 'JavaScript (ES6+)', 'Postman', 'REST Architecture', 'Git'],
     features: [
-      'Full CRUD Lifecycle: Endpoints for resource creation (POST), retrieval (GET all / by ID), update (PUT), and deletion (DELETE).',
-      'Modular Controller Pattern: Separates Express routes from controller functions to ensure extensibility.',
-      'Standardized HTTP Status Codes: Proper usage of 200 OK, 201 Created, 400 Bad Request, and 404 Not Found.',
-      'Postman Test Coverage: Tested with parameterized collections for edge case handling.',
+      'GET routes to list all users and fetch one by id.',
+      'POST route to add a user and DELETE route to remove one.',
+      'A PATCH route exists as a stub and is not implemented yet.',
     ],
-    architectureNotes: 'Follows standard MVC controller pattern: incoming client requests hit the Express router, get dispatched to appropriate async controller functions, process payloads, and return JSON responses.',
+    architectureNotes: 'Everything is in one index.js file. Users are loaded from MOCK_DATA.json into an array at startup, so there is no database, no input validation, and nothing is saved between restarts.',
     documentedResults: [
-      'Validated CRUD operations across standard and edge-case inputs in Postman.',
-      'Established a clean modular template for future backend services and database integrations.',
+      'The routes respond correctly when called manually from Postman.',
+      'Known limits: no validation, no database, no automated tests.',
     ],
     githubUrl: 'https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js',
     hasInteractiveSandbox: true,
     interactiveType: 'crud-api',
     challenges: [
-      'Decoupling routing logic from controller business handlers to maintain clean, scalable endpoint architecture.',
-      'Enforcing strict HTTP status codes (200, 201, 400, 404) and input validation for payload safety.',
+      'Understanding how routes, request parameters, and the request body fit together.',
     ],
     improvements: [
-      'Migrate data persistence to PostgreSQL with an ORM (Prisma/Drizzle) for production scalability.',
-      'Integrate rate-limiting middleware and automated unit tests with Jest/Supertest.',
+      'Split routes into their own files, validate input, and finish the PATCH route.',
+      'Save data in a database and add automated tests.',
     ],
     endpoints: [
       {
         method: 'GET',
         path: '/api/users',
-        description: 'Fetch all user records with status and count metadata',
+        description: 'Return all users',
         sampleResponse: JSON.stringify(
           {
             success: true,
@@ -300,7 +219,7 @@ export const projects: Project[] = [
       {
         method: 'POST',
         path: '/api/users',
-        description: 'Create a new user record with request validation',
+        description: 'Add a user to the in-memory list',
         sampleRequest: JSON.stringify(
           { name: 'Amit Verma', email: 'amit@example.com', role: 'User' },
           null,
@@ -473,10 +392,10 @@ export const timelineMilestones: TimelineMilestone[] = [
   {
     year: '2025',
     period: '2025',
-    title: 'Engineered RESTful CRUD API with Node.js & Express.js',
+    title: 'Built a RESTful CRUD API with Node.js & Express.js',
     type: 'project',
     organization: 'Backend Engineering Project',
-    description: 'Developed a modular REST API with separated controller architecture, HTTP status code enforcement, and endpoint test suites using Postman.',
+    description: 'Built a small Express.js API that serves and edits an in-memory user list, and tested its routes by hand in Postman.',
     evidenceType: 'github',
     evidenceLabel: 'View on GitHub',
     evidenceUrl: 'https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js',
@@ -495,12 +414,12 @@ export const timelineMilestones: TimelineMilestone[] = [
   {
     year: '2026',
     period: '2026',
-    title: 'Built Pennywise – Full-Stack Personal Finance Tracker',
+    title: 'Built Pennywise, a personal expense tracker',
     type: 'project',
     organization: 'Full-Stack & Database Engineering',
-    description: 'Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, and Aiven Cloud MySQL featuring relational tables (categories, transactions), foreign keys, SQL JOIN/SUM/GROUP BY aggregations, and full CRUD operations.',
+    description: 'Built a personal expense tracker with Node.js, Express.js, plain JavaScript, and a MySQL database on Aiven. It runs locally and is not deployed.',
     evidenceType: 'github',
-    evidenceLabel: 'View Pennywise on GitHub',
+    evidenceLabel: 'View on GitHub',
     evidenceUrl: 'https://github.com/v4ibhavpandey/Pennywise',
   },
 ];
