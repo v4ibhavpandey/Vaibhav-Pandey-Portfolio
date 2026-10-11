@@ -27,7 +27,7 @@ export const Timeline: React.FC = () => {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#FFA116] mb-2">
               <span className="w-2 h-2 rounded-full bg-[#FFA116]"></span>
-              Chronological Evidence
+              Timeline
             </div>
             <h2 
               id="timeline-heading"
@@ -128,10 +128,10 @@ export const Timeline: React.FC = () => {
                   {m.description}
                 </p>
 
-                {/* Evidence Link if available */}
+                {/* Link if available */}
                 <div className="pt-2 border-t border-neutral-100 dark:border-[#2A2A2A] flex items-center justify-between">
                   <span className="text-xs text-neutral-500 dark:text-[#A3A3A3] font-mono">
-                    Evidence: {m.evidenceLabel}
+                    {m.evidenceLabel}
                   </span>
                   {m.evidenceUrl && (
                     <a

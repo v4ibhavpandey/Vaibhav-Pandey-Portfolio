@@ -135,7 +135,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
                 </div>
               </div>
 
-              {/* Credential URL & Verification Stamp */}
+              {/* Credential URL */}
               <div className="pt-4 border-t border-[#2A2A2A] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div className="font-mono text-neutral-300">
                   <span className="text-[#A3A3A3] block text-[11px]">Digital badge link (20 hours):</span>
@@ -175,15 +175,15 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
             </div>
           </div>
 
-          {/* Verification Evidence Notice */}
+          {/* Badge notice */}
           <div className="p-4 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-start gap-3 text-xs text-neutral-700 dark:text-[#A3A3A3]">
             <ShieldCheck className="w-5 h-5 text-[#FFA116] shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold text-neutral-900 dark:text-[#E6E6E6] block">
-                Digital Badge Verification
+                About this badge
               </span>
               <span>
-                {certification.verificationNote} Recruiters can view the verified digital badge on Credly using the public link below.
+                {certification.verificationNote} You can view the badge on Credly using the link below.
               </span>
             </div>
           </div>
@@ -201,7 +201,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ certificatio
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FFA116] hover:bg-[#CC7A0A] text-[#0F0F0F] font-bold text-xs transition-colors shadow-xs"
             >
               <ExternalLink className="w-4 h-4" />
-              <span>Verify on Credly</span>
+              <span>View on Credly</span>
             </a>
 
             <button

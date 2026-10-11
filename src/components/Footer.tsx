@@ -45,7 +45,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResumeModal }) => {
             </p>
             <div className="flex items-center gap-2 text-[#FFA116] font-mono text-[11px] pt-1">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Built with Node.js, Express, MySQL &amp; React</span>
+              <span>Built with React, TypeScript &amp; Tailwind</span>
             </div>
           </div>
 
@@ -58,7 +58,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResumeModal }) => {
               <li><a href="#how-i-work" className="hover:text-[#FFA116] transition-colors">How I Work</a></li>
               <li><a href="#about" className="hover:text-[#FFA116] transition-colors">About &amp; Education</a></li>
               <li><a href="#skills" className="hover:text-[#FFA116] transition-colors">Technical Skills</a></li>
-              <li><a href="#projects" className="hover:text-[#FFA116] transition-colors">Projects &amp; Sandboxes</a></li>
+              <li><a href="#projects" className="hover:text-[#FFA116] transition-colors">Projects</a></li>
               <li><a href="#certifications" className="hover:text-[#FFA116] transition-colors">AWS Academy Cloud Foundations</a></li>
               <li><a href="#timeline" className="hover:text-[#FFA116] transition-colors">Milestones Timeline</a></li>
               <li><a href="#resume" className="hover:text-[#FFA116] transition-colors">Curriculum Vitae</a></li>
@@ -66,7 +66,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResumeModal }) => {
             </ul>
           </div>
 
-          {/* External Verified Profiles */}
+          {/* External profiles */}
           <div className="md:col-span-3 space-y-2">
             <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-900 dark:text-[#E6E6E6] font-bold block">
               Direct Channels

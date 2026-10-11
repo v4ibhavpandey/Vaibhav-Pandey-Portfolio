@@ -36,10 +36,10 @@ export const Certifications: React.FC<CertificationsProps> = () => {
             id="certifications-heading"
             className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-[#E6E6E6]"
           >
-            Cloud foundations &amp; credentials.
+            Cloud basics course.
           </h2>
           <p className="mt-2 text-base text-neutral-600 dark:text-[#A3A3A3]">
-            Foundational cloud computing curriculum completed through the official AWS Academy program.
+            A 20-hour introductory AWS Academy course on cloud basics. It is a course badge, not an AWS professional certification.
           </p>
         </div>
 
@@ -86,7 +86,7 @@ export const Certifications: React.FC<CertificationsProps> = () => {
                     <span className="text-sm font-bold text-neutral-900 dark:text-[#E6E6E6] mt-0.5 block">{cert.issueDate}</span>
                   </div>
                   <div className="p-3 rounded-lg bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] col-span-2 sm:col-span-1 shadow-xs">
-                    <span className="text-[11px] font-mono text-neutral-500 dark:text-[#A3A3A3] block">Verification</span>
+                    <span className="text-[11px] font-mono text-neutral-500 dark:text-[#A3A3A3] block">Where</span>
                     <span className="text-sm font-bold text-[#FFA116] mt-0.5 block">Credly Badge</span>
                   </div>
                 </div>

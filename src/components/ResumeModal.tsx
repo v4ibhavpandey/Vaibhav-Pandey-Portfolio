@@ -26,7 +26,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           <div className="flex items-center gap-2">
             <FileText className="w-5 h-5 text-[#FFA116]" />
             <h3 id="modal-resume-title" className="text-sm sm:text-base font-bold text-neutral-900 dark:text-[#E6E6E6]">
-              Vaibhav Pandey — Official Resume
+              Vaibhav Pandey — Resume
             </h3>
           </div>
 

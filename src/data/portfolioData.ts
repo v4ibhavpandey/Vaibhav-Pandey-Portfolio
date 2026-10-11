@@ -332,7 +332,7 @@ export const certifications: Certification[] = [
     hoursCompleted: 20,
     credentialUrl: 'https://www.credly.com/go/1vfZYMOq',
     credentialId: '1vfZYMOq',
-    description: 'Official AWS Academy curriculum validating foundational knowledge of cloud concepts, core AWS cloud services, security principles, architectural frameworks, and pricing models.',
+    description: 'A course completion badge from AWS Academy for a 20-hour introductory course on cloud concepts, core AWS services, security, architecture, and pricing. It is not an AWS professional certification exam.',
     skillsCovered: [
       'AWS Cloud Computing Concepts & Global Infrastructure',
       'Core AWS Compute (EC2, Lambda, Elastic Beanstalk)',
@@ -341,7 +341,7 @@ export const certifications: Certification[] = [
       'Security, Identity & IAM Policies (Shared Responsibility Model)',
       'AWS Well-Architected Framework & Cloud Economics',
     ],
-    verificationNote: 'Awarded official digital course badge on Credly upon completing 20 hours of AWS Academy curriculum coursework.',
+    verificationNote: 'Course completion badge issued on Credly after 20 hours of AWS Academy coursework.',
   },
 ];
 
