@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Mail, 
-  Phone, 
   MapPin, 
   Github, 
   Linkedin, 
@@ -15,7 +14,6 @@ import { personalInfo } from '../data/portfolioData';
 
 export const Contact: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedPhone, setCopiedPhone] = useState(false);
 
   // Functional message composer (creates direct mailto with subject & body)
   const [subject, setSubject] = useState('');
@@ -27,12 +25,6 @@ export const Contact: React.FC = () => {
     navigator.clipboard.writeText(personalInfo.email);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
-  };
-
-  const handleCopyPhone = () => {
-    navigator.clipboard.writeText(personalInfo.phone);
-    setCopiedPhone(true);
-    setTimeout(() => setCopiedPhone(false), 2000);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -68,7 +60,7 @@ export const Contact: React.FC = () => {
             Get in touch.
           </h2>
           <p className="mt-2 text-base text-neutral-600 dark:text-[#A3A3A3]">
-            Available for software engineering internships, backend development roles, and technical discussions.
+            I am looking for backend or software engineering internships. Email is the quickest way to reach me; my phone number is in my resume PDF.
           </p>
         </div>
 
@@ -106,29 +98,8 @@ export const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Phone & Location Card */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Phone */}
-              <div className="p-5 rounded-xl bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] shadow-xs space-y-2 transition-colors">
-                <div className="flex items-center justify-between">
-                  <Phone className="w-4 h-4 text-[#FFA116]" />
-                  <button
-                    onClick={handleCopyPhone}
-                    type="button"
-                    className="text-[11px] font-mono text-neutral-500 dark:text-[#A3A3A3] hover:text-neutral-900 dark:hover:text-[#E6E6E6] cursor-pointer"
-                  >
-                    {copiedPhone ? 'Copied' : 'Copy'}
-                  </button>
-                </div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3] block">Phone</span>
-                <a 
-                  href={`tel:${personalInfo.phone}`}
-                  className="text-sm font-bold text-neutral-900 dark:text-[#E6E6E6] hover:text-[#FFA116] block"
-                >
-                  +91 {personalInfo.phone}
-                </a>
-              </div>
-
+            {/* Location Card */}
+            <div className="grid grid-cols-1 gap-4">
               {/* Location */}
               <div className="p-5 rounded-xl bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] shadow-xs space-y-2 transition-colors">
                 <MapPin className="w-4 h-4 text-[#FFA116]" />

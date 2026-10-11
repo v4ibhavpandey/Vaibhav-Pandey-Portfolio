@@ -6,7 +6,6 @@ import {
   Linkedin, 
   Mail, 
   MapPin, 
-  Phone, 
   Award, 
   Code,
   Download,
@@ -86,8 +85,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
 
             {/* Profile Statement / Bio */}
             <p className="text-base sm:text-lg text-neutral-700 dark:text-[#A3A3A3] max-w-2xl leading-relaxed">
-              Building modular RESTful APIs, relational database schemas, and clean web applications. 
-              Grounded in <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Node.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Express.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">MySQL</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">JavaScript</strong>, and completed the <strong className="font-semibold text-[#FFA116]">AWS Academy Cloud Foundations</strong> course.
+              Building small backend projects and web apps. 
+              Learning <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Node.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">Express.js</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">MySQL</strong>, <strong className="font-semibold text-neutral-900 dark:text-[#E6E6E6]">JavaScript</strong>, and the <strong className="font-semibold text-[#FFA116]">AWS Academy Cloud Foundations</strong> course basics.
             </p>
 
             {/* Contact & Meta Badges */}
@@ -102,13 +101,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
               >
                 <Mail className="w-3.5 h-3.5 text-neutral-400" />
                 {personalInfo.email}
-              </a>
-              <a 
-                href={`tel:+91${personalInfo.phone}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] text-neutral-700 dark:text-[#A3A3A3] hover:text-[#FFA116] hover:border-[#CC7A0A]/40 transition-colors shadow-xs"
-              >
-                <Phone className="w-3.5 h-3.5 text-neutral-400" />
-                +91 {personalInfo.phone}
               </a>
             </div>
 
@@ -162,7 +154,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                 title="AWS Academy Cloud Foundations (course badge on Credly)"
               >
                 <Award className="w-4 h-4 text-[#FFA116]" />
-                <span>AWS Academy Graduate</span>
+                <span>AWS Academy course badge</span>
               </button>
             </div>
 
@@ -268,7 +260,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
                       Incomplete Ideas → Working Software
                     </h3>
                     <p className="text-xs text-neutral-600 dark:text-[#A3A3A3] mt-0.5 leading-relaxed">
-                      Continuously refining raw drafts into well-documented codebases backed by working demonstrations.
+                      Turning rough ideas into working projects, one version at a time.
                     </p>
                   </div>
                 </div>
@@ -296,7 +288,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenCertificate
               </div>
               <div className="p-2 rounded-lg bg-white dark:bg-[#1E1E1E] border border-neutral-200 dark:border-[#2A2A2A] shadow-xs">
                 <div className="font-bold text-[#FFA116]">3 Projects</div>
-                <div className="text-[11px] text-neutral-500 dark:text-[#A3A3A3]">Documented &amp; Code</div>
+                <div className="text-[11px] text-neutral-500 dark:text-[#A3A3A3]">With source on GitHub</div>
               </div>
             </div>
 

@@ -71,7 +71,7 @@ export function generateResumePdf(): boolean {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
     doc.setTextColor(50, 50, 50);
-    const objectiveText = 'Backend Developer with a solid foundation in Node.js, Express.js, MySQL, JavaScript, and RESTful APIs, seeking opportunities to build dependable backend services, solve real-world problems, and grow as a software engineer.';
+    const objectiveText = personalInfo.objective;
     const splitObjective = doc.splitTextToSize(objectiveText, contentWidth);
     doc.text(splitObjective, margin, y);
     y += splitObjective.length * 11 + 6;
@@ -203,7 +203,7 @@ export function generateResumePdf(): boolean {
       ['Backend & APIs:', 'Node.js, Express.js, RESTful API Design, Postman'],
       ['Databases:', 'MySQL, Aiven Cloud MySQL, Relational Schema (PK/FK, JOIN, SUM, GROUP BY)'],
       ['Languages & DSA:', 'JavaScript (ES6+), Python, Data Structures & Algorithms'],
-      ['Frontend & Tools:', 'Angular (Foundations), HTML5, CSS3, Git, GitHub'],
+      ['Frontend & Tools:', 'HTML5, CSS3, DOM scripting, Git, GitHub, Render'],
       ['Cloud Foundations:', 'AWS Academy Cloud Foundations (EC2, S3, VPC, IAM, CloudWatch)'],
     ];
 
@@ -242,7 +242,7 @@ export function generateResumePdf(): boolean {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
     doc.setTextColor(150, 150, 150);
-    doc.text('Vaibhav Pandey — Backend Developer Portfolio & Resume', pageWidth / 2, doc.internal.pageSize.getHeight() - 25, { align: 'center' });
+    doc.text('Vaibhav Pandey - Resume', pageWidth / 2, doc.internal.pageSize.getHeight() - 25, { align: 'center' });
 
     // Download file
     doc.save('Vaibhav_Pandey_Resume.pdf');

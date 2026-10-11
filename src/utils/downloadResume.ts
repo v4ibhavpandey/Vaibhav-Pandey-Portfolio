@@ -2,7 +2,7 @@ import { personalInfo } from '../data/portfolioData';
 
 export const resumePlainText = `================================================================================
                                 VAIBHAV PANDEY
-                              BACKEND DEVELOPER
+                              ASPIRING BACKEND DEVELOPER
 ================================================================================
 
 CONTACT INFORMATION
@@ -35,7 +35,7 @@ TECHNICAL SKILLS
 ----------------
 - Backend:           Node.js, Express.js, RESTful API Design, Postman
 - Databases:         MySQL, Aiven Cloud MySQL, Relational Design (PK/FK, JOIN, SUM, GROUP BY)
-- Frontend:          Angular (Foundations), JavaScript (ES6+), HTML5, CSS3
+- Frontend:          JavaScript (ES6+), HTML5, CSS3
 - Programming:       Python, JavaScript, Data Structures & Algorithms
 - Cloud & DevOps:    AWS Cloud Foundations, Git, GitHub
 

@@ -2,15 +2,15 @@ import { PersonalInfo, SkillCategory, Project, Certification, EducationItem, Tim
 
 export const personalInfo: PersonalInfo = {
   name: 'Vaibhav Pandey',
-  title: 'Backend Developer',
+  title: 'Aspiring Backend Developer',
   subTitle: 'Computer Science & Engineering Undergraduate (2024–2028) at IPS Academy, Indore',
-  status: 'Open to Backend & Software Engineering Roles',
+  status: 'Open to Backend & Software Engineering Internships',
   location: 'Indore, Madhya Pradesh, India',
   phone: '9009107817',
   email: 'v4ibhav.pandey@gmail.com',
   github: 'https://github.com/v4ibhavpandey',
   linkedin: 'https://www.linkedin.com/in/v4ibhavpandey',
-  objective: 'Backend Developer with a solid foundation in Node.js, Express.js, MySQL, JavaScript, and RESTful APIs, seeking opportunities to build dependable backend services, solve real-world problems, and grow as a software engineer.',
+  objective: 'Aspiring backend developer with hands-on experience in Node.js, Express.js, MySQL, and JavaScript. Looking for an internship where I can build real web applications and learn from experienced engineers.',
 };
 
 export const skillCategories: SkillCategory[] = [
@@ -84,12 +84,6 @@ export const skillCategories: SkillCategory[] = [
     category: 'Frontend & UI Engineering',
     description: 'Client-side interface development and dynamic DOM orchestration',
     skills: [
-      {
-        name: 'Angular (Foundations)',
-        description: 'Component architecture, templates, data binding, and TypeScript single-page app concepts',
-        iconName: 'Boxes',
-        tags: ['Frontend', 'Components', 'SPA'],
-      },
       {
         name: 'DOM Manipulation',
         description: 'Dynamic event handling, imperative DOM updates, turn-based UI state control, and user input validation',

@@ -37,12 +37,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResumeModal }) => {
                 Vaibhav Pandey
               </span>
               <span className="text-[11px] font-mono text-neutral-500 dark:text-[#A3A3A3]">
-                / Backend Engineer
+                / Aspiring Backend Developer
               </span>
             </div>
             <p className="text-neutral-600 dark:text-[#A3A3A3] text-xs max-w-md leading-relaxed">
-              Backend Developer &amp; Computer Science undergraduate (2024–2028) at IPS Academy Indore. 
-              Focused on modular REST APIs, Node.js, Express.js, and AWS Cloud Foundations.
+              Computer Science undergraduate (2024–2028) at IPS Academy Indore, learning backend development with Node.js, Express.js, and MySQL.
             </p>
             <div className="flex items-center gap-2 text-[#FFA116] font-mono text-[11px] pt-1">
               <ShieldCheck className="w-3.5 h-3.5" />

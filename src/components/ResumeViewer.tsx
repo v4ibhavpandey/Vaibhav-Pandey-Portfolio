@@ -5,7 +5,6 @@ import {
   Copy, 
   Check, 
   Mail, 
-  Phone, 
   MapPin,
   Loader2
 } from 'lucide-react';
@@ -24,8 +23,8 @@ export const ResumeViewer: React.FC<ResumeViewerProps> = ({ asSection = true }) 
   // Resume plain text representation
   const resumeRawText = `
 Vaibhav Pandey
-BACKEND DEVELOPER
-Indore Madhya Pradesh | +91 9009107817 | v4ibhav.pandey@gmail.com
+ASPIRING BACKEND DEVELOPER
+Indore, Madhya Pradesh | v4ibhav.pandey@gmail.com
 LinkedIn: Vaibhav Pandey (https://www.linkedin.com/in/v4ibhavpandey)
 GitHub: v4ibhavpandey (https://github.com/v4ibhavpandey)
 
@@ -62,7 +61,7 @@ Technical Skills:
 - Backend: Node.js, Express.js, RESTful API Design, Postman
 - Databases: MySQL, Aiven Cloud MySQL, Relational Design (PK/FK, JOIN, SUM, GROUP BY)
 - Languages & DSA: JavaScript (ES6+), Python, Data Structures & Algorithms
-- Frontend & Tools: Angular (Foundations), HTML5, CSS3, Git, GitHub
+- Frontend & Tools: HTML5, CSS3, Git, GitHub, Render
 - Cloud: AWS Academy Cloud Foundations (Course Badge)
 
 Certifications:
@@ -214,11 +213,6 @@ Credential: https://www.credly.com/go/1vfZYMOq
                 <MapPin className="w-3.5 h-3.5" />
                 Indore, Madhya Pradesh
               </span>
-              <span>•</span>
-              <a href="tel:+919009107817" className="flex items-center gap-1 hover:underline">
-                <Phone className="w-3.5 h-3.5" />
-                +91 9009107817
-              </a>
               <span>•</span>
               <a href="mailto:v4ibhav.pandey@gmail.com" className="flex items-center gap-1 hover:underline">
                 <Mail className="w-3.5 h-3.5" />
@@ -398,7 +392,7 @@ Credential: https://www.credly.com/go/1vfZYMOq
               <li>MySQL &amp; Relational Schema (Aiven Cloud, SQL JOINs, GROUP BY)</li>
               <li>JavaScript (ES6+) &amp; Python</li>
               <li>Data Structures &amp; Algorithms</li>
-              <li>Angular (Foundations), HTML5 &amp; CSS3</li>
+              <li>HTML5, CSS3 &amp; DOM scripting</li>
               <li>Git, GitHub &amp; Version Control</li>
             </ul>
           </div>

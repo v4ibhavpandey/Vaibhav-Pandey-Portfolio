@@ -30,13 +30,10 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onOpenResume
   }, []);
 
   const navLinks = [
-    { name: 'How I Work', href: '#how-i-work' },
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Certifications', href: '#certifications' },
     { name: 'Education', href: '#education' },
-    { name: 'Milestones', href: '#timeline' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -64,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onOpenResume
               Vaibhav Pandey
             </span>
             <span className="text-[11px] font-mono text-neutral-500 dark:text-[#A3A3A3] leading-tight">
-              backend.dev
+              Indore, India
             </span>
           </div>
         </a>
