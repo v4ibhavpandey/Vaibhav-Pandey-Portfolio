@@ -126,6 +126,51 @@ export const skillCategories: SkillCategory[] = [
 
 export const projects: Project[] = [
   {
+    id: 'imposter-game',
+    title: 'Imposter Game',
+    subtitle: 'Live Real-Time Multiplayer Social Deduction Game',
+    status: 'Live / Deployed',
+    category: 'Web & Interactive',
+    shortDescription: 'Built and deployed a real-time multiplayer party game where friends join a room from their own phones with a 4-letter code. A Node.js and Socket.IO server assigns the imposter, privately delivers each player their own secret word, runs the discussion timer, and tallies the votes.',
+    problem: 'The original version was a single-device pass-and-play game that kept the imposter\'s identity and the full word list in browser memory, where anyone could read them from DevTools, and it forced every player to share one phone.',
+    solution: 'Moved all game logic to a Node.js and Express backend with Socket.IO. The server owns the game state, so each player\'s browser only ever receives their own word. Rooms, a server-controlled phase machine (lobby, discussion, voting, result), host controls, and disconnect handling make it playable live on multiple devices.',
+    role: [
+      'Upgraded pass-and-play prototype into a live multiplayer game using Node.js, Express, and Socket.IO.',
+      'Engineered server-side room codes, live lobby management, and host controls.',
+      'Implemented private socket delivery for secret words, preventing client-side inspection.',
+      'Handled edge cases: disconnects, host transfer, tie votes, and deployed on Render with auto-deploys.',
+    ],
+    techStack: ['Node.js', 'Express.js', 'Socket.IO', 'WebSockets', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Render'],
+    features: [
+      'Live Lobby & Rooms: Join with 4-letter codes from any smartphone.',
+      'Server-Authoritative Secrecy: Private websocket word dispatch prevents client-side inspection.',
+      'Timed Phases: Automated discussion countdown, interactive voting, and imposter reveal.',
+      'Resilient Sessions: Host migration, graceful disconnect handling, and instant replay.',
+    ],
+    architectureNotes: 'An Express server shares one HTTP server with Socket.IO. Room state lives in memory on the server, and clients only send intents that the server validates before broadcasting updates. Deployed on Render.',
+    documentedResults: [
+      'Live and playable on Render, with players joining simultaneously across mobile devices.',
+      'Eliminated client-side cheating by keeping all secret assignments on the server.',
+    ],
+    facts: [
+      { label: 'Hosting', value: 'Render free tier, so the first visit after idle time can take about a minute to wake up' },
+      { label: 'State', value: 'Rooms are kept in server memory and are lost on restart' },
+      { label: 'Players', value: '3 to 10 per room' },
+    ],
+    githubUrl: 'https://github.com/v4ibhavpandey/Imposter-Game',
+    liveDemoUrl: 'https://imposter-game-vtyn.onrender.com/',
+    hasInteractiveSandbox: true,
+    interactiveType: 'imposter-game',
+    challenges: [
+      'Transitioning from an insecure pass-and-play prototype where game state was exposed in DevTools to a server-authoritative Socket.IO architecture.',
+      'Managing real-time room lifecycle states, host migration when players leave, and socket disconnects mid-round.',
+    ],
+    improvements: [
+      'Add reconnect tokens to gracefully restore disconnected players within a 30-second window.',
+      'Support custom thematic word packs and customizable discussion timers.',
+    ],
+  },
+  {
     id: 'pennywise-finance-tracker',
     title: 'Pennywise – Personal Expense Tracker',
     subtitle: 'Personal expense tracker (not deployed)',
@@ -149,6 +194,11 @@ export const projects: Project[] = [
     documentedResults: [
       'Works end to end on my machine against the Aiven database.',
       'Source code is public on GitHub. There is no hosted version.',
+    ],
+    facts: [
+      { label: 'Deployment', value: 'Not deployed. It only runs on my computer' },
+      { label: 'Purpose', value: 'A personal expense tracker for my own use' },
+      { label: 'Database', value: 'MySQL on Aiven' },
     ],
     githubUrl: 'https://github.com/v4ibhavpandey/Pennywise',
     hasInteractiveSandbox: true,
@@ -185,6 +235,11 @@ export const projects: Project[] = [
     documentedResults: [
       'The routes respond correctly when called manually from Postman.',
       'Known limits: no validation, no database, no automated tests.',
+    ],
+    facts: [
+      { label: 'Deployment', value: 'Not deployed. Run it locally with Node.js' },
+      { label: 'Storage', value: 'In-memory array loaded from MOCK_DATA.json. Nothing is saved' },
+      { label: 'Testing', value: 'Manual, in Postman' },
     ],
     githubUrl: 'https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js',
     hasInteractiveSandbox: true,
@@ -270,46 +325,6 @@ export const projects: Project[] = [
         ),
         statusCode: 200,
       },
-    ],
-  },
-  {
-    id: 'imposter-game',
-    title: 'Imposter Game',
-    subtitle: 'Live Real-Time Multiplayer Social Deduction Game',
-    status: 'Live / Deployed',
-    category: 'Web & Interactive',
-    shortDescription: 'Built and deployed a real-time multiplayer party game where friends join a room from their own phones with a 4-letter code. A Node.js and Socket.IO server assigns the imposter, privately delivers each player their own secret word, runs the discussion timer, and tallies the votes.',
-    problem: 'The original version was a single-device pass-and-play game that kept the imposter\'s identity and the full word list in browser memory, where anyone could read them from DevTools, and it forced every player to share one phone.',
-    solution: 'Moved all game logic to a Node.js and Express backend with Socket.IO. The server owns the game state, so each player\'s browser only ever receives their own word. Rooms, a server-controlled phase machine (lobby, discussion, voting, result), host controls, and disconnect handling make it playable live on multiple devices.',
-    role: [
-      'Upgraded pass-and-play prototype into a live multiplayer game using Node.js, Express, and Socket.IO.',
-      'Engineered server-side room codes, live lobby management, and host controls.',
-      'Implemented private socket delivery for secret words, preventing client-side inspection.',
-      'Handled edge cases: disconnects, host transfer, tie votes, and deployed on Render with auto-deploys.',
-    ],
-    techStack: ['Node.js', 'Express.js', 'Socket.IO', 'WebSockets', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Render'],
-    features: [
-      'Live Lobby & Rooms: Join with 4-letter codes from any smartphone.',
-      'Server-Authoritative Secrecy: Private websocket word dispatch prevents client-side inspection.',
-      'Timed Phases: Automated discussion countdown, interactive voting, and imposter reveal.',
-      'Resilient Sessions: Host migration, graceful disconnect handling, and instant replay.',
-    ],
-    architectureNotes: 'An Express server shares one HTTP server with Socket.IO. Room state lives in memory on the server, and clients only send intents that the server validates before broadcasting updates. Deployed on Render.',
-    documentedResults: [
-      'Live and playable on Render, with players joining simultaneously across mobile devices.',
-      'Eliminated client-side cheating by keeping all secret assignments on the server.',
-    ],
-    githubUrl: 'https://github.com/v4ibhavpandey/Imposter-Game',
-    liveDemoUrl: 'https://imposter-game-vtyn.onrender.com/',
-    hasInteractiveSandbox: true,
-    interactiveType: 'imposter-game',
-    challenges: [
-      'Transitioning from an insecure pass-and-play prototype where game state was exposed in DevTools to a server-authoritative Socket.IO architecture.',
-      'Managing real-time room lifecycle states, host migration when players leave, and socket disconnects mid-round.',
-    ],
-    improvements: [
-      'Add reconnect tokens to gracefully restore disconnected players within a 30-second window.',
-      'Support custom thematic word packs and customizable discussion timers.',
     ],
   },
 ];

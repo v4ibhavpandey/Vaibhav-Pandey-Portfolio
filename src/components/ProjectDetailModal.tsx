@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   X, 
   ExternalLink, 
@@ -45,8 +45,17 @@ const PENNYWISE_CATEGORIES: PennywiseTransaction['category'][] = [
   'Other',
 ];
 
-export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) => {
-  if (!project) return null;
+/** Escape single quotes so the illustrative SQL shown in the demo stays valid. */
+const sqlEscape = (value: string) => value.replace(/'/g, "''");
+
+const ProjectDetailModalInner: React.FC<{ project: Project; onClose: () => void }> = ({ project, onClose }) => {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
   const [activeTab, setActiveTab] = useState<'architecture' | 'sandbox' | 'features' | 'challenges'>('architecture');
 
@@ -69,7 +78,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
   const [txCategory, setTxCategory] = useState<PennywiseTransaction['category']>('Food');
   const [editingTxId, setEditingTxId] = useState<number | null>(null);
   const [lastSqlQuery, setLastSqlQuery] = useState<string>(
-    `-- Parameterized Prepared Statement (prevents SQL injection)\nawait db.execute(\n  'SELECT t.id, t.title, t.amount, t.type, c.name AS category FROM transactions t JOIN categories c ON t.category_id = c.id ORDER BY t.id DESC'\n);`
+    `SELECT * FROM transactions ORDER BY id DESC;`
   );
 
   // Imposter Game Mini-Simulator state
@@ -99,7 +108,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
       setResponseLog({
         status: endpoint.statusCode,
         text: endpoint.sampleResponse,
-        time: 'Mock Response (Schema Contract Verified)',
+        time: 'Example response, not a live request',
       });
     }, 250);
   };
@@ -113,7 +122,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
     .reduce((acc, curr) => acc + curr.amount, 0);
   const currentBalance = totalIncome - totalExpenses;
 
-  // Category-wise expense totals (simulating SQL SUM + GROUP BY)
+  // Category-wise expense totals 
   const categoryExpenseTotals = PENNYWISE_CATEGORIES.map((cat) => {
     const total = transactions
       .filter((t) => t.type === 'expense' && t.category === cat)
@@ -126,8 +135,6 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
     const parsedAmount = Number(txAmount);
     if (!txTitle.trim() || isNaN(parsedAmount) || parsedAmount <= 0) return;
 
-    const categoryId = PENNYWISE_CATEGORIES.indexOf(txCategory) + 1;
-
     if (editingTxId !== null) {
       setTransactions((prev) =>
         prev.map((item) =>
@@ -137,7 +144,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         )
       );
       setLastSqlQuery(
-        `-- Parameterized Prepared Statement (prevents SQL injection)\nawait db.execute(\n  'UPDATE transactions SET title = ?, amount = ?, type = ?, category_id = ? WHERE id = ?',\n  ['${txTitle.trim()}', ${parsedAmount}, '${txType}', ${categoryId}, ${editingTxId}]\n);`
+        `UPDATE transactions SET title = '${sqlEscape(txTitle.trim())}', amount = ${parsedAmount}, type = '${txType}', category = '${txCategory}' WHERE id = ${editingTxId};`
       );
       setEditingTxId(null);
     } else {
@@ -153,7 +160,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
       // Prepend so newest records appear first
       setTransactions((prev) => [newRecord, ...prev]);
       setLastSqlQuery(
-        `-- Parameterized Prepared Statement (prevents SQL injection)\nawait db.execute(\n  'INSERT INTO transactions (title, amount, type, category_id) VALUES (?, ?, ?, ?)',\n  ['${txTitle.trim()}', ${parsedAmount}, '${txType}', ${categoryId}]\n);`
+        `INSERT INTO transactions (title, amount, type, category) VALUES ('${sqlEscape(txTitle.trim())}', ${parsedAmount}, '${txType}', '${txCategory}');`
       );
     }
 
@@ -177,7 +184,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
       setTxAmount('');
     }
     setLastSqlQuery(
-      `-- Parameterized Prepared Statement (prevents SQL injection)\nawait db.execute(\n  'DELETE FROM transactions WHERE id = ?',\n  [${id}]\n);`
+      `DELETE FROM transactions WHERE id = ${id};`
     );
   };
 
@@ -269,7 +276,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
             }`}
           >
             <Play className="w-4 h-4 text-[#FFA116]" />
-            <span>Interactive Simulator</span>
+            <span>Demo</span>
           </button>
 
           <button
@@ -325,10 +332,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                 </p>
               </div>
 
-              {/* Verified Tech Stack */}
+              {/* Tech stack */}
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3] mb-2">
-                  Verified Tech Stack
+                  Tech stack
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {project.techStack.map((tech) => (
@@ -345,7 +352,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
               {/* Documented Results */}
               <div className="space-y-2 pt-2 border-t border-neutral-200 dark:border-[#2A2A2A]">
                 <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-[#A3A3A3]">
-                  Documented Results (Source of Truth)
+                  Results and limits
                 </h4>
                 <ul className="space-y-2">
                   {project.documentedResults.map((res, i) => (
@@ -395,7 +402,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                         Pennywise — Notes-Style Personal Finance Tracker Simulator
                       </h4>
                       <p className="text-xs text-neutral-500 dark:text-[#A3A3A3]">
-                        Add, edit, or delete income and expenses, view category-wise totals (GROUP BY), and inspect the Aiven MySQL queries.
+                        Add, edit, or delete sample income and expenses and see the totals update. The SQL shown below is illustrative.
                       </p>
                     </div>
                     <span className="text-xs font-mono px-2.5 py-1 rounded bg-orange-500/10 text-[#FFA116] border border-orange-500/30 self-start sm:self-auto">
@@ -569,8 +576,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                           <span className="text-xs font-mono font-bold text-neutral-800 dark:text-[#E6E6E6]">
                             Category Expense Totals
                           </span>
-                          <span className="text-[10px] font-mono text-[#FFA116]">
-                            SUM + GROUP BY
+                          <span className="text-[11px] font-mono text-orange-700 dark:text-[#FFA116]">
+                            By category
                           </span>
                         </div>
 
@@ -589,8 +596,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                         </div>
                       </div>
 
-                      <div className="pt-2 border-t border-neutral-200 dark:border-[#2A2A2A] text-[10px] font-mono text-neutral-500 dark:text-[#A3A3A3]">
-                        FK: transactions.category_id &rarr; categories.id
+                      <div className="pt-2 border-t border-neutral-200 dark:border-[#2A2A2A] text-[11px] font-mono text-neutral-500 dark:text-[#A3A3A3]">
+                        Totals are calculated in your browser for this demo.
                       </div>
                     </div>
                   </div>
@@ -600,9 +607,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                     <div className="flex items-center justify-between text-[10px] text-neutral-500 dark:text-[#A3A3A3]">
                       <span className="flex items-center gap-1.5 text-[#FFA116] font-bold uppercase">
                         <Database className="w-3.5 h-3.5" />
-                        Executed MySQL Query (Aiven Cloud DB)
+                        Example SQL (illustrative)
                       </span>
-                      <span>Relational Schema</span>
+                      <span>Not run against a real database</span>
                     </div>
                     <pre className="text-[11px] text-neutral-800 dark:text-[#E6E6E6] overflow-x-auto pt-1">
                       {lastSqlQuery}
@@ -616,14 +623,14 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-bold text-neutral-900 dark:text-[#E6E6E6] text-base">
-                        Interactive REST API Client & Response Inspector
+                        REST API route demo
                       </h4>
                       <p className="text-xs text-neutral-500 dark:text-[#A3A3A3]">
-                        Simulate live HTTP requests to the controller routes and inspect JSON payload responses.
+                        Pick a route and see an example of the JSON it returns. These are canned responses, not live requests.
                       </p>
                     </div>
                     <span className="text-xs font-mono px-2 py-0.5 rounded bg-orange-500/10 text-[#FFA116] border border-orange-500/30">
-                      Postman Verified
+                      Example responses
                     </span>
                   </div>
 
@@ -702,7 +709,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                       {/* Response Display */}
                       <div className="space-y-1 pt-2 border-t border-neutral-200 dark:border-[#2A2A2A]">
                         <div className="flex items-center justify-between text-[11px]">
-                          <span className="text-neutral-500 dark:text-[#A3A3A3] uppercase tracking-wider">Controller Response:</span>
+                          <span className="text-neutral-500 dark:text-[#A3A3A3] uppercase tracking-wider">Example response:</span>
                           {responseLog && (
                             <div className="flex items-center gap-2">
                               <span className="text-[#FFA116] font-bold">Status: {responseLog.status}</span>
@@ -726,8 +733,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
 
                   {/* Code Architecture snippet */}
                   <div className="p-3 rounded-lg bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] text-xs font-mono text-neutral-700 dark:text-[#A3A3A3] flex items-center justify-between shadow-xs">
-                    <span>Architecture: `routes/userRoutes.js` → `controllers/userController.js`</span>
-                    <span className="text-[#FFA116] font-semibold">Modular Pattern</span>
+                    <span>Code layout: everything lives in one `index.js` file</span>
+                    <span className="text-orange-700 dark:text-[#FFA116] font-semibold">Beginner structure</span>
                   </div>
                 </div>
               )}
@@ -1014,6 +1021,12 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
               <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
             </a>
 
+            {!project.liveDemoUrl && (
+              <span className="inline-flex items-center px-3 py-2 rounded-lg text-xs font-mono font-semibold text-neutral-700 dark:text-[#A3A3A3] border border-neutral-300 dark:border-[#2A2A2A]">
+                Not deployed
+              </span>
+            )}
+
             {project.liveDemoUrl && (
               <a
                 id="modal-live-demo-btn"
@@ -1040,3 +1053,6 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
     </div>
   );
 };
+
+export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) =>
+  project ? <ProjectDetailModalInner key={project.id} project={project} onClose={onClose} /> : null;

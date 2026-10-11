@@ -50,6 +50,10 @@ export interface Project {
   documentedResults: string[];
   githubUrl: string;
   liveDemoUrl?: string;
+  /** Short label/value pairs for the "At a glance" panel on the card. */
+  facts?: { label: string; value: string }[];
+  /** Optional path to a real screenshot, e.g. /screenshots/imposter.png. Shown only when provided. */
+  screenshot?: string;
   hasInteractiveSandbox: boolean;
   interactiveType?: 'pennywise' | 'crud-api' | 'imposter-game';
   endpoints?: ProjectEndpoint[];
