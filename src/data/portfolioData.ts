@@ -172,19 +172,21 @@ export const projects: Project[] = [
     category: 'Full-Stack & Database',
     shortDescription: 'A personal expense tracker I built for my own use with Node.js, Express.js, a MySQL database on Aiven, and a plain HTML, CSS, and JavaScript front end. It is not deployed online and runs only on my computer; the source code is on GitHub.',
     problem: 'I wanted a simple place to note down my own income and expenses in a real database instead of a spreadsheet, and I wanted to practise connecting a Node.js server to MySQL.',
-    solution: 'An Express.js server talks to a MySQL database hosted on Aiven, and a plain JavaScript front end sends requests to it to add, list, edit, and delete transactions and show totals.',
+    solution: 'An Express.js server talks to a MySQL database hosted on Aiven. Two tables (categories and transactions) are linked by a foreign key. A plain JavaScript front end calls the API to add, list, edit, and delete transactions, and the server uses a JOIN to show category names and SUM with CASE to total income, expenses, and balance.',
     role: [
       'Built a personal expense tracker with Node.js, Express.js, MySQL (Aiven), and a vanilla JavaScript, HTML, and CSS front end.',
-      'Connected the Express server to a cloud MySQL database and wrote the queries that store and read transactions.',
+      'Designed two related MySQL tables (categories and transactions) linked by a foreign key, and wrote the JOIN and SUM queries behind the list and summary routes.',
+      'Built the REST routes for listing, adding, editing, and deleting transactions, using parameterised queries.',
       'Practised the full flow from a browser form to the server, the database, and back.',
     ],
     techStack: ['Node.js', 'Express.js', 'MySQL', 'Aiven', 'JavaScript', 'HTML5', 'CSS3'],
     features: [
       'Add, view, edit, and delete income and expense records stored in MySQL.',
-      'Totals for income, expenses, and balance.',
+      'Totals for income, expenses, and balance, calculated in SQL with SUM and CASE.',
+      'Transactions are joined to their category names, and each one is linked to a category by a foreign key.',
       'Simple notes-style interface in plain HTML, CSS, and JavaScript.',
     ],
-    architectureNotes: 'Browser front end (vanilla JavaScript) calls an Express.js server, which runs SQL queries against a MySQL database on Aiven. It only runs on my own computer and is not deployed.',
+    architectureNotes: 'Browser front end (vanilla JavaScript) calls an Express.js server with routes for transactions, categories, and a summary. The server runs parameterised SQL queries against a MySQL database on Aiven. It only runs on my own computer and is not deployed.',
     documentedResults: [
       'Works end to end on my machine against the Aiven database.',
       'Source code is public on GitHub. There is no hosted version.',
@@ -199,21 +201,22 @@ export const projects: Project[] = [
     interactiveType: 'pennywise',
     challenges: [
       'Connecting the Node.js server to a cloud database and keeping the browser, server, and database in sync.',
+      'Joining the transactions and categories tables correctly.',
     ],
     improvements: [
-      'Add a README with setup steps and move the database credentials into environment variables.',
-      'Validate input on the server, add user login, and deploy it.',
+      'Validate input on the server and verify the database SSL certificate instead of skipping the check.',
+      'Add user login, and deploy it.',
     ],
   },
   {
     id: 'restful-crud-api',
     title: 'RESTful CRUD API',
-    subtitle: 'Beginner Express.js API with an in-memory user list',
+    subtitle: 'Beginner Express.js API backed by a JSON file',
     status: 'Learning project',
     category: 'Backend & APIs',
     shortDescription: 'A small Express.js API from when I was learning REST. It loads sample users from a JSON file into memory and has routes to list, add, and delete them. I tested it by hand in Postman.',
     problem: 'I wanted to understand how HTTP methods, routes, and JSON responses fit together in a backend before moving on to databases.',
-    solution: 'A single index.js file with an Express server that reads sample users from MOCK_DATA.json and serves them over a few routes. Data lives in memory, so changes are lost when the server restarts.',
+    solution: 'A single index.js file with an Express server that reads sample users from MOCK_DATA.json and serves them over a few routes. New users are also written back to the JSON file, but deletes only change the in-memory list.',
     role: [
       'Wrote an Express.js server with routes to list users, fetch one by id, add a user, and delete a user.',
       'Loaded sample data from a JSON file and served it as JSON.',
@@ -225,14 +228,14 @@ export const projects: Project[] = [
       'POST route to add a user and DELETE route to remove one.',
       'A PATCH route exists as a stub and is not implemented yet.',
     ],
-    architectureNotes: 'Everything is in one index.js file. Users are loaded from MOCK_DATA.json into an array at startup, so there is no database, no input validation, and nothing is saved between restarts.',
+    architectureNotes: 'Everything is in one index.js file. Users are loaded from MOCK_DATA.json into an array at startup. POST also writes the list back to that file, but DELETE only changes the in-memory array. There is no database and no input validation.',
     documentedResults: [
       'The routes respond correctly when called manually from Postman.',
-      'Known limits: no validation, no database, no automated tests.',
+      'Known limits: no validation, no database, delete is not saved to the file, no automated tests.',
     ],
     facts: [
       { label: 'Deployment', value: 'Not deployed. Run it locally with Node.js' },
-      { label: 'Storage', value: 'In-memory array loaded from MOCK_DATA.json. Nothing is saved' },
+      { label: 'Storage', value: 'JSON file (MOCK_DATA.json). POST saves to it, DELETE does not' },
       { label: 'Testing', value: 'Manual, in Postman' },
     ],
     githubUrl: 'https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js',
@@ -242,8 +245,8 @@ export const projects: Project[] = [
       'Understanding how routes, request parameters, and the request body fit together.',
     ],
     improvements: [
-      'Split routes into their own files, validate input, and finish the PATCH route.',
-      'Save data in a database and add automated tests.',
+      'Make DELETE save to the file, finish the PATCH route, and validate input.',
+      'Move to a real database and add automated tests.',
     ],
     endpoints: [
       {
@@ -251,15 +254,21 @@ export const projects: Project[] = [
         path: '/api/users',
         description: 'Return all users',
         sampleResponse: JSON.stringify(
-          {
-            success: true,
-            count: 3,
-            data: [
-              { id: 1, name: 'Vaibhav Pandey', email: 'vaibhav@example.com', role: 'Admin' },
-              { id: 2, name: 'Rohan Sharma', email: 'rohan@example.com', role: 'Developer' },
-              { id: 3, name: 'Priya Patel', email: 'priya@example.com', role: 'User' }
-            ]
-          },
+          [
+            { id: 1, first_name: 'Zachary', last_name: 'Hebbron', email: 'zhebbron0@cbc.ca', job_title: 'Quality Control Specialist' },
+            { id: 2, first_name: 'Garrett', last_name: 'Beynke', email: 'gbeynke1@hugedomains.com', job_title: 'Account Coordinator' },
+          ],
+          null,
+          2
+        ),
+        statusCode: 200,
+      },
+      {
+        method: 'GET',
+        path: '/api/users/:id',
+        description: 'Return one user by id (null if the id does not exist)',
+        sampleResponse: JSON.stringify(
+          { id: 1, first_name: 'Zachary', last_name: 'Hebbron', email: 'zhebbron0@cbc.ca', job_title: 'Quality Control Specialist' },
           null,
           2
         ),
@@ -268,55 +277,27 @@ export const projects: Project[] = [
       {
         method: 'POST',
         path: '/api/users',
-        description: 'Add a user to the in-memory list',
+        description: 'Add a user (also written back to the JSON file)',
         sampleRequest: JSON.stringify(
-          { name: 'Amit Verma', email: 'amit@example.com', role: 'User' },
+          { first_name: 'Neha', last_name: 'Verma', email: 'neha@example.com' },
           null,
           2
         ),
-        sampleResponse: JSON.stringify(
-          {
-            success: true,
-            message: 'User created successfully',
-            data: { id: 4, name: 'Amit Verma', email: 'amit@example.com', role: 'User' }
-          },
-          null,
-          2
-        ),
-        statusCode: 201,
+        sampleResponse: JSON.stringify({ status: 'pending' }, null, 2),
+        statusCode: 200,
       },
       {
-        method: 'PUT',
+        method: 'PATCH',
         path: '/api/users/:id',
-        description: 'Update existing user fields by ID',
-        sampleRequest: JSON.stringify(
-          { role: 'Lead Developer' },
-          null,
-          2
-        ),
-        sampleResponse: JSON.stringify(
-          {
-            success: true,
-            message: 'User #2 updated successfully',
-            data: { id: 2, name: 'Rohan Sharma', email: 'rohan@example.com', role: 'Lead Developer' }
-          },
-          null,
-          2
-        ),
+        description: 'Stub route. Not implemented yet',
+        sampleResponse: JSON.stringify({ status: 'pending' }, null, 2),
         statusCode: 200,
       },
       {
         method: 'DELETE',
         path: '/api/users/:id',
-        description: 'Remove a user permanently from the store',
-        sampleResponse: JSON.stringify(
-          {
-            success: true,
-            message: 'User #3 deleted successfully'
-          },
-          null,
-          2
-        ),
+        description: 'Remove a user from the in-memory list (not saved to the file). Returns 404 if the id does not exist',
+        sampleResponse: JSON.stringify({ status: 'deleted' }, null, 2),
         statusCode: 200,
       },
     ],
@@ -404,7 +385,7 @@ export const timelineMilestones: TimelineMilestone[] = [
     title: 'Built a RESTful CRUD API with Node.js & Express.js',
     type: 'project',
     organization: 'Backend Engineering Project',
-    description: 'Built a small Express.js API that serves and edits an in-memory user list, and tested its routes by hand in Postman.',
+    description: 'Built a small Express.js API that serves and edits a user list loaded from a JSON file, and tested its routes by hand in Postman.',
     evidenceType: 'github',
     evidenceLabel: 'View on GitHub',
     evidenceUrl: 'https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js',

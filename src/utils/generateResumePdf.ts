@@ -94,86 +94,58 @@ export function generateResumePdf(): boolean {
     // Projects
     y = addSectionHeader('Projects', y);
 
-    // Project 1: Pennywise – Personal Finance Tracker
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9.5);
-    doc.setTextColor(20, 20, 20);
-    doc.text('1. Pennywise – Personal Finance Tracker (github.com/v4ibhavpandey/Pennywise)', margin, y);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    doc.text('Node.js, Express.js, MySQL (Aiven), JS', pageWidth - margin, y, { align: 'right' });
-    y += 11;
-
-    const proj0Bullets = [
-      'Developed a full-stack personal finance tracker using Node.js, Express.js, Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to record and manage income and expense transactions.',
-      'Designed a relational MySQL schema (transactions and categories tables linked via foreign keys) and RESTful API endpoints executing CRUD operations, JOIN queries, and SUM/GROUP BY aggregations.',
-      'Implemented real-time transaction creation, editing, deletion, chronological history sorting, category-wise expense breakdowns, and automated calculation of total income, total expenses, and current balance.'
+    const projectBlocks: { title: string; stack: string; bullets: string[] }[] = [
+      {
+        title: '1. Imposter Game - Live Multiplayer Party Game (github.com/v4ibhavpandey/Imposter-Game)',
+        stack: 'Node.js, Express.js, Socket.IO',
+        bullets: [
+          'Built a real-time multiplayer party game with room codes, a live lobby, host controls, a timed discussion phase, and voting. Live at imposter-game-vtyn.onrender.com.',
+          'Moved imposter assignment, word selection, and vote counting to the server, and sent each player only their own word over a private socket message.',
+          'Handled tie votes, host transfer, and mid-game disconnects, and deployed on Render from GitHub with automatic redeploys.',
+        ],
+      },
+      {
+        title: '2. Pennywise - Personal Expense Tracker, not deployed (github.com/v4ibhavpandey/Pennywise)',
+        stack: 'Node.js, Express.js, MySQL (Aiven)',
+        bullets: [
+          'Built a personal expense tracker for my own use with an Express.js server, a MySQL database on Aiven, and a plain JavaScript front end.',
+          'Designed two related tables linked by a foreign key, and wrote the JOIN and SUM queries and REST routes to add, list, edit, and delete transactions.',
+          'Runs locally and is not deployed online. Source code is on GitHub.',
+        ],
+      },
+      {
+        title: '3. RESTful CRUD API - learning project (github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js)',
+        stack: 'Node.js, Express.js, Postman',
+        bullets: [
+          'Wrote a small Express.js API that loads sample users from a JSON file and has routes to list, fetch, add, and delete users.',
+          'Tested the routes manually in Postman. No database, validation, or automated tests yet, and the update route is a stub.',
+        ],
+      },
     ];
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.2);
-    doc.setTextColor(50, 50, 50);
-    proj0Bullets.forEach(bullet => {
-      doc.text('•', margin + 6, y);
-      const splitBullet = doc.splitTextToSize(bullet, contentWidth - 20);
-      doc.text(splitBullet, margin + 16, y);
-      y += splitBullet.length * 10.5 + 2;
+
+    projectBlocks.forEach((proj) => {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.6);
+      doc.setTextColor(20, 20, 20);
+      doc.text(proj.title, margin, y);
+      y += 10.5;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text(proj.stack, margin, y);
+      y += 11;
+
+      doc.setFontSize(8.2);
+      doc.setTextColor(50, 50, 50);
+      proj.bullets.forEach((bullet) => {
+        doc.text('•', margin + 6, y);
+        const splitBullet = doc.splitTextToSize(bullet, contentWidth - 20);
+        doc.text(splitBullet, margin + 16, y);
+        y += splitBullet.length * 10.5 + 2;
+      });
+      y += 5;
     });
-    y += 5;
-
-    // Project 2: RESTful CRUD API
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9.5);
-    doc.setTextColor(20, 20, 20);
-    doc.text('2. RESTful CRUD API (github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js)', margin, y);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(100, 100, 100);
-    doc.text('Node.js, Express.js, Postman', pageWidth - margin, y, { align: 'right' });
-    y += 11;
-
-    const proj1Bullets = [
-      'Developed a RESTful API using Node.js and Express.js to perform CRUD (Create, Read, Update, Delete) operations.',
-      'Designed API endpoints following REST principles and rigorously tested them using Postman.',
-      'Implemented modular routing and controller architecture for maintainable and extensible backend code.'
-    ];
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.2);
-    doc.setTextColor(50, 50, 50);
-    proj1Bullets.forEach(bullet => {
-      doc.text('•', margin + 6, y);
-      const splitBullet = doc.splitTextToSize(bullet, contentWidth - 20);
-      doc.text(splitBullet, margin + 16, y);
-      y += splitBullet.length * 10.5 + 2;
-    });
-    y += 5;
-
-    // Project 3: Imposter Game
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9.5);
-    doc.setTextColor(20, 20, 20);
-    doc.text('3. Imposter Game - Live Multiplayer Party Game', margin, y);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(100, 100, 100);
-    doc.text('Node.js, Express.js, Socket.IO', pageWidth - margin, y, { align: 'right' });
-    y += 11;
-
-    const proj2Bullets = [
-      'Built a real-time multiplayer party game using Node.js, Express.js, and Socket.IO, with room codes, a live lobby, host controls, a timed discussion phase, and voting.',
-      'Moved imposter assignment, word selection, and vote counting to the server, and delivered each player only their own word over a private socket message.',
-      'Handled tie votes, host transfer, and mid-game disconnects, and deployed the game on Render from GitHub with automatic redeploys.'
-    ];
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.2);
-    doc.setTextColor(50, 50, 50);
-    proj2Bullets.forEach(bullet => {
-      doc.text('•', margin + 6, y);
-      const splitBullet = doc.splitTextToSize(bullet, contentWidth - 20);
-      doc.text(splitBullet, margin + 16, y);
-      y += splitBullet.length * 10.5 + 2;
-    });
-    y += 8;
+    y += 3;
 
     // Education
     y = addSectionHeader('Education', y);
@@ -201,7 +173,7 @@ export function generateResumePdf(): boolean {
 
     const skills = [
       ['Backend & APIs:', 'Node.js, Express.js, RESTful API Design, Postman'],
-      ['Databases:', 'MySQL, Aiven Cloud MySQL, Relational Schema (PK/FK, JOIN, SUM, GROUP BY)'],
+      ['Databases:', 'MySQL (Aiven), basic SQL (JOIN, SUM), foreign keys'],
       ['Languages & DSA:', 'JavaScript (ES6+), Python, Data Structures & Algorithms'],
       ['Frontend & Tools:', 'HTML5, CSS3, DOM scripting, Git, GitHub, Render'],
       ['Cloud Foundations:', 'AWS Academy Cloud Foundations (EC2, S3, VPC, IAM, CloudWatch)'],

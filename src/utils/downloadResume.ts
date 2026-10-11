@@ -1,23 +1,21 @@
 import { personalInfo } from '../data/portfolioData';
 
-export const resumePlainText = `================================================================================
+/** Plain-text resume. The phone number is only in downloaded copies, not shown on the website. */
+export const buildResumeText = (includePhone: boolean): string => `================================================================================
                                 VAIBHAV PANDEY
-                              ASPIRING BACKEND DEVELOPER
+                          ASPIRING BACKEND DEVELOPER
 ================================================================================
 
 CONTACT INFORMATION
 -------------------
 Location: Indore, Madhya Pradesh, India
-Phone:    +91 ${personalInfo.phone}
-Email:    ${personalInfo.email}
+${includePhone ? `Phone:    +91 ${personalInfo.phone}\n` : ''}Email:    ${personalInfo.email}
 LinkedIn: ${personalInfo.linkedin}
 GitHub:   ${personalInfo.github}
 
 OBJECTIVE
 ---------
-Backend Developer with a solid foundation in Node.js, Express.js,
-MySQL, JavaScript, and RESTful APIs, seeking opportunities to build
-dependable backend services, solve real-world problems, and grow as a software engineer.
+${personalInfo.objective}
 
 HOW I WORK
 ----------
@@ -33,63 +31,57 @@ Duration: 2024 – 2028
 
 TECHNICAL SKILLS
 ----------------
-- Backend:           Node.js, Express.js, RESTful API Design, Postman
-- Databases:         MySQL, Aiven Cloud MySQL, Relational Design (PK/FK, JOIN, SUM, GROUP BY)
+- Backend:           Node.js, Express.js, REST APIs, Socket.IO, Postman (manual testing)
+- Databases:         MySQL (Aiven), basic SQL (JOIN, SUM), foreign keys
 - Frontend:          JavaScript (ES6+), HTML5, CSS3
 - Programming:       Python, JavaScript, Data Structures & Algorithms
-- Cloud & DevOps:    AWS Cloud Foundations, Git, GitHub
+- Cloud & Tools:     AWS Academy Cloud Foundations (course badge), Git, GitHub, Render
 
 PROJECTS
 --------
-1. Pennywise – Personal Finance Tracker
-   Technologies: Node.js, Express.js, MySQL (Aiven), Vanilla JavaScript, HTML5, CSS3
-   - Developed a full-stack personal finance tracker using Node.js, Express.js,
-     Vanilla JavaScript, HTML, CSS, and a cloud-hosted Aiven MySQL database to
-     record and manage income and expense transactions.
-   - Designed a relational MySQL schema (transactions and categories tables
-     linked via foreign keys) and RESTful API endpoints executing CRUD
-     operations, JOIN queries, and SUM/GROUP BY aggregations.
-   - Implemented real-time transaction creation, editing, deletion,
-     chronological history sorting, category-wise expense breakdowns, and
-     automated calculation of total income, total expenses, and current balance.
-   - Source: https://github.com/v4ibhavpandey/Pennywise
-
-2. RESTful CRUD API
-   Technologies: Node.js, Express.js, Postman
-   - Developed a RESTful API using Node.js and Express.js to perform CRUD
-     (Create, Read, Update, and Delete) operations.
-   - Designed API endpoints following REST principles and tested them using Postman.
-   - Implemented modular routing and controller architecture for maintainable
-     backend code.
-   - Source: https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js
-
-3. Imposter Game - Live Multiplayer Party Game
+1. Imposter Game - Live Multiplayer Party Game
    Technologies: Node.js, Express.js, Socket.IO, JavaScript, HTML5, CSS3
-   - Built a real-time multiplayer party game using Node.js, Express.js, and
-     Socket.IO, with room codes, a live lobby, host controls, a timed discussion
-     phase, and voting.
+   - Built a real-time multiplayer party game with room codes, a live lobby,
+     host controls, a timed discussion phase, and voting.
    - Moved imposter assignment, word selection, and vote counting to the server,
-     and delivered each player only their own word over a private socket message
-     to prevent cheating through browser inspection.
-   - Handled tie votes, host transfer, and mid-game disconnects, and deployed the
-     game on Render from GitHub with automatic redeploys.
+     and sent each player only their own word over a private socket message.
+   - Handled tie votes, host transfer, and mid-game disconnects, and deployed on
+     Render from GitHub with automatic redeploys.
    - Source: https://github.com/v4ibhavpandey/Imposter-Game
    - Live:   https://imposter-game-vtyn.onrender.com/
 
-CERTIFICATIONS & CREDENTIALS
-----------------------------
-AWS Academy Graduate - AWS Academy Cloud Foundations
-- Issuing Organization: Amazon Web Services (AWS) Training and Certification
-- Date Issued:          04/30/2026
-- Credly Badge ID:      1vfZYMOq
-- Credly URL:           https://www.credly.com/go/1vfZYMOq
-- Curriculum:           20-hour cloud foundations coursework covering
-                        AWS compute, storage, networking, security, and pricing.
+2. Pennywise - Personal Expense Tracker (not deployed)
+   Technologies: Node.js, Express.js, MySQL (Aiven), JavaScript, HTML5, CSS3
+   - Built a personal expense tracker for my own use with an Express.js server,
+     a MySQL database on Aiven, and a plain JavaScript front end.
+   - Designed two related tables linked by a foreign key, and wrote the JOIN and
+     SUM queries and the REST routes to add, list, edit, and delete transactions.
+   - Runs locally and is not deployed online.
+   - Source: https://github.com/v4ibhavpandey/Pennywise
+
+3. RESTful CRUD API (learning project)
+   Technologies: Node.js, Express.js, Postman
+   - Wrote a small Express.js API that loads sample users from a JSON file and
+     has routes to list, fetch, add, and delete users.
+   - Tested the routes manually in Postman. No database, validation, or
+     automated tests yet, and the update route is a stub.
+   - Source: https://github.com/v4ibhavpandey/RESTful-API-using-Node.js-and-Express.js
+
+COURSES & BADGES
+----------------
+AWS Academy Cloud Foundations (course badge)
+- Issued by:      AWS Academy
+- Date issued:    04/30/2026
+- Credly badge:   https://www.credly.com/go/1vfZYMOq
+- Course:         20-hour introductory course covering cloud concepts, compute,
+                  storage, networking, security, and pricing.
 
 ================================================================================
-Generated from portfolio: https://github.com/v4ibhavpandey
+Portfolio: https://v4ibhavpandey-portfolio.vercel.app
 ================================================================================
 `.trim();
+
+export const resumePlainText = buildResumeText(true);
 
 /**
  * Robust resume downloader that works in standard browser tabs and sandboxed iframes.
