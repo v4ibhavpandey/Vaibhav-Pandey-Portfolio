@@ -1,6 +1,6 @@
 # Vaibhav Pandey — Developer Portfolio
 
-A responsive, performance-focused personal portfolio website built with modern web technologies, showcasing backend and full-stack projects, database architectures, and engineering experience.
+A responsive, performance-focused personal portfolio website built with modern web technologies, showing my backend projects: a live multiplayer game, a personal expense tracker, and a beginner REST API.
 
 ---
 
@@ -11,14 +11,14 @@ A responsive, performance-focused personal portfolio website built with modern w
 - **Styling**: Tailwind CSS v4
 - **Icons**: Lucide React
 - **Document Generation**: jsPDF (client-side PDF resume generator)
-- **Deployment**: Static Web Hosting / GitHub Pages / Vercel
+- **Deployment**: Vercel
 
 ---
 
 ## ✨ Features
 
-- **Project Showcases**: In-depth breakdowns of real-world projects featuring relational database schemas, RESTful API endpoints, and live deployments.
-- **Interactive Architecture & Sandboxes**: Frontend simulators demonstrating API contracts and schema query relationships.
+- **Project cards**: each project says plainly whether it is live or not deployed, with a link to its source code.
+- **Demos**: small in-browser simulations with sample data (not real servers or databases).
 - **Client-Side PDF Resume**: Real-time PDF generator allowing recruiters to download an up-to-date, ATS-friendly resume directly from the browser.
 - **Theme Persistence**: Dark / Light theme toggle with automatic system preference detection and localStorage persistence.
 - **Accessible & Responsive**: Keyboard-navigable UI optimized for screens from mobile to ultra-wide displays.
