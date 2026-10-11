@@ -604,7 +604,7 @@ const ProjectDetailModalInner: React.FC<{ project: Project; onClose: () => void 
 
                   {/* Executed MySQL Query Log */}
                   <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] font-mono text-xs space-y-1">
-                    <div className="flex items-center justify-between text-[10px] text-neutral-500 dark:text-[#A3A3A3]">
+                    <div className="flex items-center justify-between text-[11px] text-neutral-500 dark:text-[#A3A3A3]">
                       <span className="flex items-center gap-1.5 text-[#FFA116] font-bold uppercase">
                         <Database className="w-3.5 h-3.5" />
                         Example SQL (illustrative)
@@ -649,7 +649,7 @@ const ProjectDetailModalInner: React.FC<{ project: Project; onClose: () => void 
                       >
                         <div className="flex items-center gap-1.5 font-bold">
                           <span
-                            className={`px-1 py-0.2 rounded text-[10px] ${
+                            className={`px-1 py-0.2 rounded text-[11px] ${
                               ep.method === 'GET'
                                 ? 'text-amber-500 dark:text-amber-400'
                                 : ep.method === 'POST'
@@ -699,7 +699,7 @@ const ProjectDetailModalInner: React.FC<{ project: Project; onClose: () => void 
                       {/* Request Body if POST/PUT */}
                       {project.endpoints[selectedEndpointIndex].sampleRequest && (
                         <div className="space-y-1">
-                          <span className="text-neutral-500 dark:text-[#A3A3A3] text-[10px] uppercase tracking-wider">Payload Body (JSON):</span>
+                          <span className="text-neutral-500 dark:text-[#A3A3A3] text-[11px] uppercase tracking-wider">Payload Body (JSON):</span>
                           <pre className="p-2 rounded bg-white dark:bg-[#171717] text-[#FFA116] text-[11px] overflow-x-auto border border-neutral-200 dark:border-[#2A2A2A]">
                             {project.endpoints[selectedEndpointIndex].sampleRequest}
                           </pre>
@@ -713,7 +713,7 @@ const ProjectDetailModalInner: React.FC<{ project: Project; onClose: () => void 
                           {responseLog && (
                             <div className="flex items-center gap-2">
                               <span className="text-[#FFA116] font-bold">Status: {responseLog.status}</span>
-                              <span className="text-neutral-500 dark:text-[#A3A3A3] font-mono text-[10px]">{responseLog.time}</span>
+                              <span className="text-neutral-500 dark:text-[#A3A3A3] font-mono text-[11px]">{responseLog.time}</span>
                             </div>
                           )}
                         </div>

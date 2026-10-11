@@ -120,7 +120,7 @@ export const Skills: React.FC = () => {
                           <div className="w-9 h-9 rounded-lg bg-orange-500/10 border border-[#CC7A0A]/30 text-[#FFA116] flex items-center justify-center group-hover:scale-105 transition-transform">
                             <Icon className="w-5 h-5" />
                           </div>
-                          <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">
+                          <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-500">
                             {skill.tags?.[0] || 'Skill'}
                           </span>
                         </div>
@@ -138,7 +138,7 @@ export const Skills: React.FC = () => {
                           {skill.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="text-[10px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-[#171717] text-neutral-700 dark:text-[#A3A3A3] border border-neutral-200/60 dark:border-[#2A2A2A] font-mono"
+                              className="text-[11px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-[#171717] text-neutral-700 dark:text-[#A3A3A3] border border-neutral-200/60 dark:border-[#2A2A2A] font-mono"
                             >
                               {tag}
                             </span>

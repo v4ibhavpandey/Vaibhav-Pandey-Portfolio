@@ -59,3 +59,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #CC7A0A;
 }
+
+/* Light mode: the bright orange accent is hard to read on white, so use a darker orange for text. */
+html:not(.dark) .text-\[\#FFA116\] {
+  color: #b45309;
+}
+html:not(.dark) .hover\:text-\[\#FFA116\]:hover {
+  color: #b45309;
+}
